@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
+import Avatar from './Avatar'
 
 export default function Account({ session }) {
   const [loading, setLoading] = useState(true)
@@ -48,7 +49,7 @@ export default function Account({ session }) {
         username,
         website,
         avatar_url,
-        updated_at: new Date(),
+        email: user.email
       }
 
       let { error } = await supabase.from('profiles').upsert(updates, {
@@ -62,11 +63,22 @@ export default function Account({ session }) {
       alert(error.message)
     } finally {
       setLoading(false)
+      alert("user updated")
     }
   }
 
   return (
     <div className="form-widget">
+      <div>
+        <Avatar
+        url={avatar_url}
+        size={150}
+        onUpload={(url) => {
+          setAvatarUrl(url)
+          updateProfile({ username, website, avatar_url: url })
+        }}
+    />
+      </div>
       <div>
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={session.user.email} disabled />
