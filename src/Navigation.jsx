@@ -1,35 +1,33 @@
 import React from "react";
+import styles from "./css/navbar.module.css"
 import { NavLink } from "react-router-dom";
+import logo_img from "./images/LOGO_fightbide.png";
 
 function Navigation() {
   return (
     <div className="navigation">
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <nav className="navbar navbar-expand navbar-dark bg-black">
         <div className="container">
-          <NavLink className="navbar-brand" to="/">
-            React Multi-Page Website
+          <NavLink className="styles.logo" to="/home">
+            <figure> <img src={logo_img} /> </figure>
           </NavLink>
           <div>
             <ul className="navbar-nav ml-auto">
+              
               <li className="nav-item">
-                <NavLink className="nav-link" to="/">
+                <NavLink className="nav-link" to="/home">
                   Home
-                  <span className="sr-only">(current)</span>
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/about">
-                  About
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/contact">
-                  Contact
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/blog">
                   Blog
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/login">
+                  Profile
+                  <span className="sr-only">(current)</span>
                 </NavLink>
               </li>
             </ul>

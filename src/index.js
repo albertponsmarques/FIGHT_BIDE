@@ -13,8 +13,9 @@ ReactDOM.render(
   <Router>
     <Navigation />
     <Routes>
-      <Route path="/" element={<App />} />   
-      <Route path="/blog" element={<Blog />}>
+      <Route path="/login" element={<App />} />   
+      <Route path="/blog" element={<Blog />}/>  
+      <Route path="/home" element={<Home />}>
       </Route>
     </Routes>
     <Footer />
