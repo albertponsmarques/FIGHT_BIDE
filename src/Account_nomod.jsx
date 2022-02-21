@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
-import Avatar from './Avatar'
+import Avatar from './AvatarNomod'
+import { Link } from 'react-router-dom'
 
-export default function Account_nomod({ session }) {
+export default function AccountNomod({ session }) {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
   const [website, setWebsite] = useState(null)
@@ -15,7 +16,6 @@ export default function Account_nomod({ session }) {
   async function getProfile() {
     try {
       setLoading(true)
-      console.log(" WIIIII")
       const user = supabase.auth.user()
 
       let { data, error, status } = await supabase
@@ -37,35 +37,6 @@ export default function Account_nomod({ session }) {
       alert(error.message)
     } finally {
       setLoading(false)
-      
-    }
-  }
-
-  async function updateProfile({ username, website, avatar_url }) {
-    try {
-      setLoading(true)
-      const user = supabase.auth.user()
-
-      const updates = {
-        id: user.id,
-        username,
-        website,
-        avatar_url,
-        email: user.email
-      }
-
-      let { error } = await supabase.from('profiles').upsert(updates, {
-        returning: 'minimal', // Don't return the value after inserting
-      })
-
-      if (error) {
-        throw error
-      }
-    } catch (error) {
-      alert(error.message)
-    } finally {
-      setLoading(false)
-      alert("user updated")
     }
   }
 
@@ -77,7 +48,6 @@ export default function Account_nomod({ session }) {
         size={150}
         onUpload={(url) => {
           setAvatarUrl(url)
-          updateProfile({ username, website, avatar_url: url })
         }}
     />
       </div>
@@ -90,29 +60,20 @@ export default function Account_nomod({ session }) {
         <input
           id="username"
           type="text"
-          value={username || ''}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+          value={username} 
+          disabled />
       </div>
       <div>
         <label htmlFor="website">Website</label>
         <input
           id="website"
           type="website"
-          value={website || ''}
-          onChange={(e) => setWebsite(e.target.value)}
+          value={website}
+          disabled
         />
       </div>
 
-      <div>
-        <button
-          className="button block primary"
-          onClick={() => updateProfile({ username, website, avatar_url })}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'Update'}
-        </button>
-      </div>
+      
 
       <div>
         <button className="button block" onClick={() => supabase.auth.signOut()}>
