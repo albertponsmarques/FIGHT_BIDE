@@ -9,7 +9,7 @@ function Navigation() {
       <nav className="navbar navbar-expand navbar-dark bg-black">
         <div className="container">
           <NavLink className="container_logo" to="/home">
-            <figure> <img class="logo" src={logo_img} alt="Logo FIGHT BIDE"/> </figure>
+            <figure> <img className="logo" src={logo_img} alt="Logo FIGHT BIDE"/> </figure>
           </NavLink>
           <div>
             <ul className="navbar-nav ml-auto">
