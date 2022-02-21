@@ -7,7 +7,6 @@ import Main from "./Main";
 import Footer from "./Footer";
 import Blog from "./Blog";
 import Navigation from "./Navigation";
-import Account from './Account';
 import Home from './App';
 
 ReactDOM.render(
@@ -17,8 +16,7 @@ ReactDOM.render(
       <Route path='/' element={<Main />} />
       <Route path="/login" element={<Home />} />   
       <Route path="/blog" element={<Blog />}/>  
-      <Route path="/home" element={<Main />}>
-      </Route>
+      <Route path="/home" element={<Main />}/>
     </Routes>
     <Footer />
   </Router>,
