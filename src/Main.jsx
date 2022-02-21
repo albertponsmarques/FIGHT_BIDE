@@ -1,6 +1,6 @@
 import React from "react";
 
-function Home() {
+function Main() {
   return (
     <div className="home">
       <div className="container">
@@ -27,4 +27,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Main;
