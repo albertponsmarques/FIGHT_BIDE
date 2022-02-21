@@ -1,0 +1,15 @@
+.navigation{
+    background-color: #560061;
+}
+
+.logo{
+    height: 60px;
+    width: auto;
+    margin-top: 5%;
+}
+
+.nav-item{
+    margin-left: 20%;
+    font-size: 18px;
+}
+

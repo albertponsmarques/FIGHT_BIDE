@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./css/navbar.module.css"
+import "./css/navbar.css"
 import { NavLink } from "react-router-dom";
 import logo_img from "./images/LOGO_fightbide.png";
 
@@ -8,8 +8,8 @@ function Navigation() {
     <div className="navigation">
       <nav className="navbar navbar-expand navbar-dark bg-black">
         <div className="container">
-          <NavLink className="styles.logo" to="/home">
-            <figure> <img src={logo_img} /> </figure>
+          <NavLink className="container_logo" to="/home">
+            <figure> <img class="logo" src={logo_img} /> </figure>
           </NavLink>
           <div>
             <ul className="navbar-nav ml-auto">
