@@ -1,6 +1,11 @@
-import React from "react";
+import './index.css'
+import React from 'react'
+import useAuth from './Auth'
+import { supabase } from './supabaseClient'
 
 function Main() {
+  const session = supabase.auth.session()
+  console.log(session)
   return (
     <div className="home">
       <div className="container">
@@ -14,6 +19,8 @@ function Main() {
           </div>
           <div className="col-lg-5">
             <h1 className="font-weight-light">Home</h1>
+            <h2>{session.user.email}</h2>
+            
             <p>
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
