@@ -16,7 +16,12 @@ body {
   margin: 0;
   font-family: var(--custom-font-family);
   background-color: var(--custom-bg-color);
+  background-image: url("./images/fondo.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
 }
+
 
 * {
   color: var(--custom-color);
@@ -189,6 +194,7 @@ input[disabled] {
   color: var(--custom-color-secondary);
 }
 
+
 /* Utils */
 
 .block {
@@ -333,6 +339,7 @@ button.primary,
   font-size: 1.3rem;
   margin-bottom: 20px;
 }
+
 
 .avatarPlaceholder {
   border: var(--custom-border);

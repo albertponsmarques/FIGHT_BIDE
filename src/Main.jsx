@@ -1,19 +1,18 @@
 import './index.css'
 import React from 'react'
-import useAuth from './Auth'
 import { supabase } from './supabaseClient'
 
 function Main() {
   const session = supabase.auth.session()
   console.log(session)
   return (
-    <div className="home">
+    <div className='home'>
       <div className="container">
         <div className="row align-items-center my-5">
           <div className="col-lg-7">
             <img
               className="img-fluid rounded mb-4 mb-lg-0"
-              src="http://placehold.it/900x400"
+              src="./images/degref.jpg"
               alt=""
             />
           </div>

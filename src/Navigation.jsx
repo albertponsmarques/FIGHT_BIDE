@@ -8,7 +8,7 @@ function Navigation() {
     <div className="navigation">
       <nav className="navbar navbar-expand navbar-dark bg-black">
         <div className="container">
-          <NavLink className="container_logo" to="/home">
+          <NavLink className="container_logo" to="/">
             <figure> <img className="logo" src={logo_img} alt="Logo FIGHT BIDE"/> </figure>
           </NavLink>
           <div>
