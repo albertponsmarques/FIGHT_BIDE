@@ -23,8 +23,8 @@ export default function Auth() {
   return (
     <div className="row flex flex-center">
       <div className="col-6 form-widget">
-        <h1 className="header">Login</h1>
-        <p className="description">Sign in via magic link with your email below</p>
+        <h1 className="header">Register</h1>
+        <p className="description">Sign up via magic link with your email below</p>
         <div>
           <input
             className="inputField"
@@ -52,7 +52,7 @@ export default function Auth() {
             className={'button block'}
             disabled={loading}
           >
-            {loading ? <span>Loading</span> : <span>Send magic link</span>}
+            {loading ? <span>Loading</span> : <span>Register!</span>}
           </button>
         </div>
       </div>
