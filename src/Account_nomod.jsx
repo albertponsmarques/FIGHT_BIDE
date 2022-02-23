@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
 import Avatar from './AvatarNomod'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export default function AccountNomod({ session }) {
   const [loading, setLoading] = useState(true)
@@ -72,9 +72,12 @@ export default function AccountNomod({ session }) {
           disabled
         />
       </div>
-
-      
-
+      <div>
+            <h3>Update your profile</h3>
+            <button><NavLink className="nav-link" to="/login">
+                  update
+                </NavLink></button>
+        </div>
       <div>
         <button className="button block" onClick={() => supabase.auth.signOut()}>
           Sign Out

@@ -8,16 +8,19 @@ import Footer from "./Footer";
 import Blog from "./Blog";
 import Navigation from "./Navigation";
 import Home from './App';
+import Register from "./Register"
+import AccountNoMod from "./AppNomod"
 
 ReactDOM.render(
   <Router>
     <Navigation />
     <Routes>
       <Route path='/' element={<Main />} />
-      <Route path="/login" element={<Home />} />   
+      <Route path="/register" element={<Register />} />   
       <Route path="/blog" element={<Blog />}/>
       <Route path="/home" element={<Main />}/>
-      <Route path="/FIGHT_BIDE" element={<Main />}/>
+      <Route path="/login" element={<Home />}/>
+      <Route path="/accountnomod" element={<AccountNoMod />}/>
     </Routes>
     <Footer />
   </Router>,

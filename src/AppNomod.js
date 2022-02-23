@@ -1,7 +1,7 @@
 import './index.css'
 import React, { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
-import Auth from './Auth'
+import Auth from './Login'
 import Account from './Account_nomod'
 
 export default function Home() {

@@ -1,7 +1,7 @@
 import './index.css'
 import React, { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
-import Auth from './Auth'
+import Login from "./Login"
 import Account from './Account'
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <div className="container" style={{ padding: '50px 0 100px 0' }}>
-      {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
+      {!session ? <Login /> : <Account key={session.user.id} session={session} />}
     </div>
   )
 }
