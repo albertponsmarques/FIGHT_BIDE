@@ -18,8 +18,6 @@ function Main() {
           </div>
           <div className="col-lg-5">
             <h1 className="font-weight-light">Home</h1>
-            <h2>{session.user.email}</h2>
-            
             <p>
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text

@@ -3,14 +3,14 @@ import { supabase } from './supabaseClient'
 
 export default function Auth() {
   const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
   const handleLogin = async (email, password) => {
     try {
       setLoading(true)
-      const { error } = await supabase.auth.signIn({ email , password})
-      //const { error2 } = await supabase.auth.signUp({ email , password})
+      //const { error } = await supabase.auth.signIn({ email , password})
+      const { error } = await supabase.auth.signUp({ email , password})
       if (error) throw error
       alert('Check your email for the login link!')
     } catch (error) {
