@@ -17,6 +17,7 @@ ReactDOM.render(
       <Route path="/login" element={<Home />} />   
       <Route path="/blog" element={<Blog />}/>
       <Route path="/home" element={<Main />}/>
+      <Route path="/FIGHT_BIDE" element={<Main />}/>
     </Routes>
     <Footer />
   </Router>,
