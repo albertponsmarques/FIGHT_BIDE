@@ -54,7 +54,7 @@ export default function Auth() {
           </button>
         </div>
         <div>
-            <h3>You don't have an account? no worries click the button below to reister</h3>
+            <h3>You don't have an account? no worries click the button below to register</h3>
             <button><NavLink className="nav-link" to="/register">
                   Register
                 </NavLink></button>

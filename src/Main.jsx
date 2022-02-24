@@ -1,6 +1,7 @@
 import './index.css'
 import React from 'react'
 import { supabase } from './supabaseClient'
+import Boton from './Boton'
 
 function Main() {
   const session = supabase.auth.session()
@@ -25,6 +26,7 @@ function Main() {
               type and scrambled it to make a type specimen book.
             </p>
           </div>
+          <Boton/>
         </div>
       </div>
     </div>

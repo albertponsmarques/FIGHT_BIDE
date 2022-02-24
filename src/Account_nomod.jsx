@@ -61,7 +61,8 @@ export default function AccountNomod({ session }) {
           id="username"
           type="text"
           value={username} 
-          disabled />
+          disabled
+          />
       </div>
       <div>
         <label htmlFor="website">Website</label>
