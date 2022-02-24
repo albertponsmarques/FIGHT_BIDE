@@ -21,6 +21,7 @@ ReactDOM.render(
       <Route path="/home" element={<Main />}/>
       <Route path="/login" element={<Home />}/>
       <Route path="/accountnomod" element={<AccountNoMod />}/>
+      <Route path='/FIGHT_BIDE' element={<Main/>}/>
     </Routes>
     <Footer />
   </Router>,

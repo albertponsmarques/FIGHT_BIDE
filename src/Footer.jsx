@@ -6,8 +6,8 @@ function Footer() {
     <div className="footer">
       <footer className="py-1 bg-black fixed-bottom">
         <div className="container">
-          <p className="footer-text">
-            Copyright &copy; Your Website 2020
+          <p className="m-0 text-center text-white">
+            Copyright &copy; FIGHT-BIDE 2022
           </p>
         </div>
       </footer>
