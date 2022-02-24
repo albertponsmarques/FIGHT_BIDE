@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'structure sans'; 
+    src: url('../fonts/Structure\ Sans.ttf'); 
+}
+
 .navigation{
     background-color: #560061;
 }
@@ -11,5 +16,13 @@
 .nav-item{
     margin-left: 20%;
     font-size: 18px;
+}
+
+.nav-link{
+    
+    font-family: structure sans;
+    font-size: 25px ;
+    color: #9c00b0;
+    
 }
 
