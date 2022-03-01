@@ -2,7 +2,7 @@ import './index.css'
 import React, { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
 import Login from "./Login"
-import Account from './Account_nomod'
+import Account from './Account'
 
 export default function Home() {
   const [session, setSession] = useState(null)

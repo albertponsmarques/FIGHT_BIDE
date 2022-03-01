@@ -37,6 +37,18 @@ body,
   overflow-x: hidden;
 }
 
+/* Buttons */
+
+.buttonPrimary{
+  background-color: #b03bce;
+  color: white;
+  text-decoration: none;
+}
+.buttonPrimary:hover{
+  color: black;
+  text-decoration: none;
+}
+
 /* Grid */
 
 .container {
