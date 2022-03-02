@@ -48,7 +48,7 @@ export default function AccountNomod({ session }) {
   return (
     <div className="form-widget">
       <div>
-        <h1>
+        <h1 className='account_title'>
           PROFILE
         </h1>
       </div>

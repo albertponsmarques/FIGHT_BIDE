@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { supabase } from './supabaseClient'
 import { NavLink } from "react-router-dom";
+import "./css/Login.css"
+import Boton from "./Boton"
 
 export default function Auth() {
   const [loading, setLoading] = useState(false)
@@ -20,28 +22,29 @@ export default function Auth() {
   }
 
   return (
-    <div className="row flex flex-center">
-      <div className="col-6 form-widget">
+    <div>
+      <div>
         <h1 className="header">Login</h1>
-        <div>
+        <div className='form_inputs'>
           <input
             className="inputField"
             type="email"
-            placeholder="Your email"
+            placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div>
+        <div className='form_inputs'>
           <input
             className="inputField"
             type="password"
-            placeholder="Your password"
+            placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div>
+        <Boton linkTo={"/accountnomod"} textButton={"Account"} size="medium" type="instagram"/>
           <button
             onClick={(e) => {
               e.preventDefault()
