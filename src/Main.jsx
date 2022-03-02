@@ -26,7 +26,7 @@ function Main() {
               type and scrambled it to make a type specimen book.
             </p>
           </div>
-            <Boton linkTo={"/accountnomod"} textButton={"Account"}/>
+            <Boton linkTo={"/accountnomod"} textButton={"Account"} size="medium" type="instagram"/>
         </div>
       </div>
     </div>

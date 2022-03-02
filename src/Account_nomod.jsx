@@ -5,7 +5,8 @@ import Boton from './Boton'
 import { NavLink } from 'react-router-dom'
 import "./css/account.css"
 import { AwesomeButton } from "react-awesome-button";
-import "react-awesome-button/dist/styles.css";
+import "./css/awesomeButtons.css";  
+
 
 export default function AccountNomod({ session }) {
   const [loading, setLoading] = useState(true)
@@ -85,7 +86,7 @@ export default function AccountNomod({ session }) {
             <Boton linkTo={"/login"} textButton={"update"}/>
       <div className='AButton'>
             <h3>Update your profile:</h3>
-            <AwesomeButton type="primary" size="medium">
+            <AwesomeButton type="primary" size="medium" backgroundColor="#eea620">
               <NavLink className="nav-link" to="/login">
                   update
               </NavLink>
