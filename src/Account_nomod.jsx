@@ -86,14 +86,10 @@ export default function AccountNomod({ session }) {
             <Boton linkTo={"/login"} textButton={"update"}/>
       <div className='AButton'>
             <h3>Update your profile:</h3>
-            <AwesomeButton type="primary" size="medium" backgroundColor="#eea620">
-              <NavLink className="nav-link" to="/login">
-                  update
-              </NavLink>
-            </AwesomeButton>
+            <Boton linkTo={"/login"} textButton={"update"} size="large" type="primary"/>
         </div>
       <div className='AButton'>
-      <AwesomeButton type="primary" size="medium" onPress={() => supabase.auth.signOut()} >Sign Out</AwesomeButton>
+        <AwesomeButton type="secondary" size="large" onPress={() => supabase.auth.signOut()} >Sign Out</AwesomeButton>
       </div>
     </div>
     </div>
