@@ -16,7 +16,8 @@ body {
   margin: 0;
   font-family: var(--custom-font-family);
   background-color: var(--custom-bg-color);
-  background-image: url("./images/fondo.jpeg");
+
+  background-image: url("../images/fondo.jpeg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
 

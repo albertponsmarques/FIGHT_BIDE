@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'structure sans'; 
+    src: url('../fonts/Structure\ Sans.ttf'); 
+}
+
+.footer-text{
+    font-size: 10px;
+    font-family: structure sans;
+}

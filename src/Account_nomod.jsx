@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
 import Avatar from './AvatarNomod'
 import Boton from './Boton'
+import { NavLink } from 'react-router-dom'
+import "./css/account.css"
+import { AwesomeButton } from "react-awesome-button";
+import "react-awesome-button/dist/styles.css";
 
 export default function AccountNomod({ session }) {
   const [loading, setLoading] = useState(true)
@@ -43,6 +47,11 @@ export default function AccountNomod({ session }) {
   return (
     <div className="form-widget">
       <div>
+        <h1>
+          PROFILE
+        </h1>
+      </div>
+      <div className='avatar'>
         <Avatar
         url={avatar_url}
         size={150}
@@ -51,12 +60,10 @@ export default function AccountNomod({ session }) {
         }}
     />
       </div>
-      <div>
-        <label htmlFor="email">Email</label>
+      <div className='inputDiv'>
         <input id="email" type="text" value={session.user.email} disabled />
       </div>
-      <div>
-        <label htmlFor="username">Name</label>
+      <div className='inputDiv'>
         <input
           id="username"
           type="text"
@@ -64,8 +71,7 @@ export default function AccountNomod({ session }) {
           disabled
           />
       </div>
-      <div>
-        <label htmlFor="website">Website</label>
+      <div className='inputDiv'>
         <input
           id="website"
           type="website"
@@ -73,15 +79,22 @@ export default function AccountNomod({ session }) {
           disabled
         />
       </div>
+
       <div>
             <h3>Update your profile</h3>
             <Boton linkTo={"/login"} textButton={"update"}/>
+      <div className='AButton'>
+            <h3>Update your profile:</h3>
+            <AwesomeButton type="primary" size="medium">
+              <NavLink className="nav-link" to="/login">
+                  update
+              </NavLink>
+            </AwesomeButton>
         </div>
-      <div>
-        <button className="button block" onClick={() => supabase.auth.signOut()}>
-          Sign Out
-        </button>
+      <div className='AButton'>
+      <AwesomeButton type="primary" size="medium" onPress={() => supabase.auth.signOut()} >Sign Out</AwesomeButton>
       </div>
+    </div>
     </div>
   )
 }

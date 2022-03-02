@@ -1,4 +1,4 @@
-import './index.css'
+import './css/index.css'
 import React, { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
 import Login from "./Login"
