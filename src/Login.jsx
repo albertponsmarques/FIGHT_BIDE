@@ -52,6 +52,7 @@ export default function Auth() {
             }}
             textButton={loading ? <span>loading...</span> : <span>Login!</span>}
           />
+
         </div>
         <div>
           <h4 className="register_text">
