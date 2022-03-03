@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
 import Avatar from './AvatarNomod'
 import Boton from './Boton'
+import BotonAction from './BotonAction'
 import { NavLink } from 'react-router-dom'
 import "./css/account.css"
 import { AwesomeButton } from "react-awesome-button";
 import "./css/awesomeButtons.css";
+
 
 export default function AccountNomod({ session }) {
   const [loading, setLoading] = useState(true);
