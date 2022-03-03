@@ -89,7 +89,7 @@ export default function AccountNomod({ session }) {
             <Boton linkTo={"/login"} textButton={"update"} size="large" type="primary"/>
         </div>
       <div className='AButton'>
-        <AwesomeButton type="secondary" size="large" onPress={() => supabase.auth.signOut()} >Sign Out</AwesomeButton>
+        <BotonAction type="secondary" size="large" action={() => supabase.auth.signOut()} textButton="Sign Out"/>
       </div>
     </div>
     </div>
