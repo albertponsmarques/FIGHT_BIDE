@@ -1,31 +1,31 @@
-import React, { useState } from 'react'
-import { supabase } from './supabaseClient'
-import { NavLink } from "react-router-dom";
-import "./css/Login.css"
-import Boton from "./Boton"
+import React, { useState } from "react";
+import { supabase } from "./supabaseClient";
+import "./css/Login.css";
+import Boton from "./Boton";
+import BotonAction from "./BotonAction";
 
 export default function Auth() {
-  const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async (email, password) => {
     try {
-      setLoading(true)
-      const { error } = await supabase.auth.signIn({ email , password})
-      if (error) throw error
+      setLoading(true);
+      const { error } = await supabase.auth.signIn({ email, password });
+      if (error) throw error;
     } catch (error) {
-      alert(error.error_description || error.message)
+      alert(error.error_description || error.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div>
       <div>
         <h1 className="header">Login</h1>
-        <div className='form_inputs'>
+        <div className="form_inputs">
           <input
             className="inputField"
             type="email"
@@ -34,7 +34,7 @@ export default function Auth() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className='form_inputs'>
+        <div className="form_inputs">
           <input
             className="inputField"
             type="password"
@@ -43,26 +43,47 @@ export default function Auth() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div>
-        <Boton linkTo={"/accountnomod"} textButton={"Account"} size="medium" type="instagram"/>
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-              handleLogin(email, password)
-            }}
-            className={'button block'}
-            disabled={loading}
+        <div className="boto_login">
+          <BotonAction
+            type="primary"
+            size="medium"
+            action="{(e) => {
+              e.preventDefault();
+              handleLogin(email, password);
+            }}"
+            textButton="Login"
           >
-            {loading ? <span>Loading</span> : <span>Login!</span>}
-          </button>
+            {loading ? <span>aaaa</span> : <span>Login!</span>}
+          </BotonAction>
+
+          <div>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                handleLogin(email, password);
+              }}
+              className={"button block"}
+              disabled={loading}
+            >
+              {loading ? <span>Loading</span> : <span>Login!</span>}
+            </button>
+          </div>
         </div>
         <div>
-            <h3>You don't have an account? no worries click the button below to register</h3>
-            <button><NavLink className="nav-link" to="/register">
-                  Register
-                </NavLink></button>
+          <h4 className="register_text">
+            You don't have an account? no worries click the button below to
+            register
+          </h4>
+          <div className="boto_register">
+            <Boton
+              linkTo={"/register"}
+              textButton={"Register"}
+              size="medium"
+              type="secondary"
+            />
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

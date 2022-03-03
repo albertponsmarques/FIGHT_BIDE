@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { BoxLoading, CircleToBlockLoading } from 'react-loadingg';
+import { BatteryLoading } from 'react-loadingg';
 
 function Blog() {
   return (
@@ -10,10 +10,7 @@ function Blog() {
         <Outlet />
       </div>
       <div class="mt-2 col-md-12">
-        <BoxLoading />;
-      </div>
-      <div class="mt-2 col-md-15">
-        <CircleToBlockLoading />;
+        <BatteryLoading color='#ffffff'/>;
       </div>
     </div>
   );
