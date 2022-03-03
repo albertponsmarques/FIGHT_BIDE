@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
 import Avatar from './Avatar'
+import BotonAction from './BotonAction' 
 
 export default function Account({ session }) {
   const [loading, setLoading] = useState(true)
@@ -75,7 +76,7 @@ export default function Account({ session }) {
         size={150}
         onUpload={(url) => {
           setAvatarUrl(url)
-          updateProfile({ username, website, avatar_url: url })
+          updateProfile({ avatar_url: url })
         }}
     />
       </div>
@@ -102,20 +103,13 @@ export default function Account({ session }) {
         />
       </div>
 
-      <div>
-        <button
-          className="button block primary"
-          onClick={() => updateProfile({ username, website, avatar_url })}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'Update'}
-        </button>
+      <div className='AButton'>
+        <BotonAction type="primary" size="large" action={() => updateProfile({ username, website })} textButton={loading ? 'Loading ...' : 'Update'}/>
       </div>
+      
 
-      <div>
-        <button className="button block" onClick={() => supabase.auth.signOut()}>
-          Sign Out
-        </button>
+      <div className='AButton'>
+        <BotonAction type="secondary" size="large" action={() => supabase.auth.signOut()} textButton="Sign Out"/>
       </div>
     </div>
   )

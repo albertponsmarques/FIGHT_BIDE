@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { supabase } from './supabaseClient'
+import BotonAction from "./BotonAction";
 
 export default function Auth() {
   const [loading, setLoading] = useState(false)
@@ -44,16 +45,14 @@ export default function Auth() {
           />
         </div>
         <div>
-          <button
-            onClick={(e) => {
-              e.preventDefault()
+          <BotonAction
+            type="secondary"
+            size="large"
+            action={(e) => {
               handleLogin(email, password)
             }}
-            className={'button block'}
-            disabled={loading}
-          >
-            {loading ? <span>Loading</span> : <span>Register!</span>}
-          </button>
+            textButton={loading ? <span>Loading</span> : <span>Register!</span>}
+          />
         </div>
       </div>
     </div>

@@ -38,12 +38,8 @@
   --button-secondary-color-active: #f533f5;
   --button-secondary-border: 2px solid #f533f5;
   --button-secondary-border-hover: 2px solid #151c22;
-  --button-anchor-color: #0e4f88;
-  --button-anchor-color-dark: #072743;
-  --button-anchor-color-light: white;
-  --button-anchor-color-hover: #0d4a7f;
-  --button-anchor-color-active: #0c4271;
-  --button-anchor-border: none;
+  --button-anchor-radial-color: radial-gradient(circle at 25% 110%, #f533f5 0%, #f84ef8 5%, #f378f3 45%, #f197f1 60%, #eeaaee 90%);
+  --button-anchor-radial-color: radial-gradient(circle at 25% 110%, #f533f5 0%, #f84ef8 5%, #f378f3 45%, #f197f1 60%, #eeaaee 90%);
   --button-disabled-color: #AFAFAF;
   --button-disabled-color-dark: #898989;
   --button-disabled-color-light: #969696;
@@ -501,7 +497,28 @@ button.aws-btn .aws-btn__wrapper {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center; }
-  .aws-btn--instagram.aws-btn--progress .aws-btn__progress:before, .aws-btn--instagram.aws-btn--progress .aws-btn__progress:after {
+  .aws-btn--anchor.aws-btn--progress .aws-btn__progress:before, .aws-btn--anchor.aws-btn--progress .aws-btn__progress:after {
+    color: #FFFFFF; }
+  .aws-btn--anchor .aws-btn__wrapper:before {
+    background: radial-gradient(circle at 25% 110%, #f533f5 0%, #f84ef8 5%, #f378f3 45%, #f197f1 60%, #eeaaee 90%); }
+  .aws-btn--anchor .aws-btn__content {
+    background: radial-gradient(circle at 25% 110%, #f533f5 0%, #f84ef8 5%, #f378f3 45%, #f197f1 60%, #eeaaee 90%);
+    color: #FFFFFF; }
+    .aws-btn--anchor .aws-btn__content path {
+      fill: #FFFFFF; }
+  .aws-btn--anchor.aws-btn--progress .aws-btn__content > span {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+  .aws-btn--anchor.aws-btn--progress .aws-btn__progress:before, .aws-btn--anchor.aws-btn--progress .aws-btn__progress:after {
     color: #FFFFFF; }
   .aws-btn--primary .aws-btn__wrapper:before {
     background: var(--button-primary-color-dark); }
@@ -555,18 +572,6 @@ button.aws-btn .aws-btn__wrapper {
             justify-content: center; }
   .aws-btn--secondary.aws-btn--progress .aws-btn__progress:before, .aws-btn--secondary.aws-btn--progress .aws-btn__progress:after {
     color: var(--button-secondary-color-light); }
-  .aws-btn--link .aws-btn__wrapper:before {
-    background: var(--button-anchor-color-dark); }
-  .aws-btn--link .aws-btn__content {
-    background: var(--button-anchor-color);
-    color: var(--button-anchor-color-light);
-    border: var(--button-anchor-border); }
-    .aws-btn--link .aws-btn__content path {
-      fill: var(--button-anchor-color-light); }
-  .aws-btn--link .aws-btn__wrapper:hover .aws-btn__content {
-    background: var(--button-anchor-color-hover); }
-  .aws-btn--link.aws-btn--active .aws-btn__wrapper .aws-btn__content {
-    background: var(--button-anchor-color-active); }
   .aws-btn--link.aws-btn--progress .aws-btn__content > span {
     display: -webkit-box;
     display: -ms-flexbox;

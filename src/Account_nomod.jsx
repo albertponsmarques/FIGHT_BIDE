@@ -5,7 +5,8 @@ import Boton from './Boton'
 import { NavLink } from 'react-router-dom'
 import "./css/account.css"
 import { AwesomeButton } from "react-awesome-button";
-import "./css/awesomeButtons.css";  
+import "./css/awesomeButtons.css"; 
+import BotonAction from './BotonAction' 
 
 
 export default function AccountNomod({ session }) {

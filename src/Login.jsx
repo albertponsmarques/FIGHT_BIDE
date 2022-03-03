@@ -46,28 +46,12 @@ export default function Auth() {
         <div className="boto_login">
           <BotonAction
             type="primary"
-            size="medium"
-            action="{(e) => {
-              e.preventDefault();
+            size="large"
+            action={(e) => {
               handleLogin(email, password);
-            }}"
-            textButton="Login"
-          >
-            {loading ? <span>aaaa</span> : <span>Login!</span>}
-          </BotonAction>
-
-          <div>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                handleLogin(email, password);
-              }}
-              className={"button block"}
-              disabled={loading}
-            >
-              {loading ? <span>Loading</span> : <span>Login!</span>}
-            </button>
-          </div>
+            }}
+            textButton={loading ? <span>loading...</span> : <span>Login!</span>}
+          />
         </div>
         <div>
           <h4 className="register_text">
@@ -78,7 +62,7 @@ export default function Auth() {
             <Boton
               linkTo={"/register"}
               textButton={"Register"}
-              size="medium"
+              size="large"
               type="secondary"
             />
           </div>

@@ -50,6 +50,10 @@ body,
   text-decoration: none;
 }
 
+.margin-botons{
+  margin-left: 100px;
+}
+
 /* Grid */
 
 .container {

@@ -10,7 +10,7 @@ function Blog() {
         <Outlet />
       </div>
       <div class="mt-2 col-md-12">
-        <BatteryLoading color='#ffffff'/>;
+        <BatteryLoading color='#ffffff'/>
       </div>
     </div>
   );
