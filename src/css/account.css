@@ -31,9 +31,21 @@ input{
 .AButton{
     text-align: center;
     margin: 1vh;
+    margin-top: 8vh;
 }
 
 h3{
     margin: 1vh;
     margin-bottom: 4vh;
+}
+
+.update_div{
+    text-align: center;
+    margin-bottom: 5%;
+}
+
+.label_text{
+    text-align: center;
+    font-family: structure sans;
+    font-size: 20px;
 }

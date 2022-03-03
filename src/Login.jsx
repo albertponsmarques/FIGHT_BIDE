@@ -47,27 +47,13 @@ export default function Auth() {
           <BotonAction
             type="primary"
             size="medium"
-            action="{(e) => {
-              e.preventDefault();
+            action={(e) => {
               handleLogin(email, password);
-            }}"
+            }}
             textButton="Login"
           >
             {loading ? <span>aaaa</span> : <span>Login!</span>}
           </BotonAction>
-
-          <div>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                handleLogin(email, password);
-              }}
-              className={"button block"}
-              disabled={loading}
-            >
-              {loading ? <span>Loading</span> : <span>Login!</span>}
-            </button>
-          </div>
         </div>
         <div>
           <h4 className="register_text">
