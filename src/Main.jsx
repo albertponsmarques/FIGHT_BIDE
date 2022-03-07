@@ -11,10 +11,10 @@ function Main() {
       <div className="container">
         <div className="row align-items-center my-5">
           <div className="col-lg-5">
-            <Boton linkTo={"/"} textButton={"Crear Torneo"} size="large" type="anchor"/>
+            <Boton linkTo={"/"} textButton={"Crear Torneo"} size="home" type="anchor"/>
           </div>
           <div className="col-lg-5">
-            <Boton linkTo={"/accountnomod"} textButton={"Account"} size="large" type="anchor"/>
+            <Boton linkTo={"/accountnomod"} textButton={"Account"} size="home" type="anchor"/>
           </div>
         </div>
       </div>

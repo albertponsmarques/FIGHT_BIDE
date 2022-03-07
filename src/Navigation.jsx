@@ -20,8 +20,8 @@ function Navigation() {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/blog">
-                  Blog
+                <NavLink className="nav-link" to="/tournaments">
+                  Tournaments
                 </NavLink>
               </li>
               <li className="nav-item">

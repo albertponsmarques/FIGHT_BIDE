@@ -1,6 +1,5 @@
 import './css/index.css'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import { Component } from 'react/cjs/react.production.min'
 import { AwesomeButton } from "react-awesome-button";
 import "./css/awesomeButtons.css";  

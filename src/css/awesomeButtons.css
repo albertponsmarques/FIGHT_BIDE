@@ -12,6 +12,8 @@
   --button-medium-height: 44px;
   --button-large-width: 500px;
   --button-large-height: 44px;
+  --button-home-width: 300px;
+  --button-home-height: 44px;
   --button-font-family: inherit;
   --button-font-color: #ffffff;
   --button-font-weight: 600;
@@ -728,6 +730,11 @@ button.aws-btn .aws-btn__wrapper {
     height: var(--button-large-height);
     font-size: var(--button-default-font-size);
     line-height: var(--button-default-line-height); }
+  .aws-btn--home {
+      width: var(--button-home-width);
+      height: var(--button-home-height);
+      font-size: var(--button-default-font-size);
+      line-height: var(--button-default-line-height); }
   .aws-btn--fill {
     width: 100%; }
 
