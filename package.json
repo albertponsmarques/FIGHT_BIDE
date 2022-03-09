@@ -19,11 +19,8 @@
     "react-robot": "^0.2.3",
     "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.0",
-<<<<<<< HEAD
     "react-tournament-bracket": "^0.2.4",
-=======
     "robot3": "^0.2.21",
->>>>>>> f311262454cb51022598a88417db0bdee780b136
     "web-vitals": "^2.1.4"
   },
   "scripts": {
