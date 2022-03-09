@@ -11,6 +11,7 @@ import AccountNoMod from "./AppNomod";
 import Tournaments from "./Tournaments";
 import Game from "./Game";
 import Home from "./App";
+import Test from "./Test.jsx";
 
 ReactDOM.render(
   <Router>
@@ -24,6 +25,7 @@ ReactDOM.render(
       <Route path="/accountnomod" element={<AccountNoMod />} />
       <Route path="/FIGHT_BIDE" element={<Main />} />
       <Route path="/game" element={<Game />} />
+      <Route path="/test" element={<Test />} />
     </Routes>
     <Footer />
   </Router>,

@@ -1,19 +1,61 @@
-import React, { useState, useEffect } from 'react'
-import { supabase } from './supabaseClient'
-import Avatar from './AvatarNomod'
-import Boton from './Boton'
-import BotonAction from './BotonAction'
-import { NavLink } from 'react-router-dom'
-import "./css/account.css"
-import { AwesomeButton } from "react-awesome-button";
+import React, { useState, useEffect } from "react";
+import { supabase } from "./supabaseClient";
+import Avatar from "./AvatarNomod";
+import Boton from "./Boton";
+import BotonAction from "./BotonAction";
+import "./css/account.css";
 import "./css/awesomeButtons.css";
+import ModalLib from "react-modal";
+import Modal from "./components/Modal"
 
+ModalLib.setAppElement("#root");
+
+const customStyles = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(92, 0, 89, 0.75)",
+  },
+  content: {
+    position: "absolute",
+    top: "25%",
+    left: "25%",
+    right: "25%",
+    bottom: "25%",
+    border: "1px solid #ccc",
+    background: "#fff",
+    overflow: "auto",
+    WebkitOverflowScrolling: "touch",
+    borderRadius: "4px",
+    outline: "none",
+    padding: "60px",
+  },
+};
 
 export default function AccountNomod({ session }) {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
   const [website, setWebsite] = useState(null);
   const [avatar_url, setAvatarUrl] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOk, setIsOk] = useState(false)
+
+  function toggleModal() {
+    setIsOpen(!isOpen);
+  }
+
+  function toggleOk() {
+    setIsOk(!isOk);
+  }
+
+  function signOutModal(){
+    if (isOk){
+      supabase.auth.signOut();
+    }
+  }
 
   useEffect(() => {
     getProfile();
@@ -78,13 +120,15 @@ export default function AccountNomod({ session }) {
           <h3>Do you want to sign out?</h3>
         </div>
         <div>
-          <BotonAction
-            type="secondary"
-            size="medium"
-            action={() => supabase.auth.signOut()}
-            textButton="Sign Out"
-          />
+          <button onClick={toggleModal}>Log out</button>
         </div>
+        <ModalLib
+        isOpen={isOpen}
+        onRequestClose={toggleModal}
+        style={customStyles}
+      >
+        <Modal closeModal={toggleModal} modalFunction={toggleOk} />
+      </ModalLib>
       </div>
     </div>
   );

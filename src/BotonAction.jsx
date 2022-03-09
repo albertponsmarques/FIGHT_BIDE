@@ -10,7 +10,7 @@ import "./css/awesomeButtons.css";
 export default class BotonAction extends Component{
   render(){
     return (
-      <AwesomeButton type={this.props.type} size={this.props.size} onPress={this.props.action} >
+      <AwesomeButton className={this.props.className} type={this.props.type} size={this.props.size} onPress={this.props.action} >
         {this.props.textButton}
       </AwesomeButton>
     )

@@ -25,6 +25,11 @@ function Navigation() {
                 </NavLink>
               </li>
               <li className="nav-item">
+                <NavLink className="nav-link" to="/test">
+                  Test
+                </NavLink>
+              </li>
+              <li className="nav-item">
                 <NavLink className="nav-link" to="/accountnomod">
                   Profile
                   <span className="sr-only">(current)</span>
