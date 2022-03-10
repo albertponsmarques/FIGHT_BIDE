@@ -3,7 +3,7 @@ import BotonAction from "../BotonAction";
 import "../css/modal.css";
 import { supabase } from "../supabaseClient";
 
-function Modal({ closeModal, modalFunction }) {
+function Modal({ closeModal }) {
   return (
     <div className="modalBackground">
       <div className="modalContainer">

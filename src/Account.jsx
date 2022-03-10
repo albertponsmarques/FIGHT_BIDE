@@ -5,12 +5,46 @@ import Boton from "./Boton";
 import "./css/account.css";
 import "./css/awesomeButtons.css";
 import BotonAction from "./BotonAction";
+import ModalLib from "react-modal";
+import Modal from "./components/Modal";
+
+ModalLib.setAppElement("#root");
+
+const customStyles = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(92, 0, 89, 0.75)",
+  },
+  content: {
+    position: "absolute",
+    top: "25%",
+    left: "25%",
+    right: "25%",
+    bottom: "25%",
+    border: "1px solid #ccc",
+    background: "#fff",
+    overflow: "auto",
+    WebkitOverflowScrolling: "touch",
+    borderRadius: "4px",
+    outline: "none",
+    padding: "60px",
+  },
+};
 
 export default function Account({ session }) {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
   const [website, setWebsite] = useState(null);
   const [avatar_url, setAvatarUrl] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  function toggleModal() {
+    setIsOpen(!isOpen);
+  }
 
   useEffect(() => {
     getProfile();
@@ -24,7 +58,7 @@ export default function Account({ session }) {
       let { data, error, status } = await supabase
         .from("profiles")
         .select(`username, website, avatar_url`)
-        .eq("id", user.id)
+        .eq("user_id", user.id)
         .single();
 
       if (error && status !== 406) {
@@ -110,13 +144,31 @@ export default function Account({ session }) {
         />
       </div>
 
-      <div className='AButton'>
-        <BotonAction type="primary" size="large" action={() => updateProfile({ username, website })} textButton={loading ? 'Loading ...' : 'Update'}/>
+      <div className="AButton" style={{ position: 'relative', zIndex: '0' }}>
+        <BotonAction
+          type="primary"
+          size="medium"
+          action={() => updateProfile({ username, website })}
+          textButton={loading ? "Loading ..." : "Update"}
+        />
       </div>
-      
 
-      <div className='AButton'>
-        <BotonAction type="secondary" size="large" action={() => supabase.auth.signOut()} textButton="Sign Out"/>
+      <div className="AButton" style={{ position: 'relative', zIndex: '0' }}>
+        <BotonAction
+          type="secondary"
+          size="medium"
+          action={toggleModal}
+          textButton="Sign Out"
+        />
+      </div>
+      <div style={{ position: "relative", zIndex: "1" }}>
+        <ModalLib
+          isOpen={isOpen}
+          onRequestClose={toggleModal}
+          style={customStyles}
+        >
+          <Modal closeModal={toggleModal} />
+        </ModalLib>
       </div>
     </div>
   );

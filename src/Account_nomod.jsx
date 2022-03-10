@@ -6,7 +6,7 @@ import BotonAction from "./BotonAction";
 import "./css/account.css";
 import "./css/awesomeButtons.css";
 import ModalLib from "react-modal";
-import Modal from "./components/Modal"
+import Modal from "./components/Modal";
 
 ModalLib.setAppElement("#root");
 
@@ -41,20 +41,9 @@ export default function AccountNomod({ session }) {
   const [website, setWebsite] = useState(null);
   const [avatar_url, setAvatarUrl] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [isOk, setIsOk] = useState(false)
 
   function toggleModal() {
     setIsOpen(!isOpen);
-  }
-
-  function toggleOk() {
-    setIsOk(!isOk);
-  }
-
-  function signOutModal(){
-    if (isOk){
-      supabase.auth.signOut();
-    }
   }
 
   useEffect(() => {
@@ -112,7 +101,7 @@ export default function AccountNomod({ session }) {
         <input id="website" type="website" value={website} disabled />
       </div>
 
-      <div className="update_div">
+      <div className="update_div" style={{ position: 'relative', zIndex: '0' }}>
         <h3>Update your profile</h3>
         <Boton linkTo={"/login"} textButton={"update"} />
 
@@ -120,15 +109,17 @@ export default function AccountNomod({ session }) {
           <h3>Do you want to sign out?</h3>
         </div>
         <div>
-          <button onClick={toggleModal}>Log out</button>
+        <BotonAction type="secondary" size="medium" action={toggleModal} textButton="Sign Out"/>
         </div>
-        <ModalLib
-        isOpen={isOpen}
-        onRequestClose={toggleModal}
-        style={customStyles}
-      >
-        <Modal closeModal={toggleModal} modalFunction={toggleOk} />
-      </ModalLib>
+        <div style={{ position: 'relative', zIndex: '1' }}>
+          <ModalLib
+            isOpen={isOpen}
+            onRequestClose={toggleModal}
+            style={customStyles}
+          >
+            <Modal closeModal={toggleModal}/>
+          </ModalLib>
+        </div>
       </div>
     </div>
   );
