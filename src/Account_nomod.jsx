@@ -38,7 +38,6 @@ const customStyles = {
 export default function AccountNomod({ session }) {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
-  const [website, setWebsite] = useState(null);
   const [avatar_url, setAvatarUrl] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -57,7 +56,7 @@ export default function AccountNomod({ session }) {
 
       let { data, error, status } = await supabase
         .from("profiles")
-        .select(`username, website, avatar_url`)
+        .select(`username, avatar_url`)
         .eq("id", user.id)
         .single();
 
@@ -67,7 +66,6 @@ export default function AccountNomod({ session }) {
 
       if (data) {
         setUsername(data.username);
-        setWebsite(data.website);
         setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
@@ -91,17 +89,15 @@ export default function AccountNomod({ session }) {
           }}
         />
       </div>
-      <div className="inputDiv">
-        <input id="email" type="text" value={session.user.email} disabled />
+      <div className="element">
+        <h3>{session.user.email}</h3>
       </div>
-      <div className="inputDiv">
-        <input id="username" type="text" value={username} disabled />
-      </div>
-      <div className="inputDiv">
-        <input id="website" type="website" value={website} disabled />
+      <div className="element">
+        <h3>{username}</h3>
+        <h3></h3>
       </div>
 
-      <div className="update_div" style={{ position: 'relative', zIndex: '0' }}>
+      <div className="update_div" style={{ position: "relative", zIndex: "0" }}>
         <h3>Update your profile</h3>
         <Boton linkTo={"/login"} textButton={"update"} />
 
@@ -109,15 +105,20 @@ export default function AccountNomod({ session }) {
           <h3>Do you want to sign out?</h3>
         </div>
         <div>
-        <BotonAction type="secondary" size="medium" action={toggleModal} textButton="Sign Out"/>
+          <BotonAction
+            type="secondary"
+            size="medium"
+            action={toggleModal}
+            textButton="Sign Out"
+          />
         </div>
-        <div style={{ position: 'relative', zIndex: '1' }}>
+        <div style={{ position: "relative", zIndex: "1" }}>
           <ModalLib
             isOpen={isOpen}
             onRequestClose={toggleModal}
             style={customStyles}
           >
-            <Modal closeModal={toggleModal}/>
+            <Modal closeModal={toggleModal} />
           </ModalLib>
         </div>
       </div>

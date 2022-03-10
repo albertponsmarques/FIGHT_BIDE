@@ -1,51 +1,55 @@
 @font-face {
-    font-family: 'structure sans'; 
-    src: url('../fonts/Structure\ Sans.ttf'); 
+  font-family: "structure sans";
+  src: url("../fonts/Structure\ Sans.ttf");
 }
 
-.avatar{
-    text-align: center;
+.avatar {
+  text-align: center;
 }
 
-input{
-    width: 50%;
-    text-align: center;
+input {
+  width: 50%;
+  text-align: center;
 }
 
-.inputDiv{
-    text-align: center;
-    align-items: center;
-    display: flex;
-    justify-content: center;
+.element {
+  font-family: structure sans;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
-.account_title{
-    text-align: center;
-    margin-bottom: 2%;
-    font-family: structure sans;
-    font-size: 30px ;
-    color: #9c00b0;
-    text-shadow: 2px 0 0 rgb(139, 139, 139), -2px 0 0 rgb(139, 139, 139), 0 2px 0 rgb(139, 139, 139), 0 -2px 0 rgb(139, 139, 139), 1px 1px rgb(139, 139, 139), -1px -1px 0 rgb(139, 139, 139), 1px -1px 0 rgb(139, 139, 139), -1px 1px 0 rgb(139, 139, 139);
+.account_title {
+  text-align: center;
+  margin-bottom: 2%;
+  font-family: structure sans;
+  font-size: 30px;
+  color: #9c00b0;
+  text-shadow: 2px 0 0 rgb(139, 139, 139), -2px 0 0 rgb(139, 139, 139),
+    0 2px 0 rgb(139, 139, 139), 0 -2px 0 rgb(139, 139, 139),
+    1px 1px rgb(139, 139, 139), -1px -1px 0 rgb(139, 139, 139),
+    1px -1px 0 rgb(139, 139, 139), -1px 1px 0 rgb(139, 139, 139);
 }
 
-.AButton{
-    text-align: center;
-    margin: 1vh;
-    margin-top: 8vh;
+.AButton {
+  text-align: center;
+  margin: 1vh;
+  margin-top: 8vh;
 }
 
-h3{
-    margin: 1vh;
-    margin-bottom: 4vh;
+h3 {
+  margin: 1vh;
+  margin-bottom: 4vh;
 }
 
-.update_div{
-    text-align: center;
-    margin-bottom: 5%;
+.update_div {
+  text-align: center;
+  margin-bottom: 5%;
 }
 
-.label_text{
-    text-align: center;
-    font-family: structure sans;
-    font-size: 20px;
+.label_text {
+  text-align: center;
+  font-family: structure sans;
+  font-size: 20px;
 }
