@@ -1,6 +1,5 @@
 import React from 'react'
-import { supabase } from './supabaseClient'
-import Tournament from './Tournament'
+import TournamentList from './TournamentList'
 
 
 export default function Tournaments() {
@@ -11,7 +10,7 @@ export default function Tournaments() {
         <div className="row align-items-center my-5">
           <div className="col-lg-12">
             <h1>Tournaments</h1>
-            <Tournament/>
+            <TournamentList/>
           </div>
         </div>
       </div>

@@ -1,12 +1,11 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react/cjs/react.development'
 import {supabase} from './supabaseClient'
 
-const Tournament = () => {
+function TournamentList(){
   const [posts, setPosts] = useState([])
   const [post, setPost] = useState({id: "", nom_torneig: "", esport: "", tipus_torneig: ""})
-  const {id} = useParams()
+  const {id, nom_torneig, esport, tipus_torneig} = post
 
   useEffect(() => {
     fetchPosts()
@@ -16,26 +15,21 @@ const Tournament = () => {
     const { data } = await supabase
       .from('torneig')
       .select('*')
-
-      //Filters
-      .eq('id', id)
-
       setPosts(data)
   }
 
   return(
-    <div>
-      
+    <ul>
       {
         posts.map(post => (
-          <h1 key={post.id}>
-            {post.nom_torneig}
-          </h1>
+          <li key={post.id}>
+            <Link to={`/tournament/${post.id}`}>{post.nom_torneig}</Link><br />
+          </li>
         ))
       }
-
-    </div>
+    </ul>
+    
   )
 }
 
-export default Tournament
+export default TournamentList
