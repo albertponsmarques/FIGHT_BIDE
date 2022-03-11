@@ -22,51 +22,58 @@ export default function Auth() {
   };
 
   return (
-    <div>
-      <div>
-        <h1 className="header">Login</h1>
-        <div className="form_inputs">
-          <input
-            className="inputField"
-            type="email"
-            placeholder="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="form_inputs">
-          <input
-            className="inputField"
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="boto_login">
-          <BotonAction
-            type="primary"
-            size="large"
-            action={(e) => {
+    <div className="containerLogin">
+      <h1 className="header">Login</h1>
+      <div className="form_inputs">
+        <input
+          className="inputField"
+          type="email"
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
               handleLogin(email, password);
-            }}
-            textButton={loading ? <span>loading...</span> : <span>Login!</span>}
+            }
+          }}
+        />
+      </div>
+      <div className="form_inputs">
+        <input
+          className="inputField"
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              handleLogin(email, password);
+            }
+          }}
+        />
+      </div>
+      <div className="boto_login">
+        <BotonAction
+          type="primary"
+          size="medium"
+          action={(e) => {
+            handleLogin(email, password);
+          }}
+          textButton={loading ? <span>loading...</span> : <span>Login!</span>}
+        />
+      </div>
+      <div>
+        <h4 className="register_text">
+          You don't have an account? no worries click the button below to
+          register
+        </h4>
+        <div className="boto_register">
+          <Boton
+            linkTo={"/register"}
+            textButton={"Register"}
+            size="medium"
+            type="secondary"
           />
-
-        </div>
-        <div>
-          <h4 className="register_text">
-            You don't have an account? no worries click the button below to
-            register
-          </h4>
-          <div className="boto_register">
-            <Boton
-              linkTo={"/register"}
-              textButton={"Register"}
-              size="large"
-              type="secondary"
-            />
-          </div>
         </div>
       </div>
     </div>

@@ -77,24 +77,26 @@ export default function AccountNomod({ session }) {
 
   return (
     <div className="form-widget">
-      <div>
-        <h1 className="account_title">PROFILE</h1>
-      </div>
-      <div className="avatar">
-        <Avatar
-          url={avatar_url}
-          size={150}
-          onUpload={(url) => {
-            setAvatarUrl(url);
-          }}
-        />
-      </div>
-      <div className="element">
-        <h3>{session.user.email}</h3>
-      </div>
-      <div className="element">
-        <h3>{username}</h3>
-        <h3></h3>
+      <div className="container">
+        <div>
+          <h1 className="account_title">PROFILE</h1>
+        </div>
+        <div className="avatar">
+          <Avatar
+            url={avatar_url}
+            size={150}
+            onUpload={(url) => {
+              setAvatarUrl(url);
+            }}
+          />
+        </div>
+        <div className="elementEmail">
+          <h3>{session.user.email}</h3>
+        </div>
+        <div className="elementUsername">
+          <h3>{username}</h3>
+          <h3></h3>
+        </div>
       </div>
 
       <div className="update_div" style={{ position: "relative", zIndex: "0" }}>

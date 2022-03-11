@@ -12,14 +12,21 @@ input {
   text-align: center;
 }
 
-.element {
+.elementEmail {
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  color: #9c00b0;
+}
+
+.elementUsername {
   font-family: structure sans;
   text-align: center;
   align-items: center;
   display: flex;
   justify-content: center;
 }
-
 
 .inputDiv {
   text-align: center;
@@ -60,4 +67,14 @@ h3 {
   text-align: center;
   font-family: structure sans;
   font-size: 20px;
+}
+
+.form-widget {
+  padding: 2em;
+  background-color: #fff;
+  background-color: rgba(44, 44, 44, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  margin-left: 12vw;
+  margin-right: 12vw;
 }

@@ -31,3 +31,13 @@
     color: #ffffff;
     text-align: center;
 }
+
+.containerLogin{
+  padding: 3em;
+  background-color: #fff;
+  background-color: rgba(44, 44, 44, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  margin-left: 12vw;
+  margin-right: 12vw;
+}
