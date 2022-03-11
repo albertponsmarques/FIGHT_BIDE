@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "structure sans";
+  src: url("../fonts/Structure\ Sans.ttf");
+}
+
+.container-tournament{
+  margin-left: 10%;
+  margin-top: 5%;
+}

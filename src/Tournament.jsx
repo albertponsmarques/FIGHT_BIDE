@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react/cjs/react.development'
 import {supabase} from './supabaseClient'
+import Game from './Game'
 
 const Tournament = () => {
   const [posts, setPosts] = useState([])
@@ -28,9 +29,13 @@ const Tournament = () => {
       
       {
         posts.map(post => (
-          <h1 key={post.id}>
-            {post.nom_torneig}
-          </h1>
+          <div className="container-tournament" key={post.id}>
+            <h1>
+              {post.nom_torneig}
+            </h1>
+            <Game></Game>
+          </div>
+          
         ))
       }
 

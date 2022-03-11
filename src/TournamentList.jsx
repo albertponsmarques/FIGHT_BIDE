@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react/cjs/react.development'
 import {supabase} from './supabaseClient'
+import './css/tournament.css'
 
 function TournamentList(){
   const [posts, setPosts] = useState([])
