@@ -13,6 +13,8 @@ input {
 }
 
 .elementEmail {
+  margin-left: 30vh;
+  margin-right: 30vh;
   border-radius: 10px;
   background: #9c00b0;
   text-align: center;
@@ -23,6 +25,8 @@ input {
 }
 
 .elementUsername {
+  margin-left: 30vh;
+  margin-right: 30vh;
   border-radius: 10px;
   margin-top: 2vh;
   background: #9c00b0;
@@ -80,6 +84,6 @@ h3 {
   background-color: rgba(44, 44, 44, 0.25);
   backdrop-filter: blur(10px);
   border-radius: 10px;
-  margin-left: 12vw;
-  margin-right: 12vw;
+  margin-left: -25vh;
+  margin-right: -25vh;
 }
