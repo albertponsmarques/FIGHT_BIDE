@@ -36,6 +36,11 @@ export default function Auth() {
             placeholder="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleLogin(email, password);
+              }
+            }}
           />
         </div>
         <div className="form_inputs">
@@ -45,6 +50,11 @@ export default function Auth() {
             placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleLogin(email, password);
+              }
+            }}
           />
         </div>
         <div className="register_button">

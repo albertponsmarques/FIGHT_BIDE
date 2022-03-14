@@ -1,16 +1,18 @@
 import React from "react";
-import "./css/footer.css"
+import "./css/footer.css";
 
 function Footer() {
   return (
-    <div className="footer">
-      <footer className="py-1 bg-black fixed-bottom">
-        <div className="container">
-          <p className="m-0 text-center text-white">
-            Copyright &copy; FIGHT-BIDE 2022
-          </p>
-        </div>
-      </footer>
+    <div className="footer_all">
+      <div className="footer">
+        <footer className="py-1 bg-black fixed-bottom">
+          <div className="container">
+            <p className="m-0 text-center text-white">
+              Copyright &copy; FIGHT-BIDE 2022
+            </p>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import "./css/awesomeButtons.css";
 import ModalLib from "react-modal";
 import Modal from "./components/Modal";
 
+
 ModalLib.setAppElement("#root");
 
 const customStyles = {
