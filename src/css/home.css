@@ -1,0 +1,45 @@
+@font-face {
+    font-family: "structure sans";
+    src: url("../fonts/Structure\ Sans.ttf");
+  }
+
+.container_home {
+  padding: 2em;
+  background-color: #fff;
+  background-color: rgba(44, 44, 44, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  margin-left: 12vh;
+  margin-right: 12vh;
+  margin-top: 3vw;
+}
+
+.data_home{
+    text-align: center;
+}
+
+.home_text{
+    margin-left: auto;
+    text-align: center;
+}
+
+.home_text_p{
+    font-weight: bold;
+    line-height:170%;
+    font-size: large;
+}
+
+.homeTitle{
+    font-size: 55px;
+    font-family: structure sans;
+}
+
+.imageBracket{
+    height: 400px;
+    width: auto;
+    margin-bottom: 10vh;
+}
+
+.botonGo{
+    margin-bottom: 10vh;
+}
