@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react/cjs/react.development'
 import {supabase} from './supabaseClient'
 import Game from './Game'
+import './css/tournament.css'
 
 const Tournament = () => {
   const [posts, setPosts] = useState([])
@@ -11,6 +12,7 @@ const Tournament = () => {
 
   useEffect(() => {
     fetchPosts()
+    fetchMatches()
   }, [])
 
   async function fetchPosts(){
@@ -24,21 +26,35 @@ const Tournament = () => {
       setPosts(data)
   }
 
+  const [matches, setMatches] = useState([])
+  const [match, setMatch] = useState({id: "", name: "", scheduled: "", equip_local: "", equip_visitant: "", punts_local: "", punts_visitant: "", torneig: ""})
+  
+
+  async function fetchMatches(){
+    const { data } = await supabase
+      .from('match')
+      .select('*')
+
+      //Filters
+      .eq('torneig', id)
+
+      setMatches(data)
+  }
+
+  
+
   return(
     <div>
-      
       {
         posts.map(post => (
           <div className="container-tournament" key={post.id}>
             <h1>
               {post.nom_torneig}
             </h1>
-            <Game></Game>
+            <Game gamesList={matches}/>
           </div>
-          
         ))
       }
-
     </div>
   )
 }

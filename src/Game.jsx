@@ -8,9 +8,17 @@ import { Component } from 'react/cjs/react.production.min'
 
 export default class Game extends Component{
   render(){
+    const gamesList = this.props.gamesList
+    const match = {id: "", name: "", scheduled: "", equip_local: "", equip_visitant: "", punts_local: "", punts_visitant: "", torneig: ""}
+
+
+    const g2 = gamesList.pop()
+
+    console.log(g2)
+
     const game2 = {
       id: "2",
-      name: "semi-finals",
+      name: g2,
       scheduled: Number(new Date()),
       sides: {
         home: {
@@ -33,9 +41,12 @@ export default class Game extends Component{
         }
       }
     };
+
+    const g3 = gamesList.pop()
+
     const game3 = {
       id: "3",
-      name: "semi-finals",
+      name: "mi-finals",
       scheduled: Number(new Date()),
       sides: {
         home: {
@@ -60,7 +71,7 @@ export default class Game extends Component{
     };
     const game1 = {
       id: "1",
-      name: "semi-finals",
+      name: "emi-finals",
       scheduled: Number(new Date()),
       sides: {
         home: {
@@ -96,87 +107,14 @@ export default class Game extends Component{
       }
     };
   
-    const games = [
-      {
-        id: "1",
-        name: "semi-finals",
-        scheduled: Number(new Date()),
-        sides: {
-          home: {
-            team: {
-              id: "10",
-              name: "Team 1"
-            },
-            score: {
-              score: 2
-            },
-            seed: {
-              displayName: "A1",
-              rank: 1,
-              sourceGame: game2,
-              sourcePool: {}
-            }
-          },
-          visitor: {
-            team: {
-              id: "11",
-              name: "Team 2"
-            },
-            score: {
-              score: 3
-            },
-            seed: {
-              displayName: "A2",
-              rank: 1,
-              sourceGame: game3,
-              sourcePool: {}
-            }
-          }
-        }
-      },
-      {
-        id: "1",
-        name: "semi-finals",
-        scheduled: Number(new Date()),
-        sides: {
-          home: {
-            team: {
-              id: "10",
-              name: "Team 1"
-            },
-            score: {
-              score: 2
-            },
-            seed: {
-              displayName: "A1",
-              rank: 1,
-              sourceGame: game2,
-              sourcePool: {}
-            }
-          },
-          visitor: {
-            team: {
-              id: "11",
-              name: "Team 2"
-            },
-            score: {
-              score: 3
-            },
-            seed: {
-              displayName: "A2",
-              rank: 1,
-              sourceGame: game3,
-              sourcePool: {}
-            }
-          }
-        }
-      }
-    ];
     return (
       <>
-        <Bracket game={game1} />
-        <BracketGame game={game1} />
-        <BracketGenerator game={games} />
+        <div className="col-lg-5">
+          <Bracket game={game1} />
+        </div>
+        <div className="col-lg-5 final">
+          <BracketGame game={game1} />
+        </div>
       </>
     );
   }

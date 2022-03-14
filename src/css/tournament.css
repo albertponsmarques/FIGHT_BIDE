@@ -6,4 +6,9 @@
 .container-tournament{
   margin-left: 10%;
   margin-top: 5%;
+  display: flex;
+}
+
+.final{
+  margin-top: 3.5%;
 }
