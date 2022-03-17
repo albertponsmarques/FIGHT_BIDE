@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import Modal from "./components/Modal";
+import Tournament from "./components/ComponentTest"
 import "./css/test.css";
 import ModalLib from "react-modal";
 import "simplebar";
@@ -40,21 +40,7 @@ function Blog() {
   }
 
   return (
-    <div data-simplebar>
-      <div className="home">
-        <div className="container">
-          <h1 className="pageTitle">Blog page</h1>
-          <button onClick={toggleModal}>Open modal</button>
-        </div>
-        <ModalLib
-          isOpen={isOpen}
-          onRequestClose={toggleModal}
-          style={customStyles}
-        >
-          <Modal closeModal={toggleModal} />
-        </ModalLib>
-      </div>
-    </div>
+    <Tournament text="adeu"></Tournament>
   );
 }
 

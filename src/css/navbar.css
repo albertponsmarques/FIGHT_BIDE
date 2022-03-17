@@ -13,9 +13,30 @@
     margin-top: 5%;
 }
 
-.nav-item{
-    margin-left: 10%;
-    font-size: 18px;
+.nav-item {
+  position: relative;
+  background: #27002cd7;
+  margin: auto;
+  margin-right: 8px;
+  max-width: 30%;
+  padding: 5px 30px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.nav-item:hover {
+  border-radius: 10px;
+  animation-name: example;
+  animation-duration: 0.25s;
+  border-left: 8px solid #e100ff;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+@keyframes example {
+    0%   {border-left: 2px solid #ffffff;}
+    25%  {border-left: 3px solid #f6b4ff;}
+    50%  {border-left: 4px solid #f080ff;}
+    100% {border-left: 5px solid #e100ff;}
 }
 
 .nav-link{
@@ -23,4 +44,3 @@
     font-size: 20px ;
     color: #ffffff;
 }
-
