@@ -1,5 +1,5 @@
 import React from "react";
-import BotonAction from "../BotonAction";
+import BotonAction from "../components/BotonAction";
 import "../css/modal.css";
 import { supabase } from "../supabaseClient";
 

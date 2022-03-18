@@ -1,8 +1,8 @@
-import './css/index.css'
+import '../css/index.css'
 import React from 'react'
 import { Component } from 'react/cjs/react.production.min'
 import { AwesomeButton } from "react-awesome-button";
-import "./css/awesomeButtons.css";  
+import "../css/awesomeButtons.css";  
 
 
 

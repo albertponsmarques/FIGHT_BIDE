@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react/cjs/react.development'
 import {supabase} from './supabaseClient'
-import Game from './Game'
+import Game from './components/Game'
 import './css/tournament.css'
 
 const Tournament = () => {

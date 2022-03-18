@@ -3,7 +3,7 @@ import { supabase } from "./supabaseClient";
 import Avatar from "./Avatar";
 import "./css/account.css";
 import "./css/awesomeButtons.css";
-import BotonAction from "./BotonAction";
+import BotonAction from "./components/BotonAction";
 import ModalLib from "react-modal";
 import Modal from "./components/Modal";
 

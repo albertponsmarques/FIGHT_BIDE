@@ -2,8 +2,6 @@ import { React, useState } from "react";
 import Tournament from "./components/ComponentTest"
 import "./css/test.css";
 import ModalLib from "react-modal";
-import "simplebar";
-import "simplebar/dist/simplebar.css";
 
 ModalLib.setAppElement("#root");
 

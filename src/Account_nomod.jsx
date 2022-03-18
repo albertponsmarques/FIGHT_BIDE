@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "./supabaseClient";
 import Avatar from "./AvatarNomod";
-import Boton from "./Boton";
-import BotonAction from "./BotonAction";
+import Boton from "./components/Boton";
+import BotonAction from "./components/BotonAction";
 import "./css/account.css";
 import "./css/awesomeButtons.css";
 import ModalLib from "react-modal";

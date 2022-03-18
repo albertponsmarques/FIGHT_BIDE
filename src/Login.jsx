@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { supabase } from "./supabaseClient";
 import "./css/Login.css";
-import Boton from "./Boton";
-import BotonAction from "./BotonAction";
+import Boton from "./components/Boton";
+import BotonAction from "./components/BotonAction";
 
 export default function Auth() {
   const [loading, setLoading] = useState(false);

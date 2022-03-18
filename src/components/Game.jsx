@@ -24,7 +24,7 @@ export default class Game extends Component{
         home: {
           team: {
             id: "12",
-            name: "Team 1"
+            name: "aaaaa1"
           },
           score: {
             score: 1

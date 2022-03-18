@@ -9,7 +9,7 @@ import Navigation from "./Navigation";
 import Register from "./Register";
 import AccountNoMod from "./AppNomod";
 import Tournaments from "./Tournaments";
-import Game from "./Game";
+import Game from "./components/Game";
 import Home from "./App";
 import Test from "./Test.jsx";
 import Tournament from "./Tournament";

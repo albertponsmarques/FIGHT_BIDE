@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { supabase } from "./supabaseClient";
-import BotonAction from "./BotonAction";
+import BotonAction from "./components/BotonAction";
 import "./css/register.css";
 
 export default function Auth() {

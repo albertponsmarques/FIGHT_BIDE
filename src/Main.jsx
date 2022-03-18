@@ -1,7 +1,7 @@
 import "./css/home.css";
 import React from "react";
 import { supabase } from "./supabaseClient";
-import Boton from "./Boton";
+import Boton from "./components/Boton";
 import ImageBracket from "./images/tournament.png";
 
 function Main() {
