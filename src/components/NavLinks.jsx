@@ -1,27 +1,31 @@
 import "../css/navbar.css"
 import { NavLink } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai";
+import { GiRayGun } from "react-icons/gi";
+import { RiTestTubeLine } from "react-icons/ri";
+import { CgProfile } from "react-icons/cg";
 
 const NavLinks = () => {
   return (
     <ul className="navbar-nav">
       <li className="nav-item">
         <NavLink className="nav-link" to="/home">
-          Home
+          <AiFillHome/>
         </NavLink>
       </li>
       <li className="nav-item">
         <NavLink className="nav-link" to="/tournaments">
-          Tournaments
+          <GiRayGun/>
         </NavLink>
       </li>
       <li className="nav-item">
         <NavLink className="nav-link" to="/test">
-          Test
+          <RiTestTubeLine/>
         </NavLink>
       </li>
       <li className="nav-item">
         <NavLink className="nav-link" to="/accountnomod">
-          Profile
+          <CgProfile/>
           <span className="sr-only">(current)</span>
         </NavLink>
       </li>

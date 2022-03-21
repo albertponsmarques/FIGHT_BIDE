@@ -7,8 +7,10 @@ function Navigation() {
   return (
     <div className="navigation">
       <nav className="navbar navbar-expand navbar-dark bg-black">
-        <NavigationBig/>
-        
+        <NavigationBig className="si"/>
+      </nav>
+      <nav className="navbarSmall bg-black">
+        <NavigationSmall/>
       </nav>
     </div>
   );

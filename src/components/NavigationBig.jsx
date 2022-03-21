@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import NavLinks from "./NavLinks";
 import logo_img from "../images/LOGO_fightbide.png";
 
-const NavigationBig = () => {
+const NavigationBig = (name) => {
   return (
     <div className="container">
       <NavLink className="container_logo" to="/">
