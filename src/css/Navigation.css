@@ -1,19 +1,29 @@
-@media (max-width: 1000px) {
-    .navbar{
-        display: none;
-    }
+@media (max-width: 900px) {
+  .navbar {
+    display: none;
+  }
 
-    .navbarSmall .containerHamburger .linksMobile{
-        width: 100%;
-        height: auto;
-        left: 0;
-        background-color: black;
-    }
-    
+  .navbarSmall .containerHamburger .linksMobile {
+    display: inline-block;
+    text-align: center;  
+    padding-bottom: 3%;
+  }
+
+  .navbarSmall .containerHamburger .linksMobile .navbar-nav {
+    text-align: center;  
+    display: inline-block;
+    position: relative;
+    left: 2%;
+  }
+
+  .navbarSmall .containerHamburger .linksMobile .navbar-nav > .nav-item {
+    display: inline-block;
+    text-align: center;  
+  }
 }
 
-@media (min-width: 1001px) {
-    .navbarSmall{
-        display: none;
-    }
+@media (min-width: 901px) {
+  .navbarSmall {
+    display: none;
+  }
 }
