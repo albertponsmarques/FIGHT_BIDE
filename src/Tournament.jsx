@@ -7,68 +7,51 @@ import {
   BracketGame,
 } from "react-tournament-bracket";
 import './css/tournament.css'
+import * as ReactBootStrap from 'react-bootstrap'
+import { HalfMalf } from 'react-spinner-animated';
+import Game from './model/Game';
+
 
 const Tournament = () => {
-  const [posts, setPosts] = useState([])
-  const [post, setPost] = useState({id: "", nom_torneig: "", esport: "", tipus_torneig: ""})
+  const [tournament, setTournament] = useState([])
+  const [match, setMatch] = useState([])
+  const [loading, setLoading] = useState(false)
   const {id} = useParams()
 
-  useEffect(() => {
-    setTimeout(fetchPosts, 100)
-    setTimeout(fetchMatches, 500)
-  }, [])
 
-  async function fetchPosts(){
-    const { data } = await supabase
+  const fetchTournaments = async () => {
+    try{
+      const { data } = await supabase
       .from('torneig')
       .select('*')
-
+  
       //Filters
       .eq('id', id)
-
-      setPosts(data)
-  }
-
-  const [matches, setMatches] = useState([])
-  const [match, setMatch] = useState({id: "", name: "", scheduled: "", equip_local: "", equip_visitant: "", punts_local: "", punts_visitant: "", torneig: ""})
   
-  
-
-  const gamesList = []
-
-  async function fetchMatches(){
-    const { data } = await supabase
-      .from('match')
-      .select('*')
-
-      //Filters
-      .eq('torneig', id)
-
-      setMatches(data)
-  }
-
-  class Game {
-    constructor(id, name, last_gameLocal, last_gameVisitant, scheduled, equip_local, equip_visitant, punts_local, punts_visitant, torneig) {
-      this.id = id;
-      this.name = name;
-      this.last_gameLocal = last_gameLocal;
-      this.last_gameVisitant = last_gameVisitant;
-      this.scheduled = scheduled;
-      this.equip_local = equip_local;
-      this.equip_visitant = equip_visitant;
-      this.punts_local = punts_local;
-      this.punts_visitant = punts_visitant;
-      this.torneig = torneig;
+      setTournament(data)
+    } catch (e){
+      console.log(e)
     }
   }
 
-  matches.map(match => (
-    gamesList.push(new Game(match.id, match.name, match.last_gameLocal, match.last_gameVisitant, match.scheduled, match.equip_local, match.equip_visitant,
-      match.punts_local, match.punts_visitant, match.torneig))
-  ))
-
-  console.log(gamesList)
-
+  const fetchMatches = async () => {
+    try{
+      const { data } = await supabase
+      .from('match')
+      .select('*')
+  
+      //Filters
+      .eq('torneig', id)
+  
+      setMatch(data)
+    } catch (e){
+      console.log(e)
+    }
+  }
+  useEffect(() => {
+    fetchTournaments()
+    fetchMatches()
+  },[loading])
 
   
 
@@ -98,6 +81,7 @@ const Tournament = () => {
     }
   };
 
+
   const game3 = {
     id: "3",
     name: "mi-finals",
@@ -123,13 +107,6 @@ const Tournament = () => {
       }
     }
   };
-
-  const aaa = gamesList.pop()
-  console.log(aaa)
-  
-  function games(){
-    
-  }
   
   const game1 = {
     id: "1",
@@ -142,7 +119,7 @@ const Tournament = () => {
           name: "Team 1"
         },
         score: {
-          score: 2
+          score: 3
         },
         seed: {
           displayName: "A1",
@@ -157,7 +134,7 @@ const Tournament = () => {
           name: "Team 2"
         },
         score: {
-          score: 3
+          score: 4
         },
         seed: {
           displayName: "A2",
@@ -169,27 +146,102 @@ const Tournament = () => {
     }
   };
 
-  return(
-    <div>
-      {
-        posts.map(post => (
-          <div className="container-tournament" key={post.id}>
-            <h1>
-              {post.nom_torneig}
-            </h1>
-            <>
-              <div className="col-lg-5">
-                <Bracket game={game1} />
-              </div>
-              <div className="col-lg-5 final">
-                <BracketGame game={game1} />
-              </div>
-            </>
-          </div>
-        ))
+
+
+  async function getLastMatch(){
+    const last = match.pop()
+
+    console.log("last " + last)
+    console.log("last game " + JSON.stringify(match.pop()))
+
+    const finalGame = {
+      id: "1",
+      name: "aaa.name",
+      scheduled: Number(new Date()),
+      sides: {
+        home: {
+          team: {
+            id: "10",
+            name: "Team 1"
+          },
+          score: {
+            score: 3
+          },
+          seed: {
+            displayName: "A1",
+            rank: 1,
+            sourceGame: game2,
+            sourcePool: {}
+          }
+        },
+        visitor: {
+          team: {
+            id: "11",
+            name: "Team 2"
+          },
+          score: {
+            score: 4
+          },
+          seed: {
+            displayName: "A2",
+            rank: 1,
+            sourceGame: game3,
+            sourcePool: {}
+          }
+        }
       }
+    };
+
+    console.log("FINal " + JSON.stringify(finalGame))
+
+    return finalGame
+  }
+
+
+
+  function refreshPage() {
+    setLoading(true)
+  }
+
+  function getList(list){
+    return (
+      list.map(tourn => (
+        <p key={tourn.id}>{tourn.nom_torneig}</p>      
+      ))
+    )
+  }
+  
+
+  return(
+    <div className="container-tournament" key={id}>
+      {loading ?
+        <div className='Hola'>
+          <h1>
+            {getList(tournament)}
+          </h1>
+          <>
+          <div className="col-lg-5">
+            <Bracket game={getLastMatch()} />
+          </div>
+          <div className="col-lg-5 final">
+            <BracketGame game={getLastMatch()} />
+          </div>
+          </>
+        </div>
+
+          :
+        
+        <div>
+          {
+            setTimeout(refreshPage(), 2000)
+          }
+          <HalfMalf />
+        </div>
+      }
+
     </div>
   )
 }
+
 
 export default Tournament

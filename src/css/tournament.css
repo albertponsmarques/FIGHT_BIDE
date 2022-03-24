@@ -6,9 +6,17 @@
 .container-tournament{
   margin-left: 10%;
   margin-top: 5%;
-  display: flex;
+  display: block;
 }
 
 .final{
   margin-top: 3.5%;
+}
+
+.nom-torneig{
+  display: flex;
+}
+
+.no-display{
+  display: none;
 }
