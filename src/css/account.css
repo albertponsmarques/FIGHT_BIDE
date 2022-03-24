@@ -12,48 +12,11 @@ input {
   text-align: center;
 }
 
-.elementEmail {
-  margin-left: 30vh;
-  margin-right: 30vh;
-  border-radius: 10px;
-  background: #9c00b0;
-  text-align: center;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  margin-top: 2vh;
-}
-
-.elementUsername {
-  margin-left: 30vh;
-  margin-right: 30vh;
-  border-radius: 10px;
-  margin-top: 2vh;
-  background: #9c00b0;
-  font-family: structure sans;
-  text-align: center;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-}
-
 .inputDiv {
   text-align: center;
   align-items: center;
   display: flex;
   justify-content: center;
-}
-
-.account_title {
-  text-align: center;
-  margin-bottom: 2%;
-  font-family: structure sans;
-  font-size: 30px;
-  color: #9c00b0;
-  text-shadow: 2px 0 0 rgb(139, 139, 139), -2px 0 0 rgb(139, 139, 139),
-    0 2px 0 rgb(139, 139, 139), 0 -2px 0 rgb(139, 139, 139),
-    1px 1px rgb(139, 139, 139), -1px -1px 0 rgb(139, 139, 139),
-    1px -1px 0 rgb(139, 139, 139), -1px 1px 0 rgb(139, 139, 139);
 }
 
 .AButton {
@@ -62,14 +25,9 @@ input {
   margin-top: 8vh;
 }
 
-h3 {
-  margin: 1vh;
-  margin-bottom: 4vh;
-}
-
 .update_div {
   text-align: center;
-  margin-bottom: 5%;
+  margin-bottom: 1%;
 }
 
 .label_text {
@@ -78,12 +36,127 @@ h3 {
   font-size: 20px;
 }
 
-.form-widget {
-  padding: 2em;
-  background-color: #fff;
-  background-color: rgba(44, 44, 44, 0.25);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  margin-left: -25vh;
-  margin-right: -25vh;
+@media (max-width: 900px) {
+  .form-widget {
+    margin-top: -3vh;
+    padding: 2em;
+    background-color: #fff;
+    background-color: rgba(44, 44, 44, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin-left: 1vh;
+    margin-right: 1vh;
+  }
+
+  .elementEmail {
+    margin-left: -5vh;
+    margin-right: -5vh;
+    border-radius: 10px;
+    background: #9c00b0;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 3vh;
+  }
+  
+  .elementUsername {
+    margin-left: -5vh;
+    margin-right: -5vh;
+    border-radius: 10px;
+    background: #9c00b0;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+  }
+
+  h3 {
+    margin: 1vh;
+    margin-bottom: 2vh;
+    font-size: 24px;
+  }
+
+  .update_div h3 {
+    font-size: 27px;
+    margin-bottom: 3vh;
+  }
+
+  .account_title {
+    text-align: center;
+    margin-bottom: 2%;
+    font-family: structure sans;
+    font-size: 50px;
+    margin-bottom: 2vh;
+    color: #9c00b0;
+    text-shadow: 2px 0 0 rgb(139, 139, 139), -2px 0 0 rgb(139, 139, 139),
+      0 2px 0 rgb(139, 139, 139), 0 -2px 0 rgb(139, 139, 139),
+      1px 1px rgb(139, 139, 139), -1px -1px 0 rgb(139, 139, 139),
+      1px -1px 0 rgb(139, 139, 139), -1px 1px 0 rgb(139, 139, 139);
+  }
+
+  .botonBigSignOut{
+    display: none;
+  }
+}
+
+@media (min-width: 901px) {
+  .form-widget {
+    padding: 2em;
+    background-color: #fff;
+    background-color: rgba(44, 44, 44, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin-left: -25vh;
+    margin-right: -25vh;
+  }
+
+  .elementEmail {
+    margin-left: 30vh;
+    margin-right: 30vh;
+    border-radius: 10px;
+    background: #9c00b0;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 2vh;
+  }
+  
+  .elementUsername {
+    margin-left: 30vh;
+    margin-right: 30vh;
+    border-radius: 10px;
+    margin-top: 2vh;
+    background: #9c00b0;
+    font-family: structure sans;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  h3 {
+    margin: 1vh;
+    margin-bottom: 4vh;
+    font-size: auto;
+  }
+
+  .account_title {
+    text-align: center;
+    margin-bottom: 2%;
+    font-family: structure sans;
+    font-size: 30px;
+    color: #9c00b0;
+    text-shadow: 2px 0 0 rgb(139, 139, 139), -2px 0 0 rgb(139, 139, 139),
+      0 2px 0 rgb(139, 139, 139), 0 -2px 0 rgb(139, 139, 139),
+      1px 1px rgb(139, 139, 139), -1px -1px 0 rgb(139, 139, 139),
+      1px -1px 0 rgb(139, 139, 139), -1px 1px 0 rgb(139, 139, 139);
+  }
+
+  .botonSmallSignOut{
+    display: none;
+  }
 }

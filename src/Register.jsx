@@ -23,7 +23,7 @@ export default function Auth() {
 
   return (
     <div className="row flex flex-center">
-      <div className="col-6 form-widget">
+      <div className="mt-5 col-6 form-widget">
         <h1 className="header">Register</h1>
         <p className="description">
           Register with your email and password below, we will send you a

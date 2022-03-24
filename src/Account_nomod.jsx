@@ -36,6 +36,31 @@ const customStyles = {
   },
 };
 
+const customStylesSmall = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(92, 0, 89, 0.75)",
+  },
+  content: {
+    position: "absolute",
+    top: "25%",
+    left: "25%",
+    right: "25%",
+    bottom: "25%",
+    border: "1px solid #ccc",
+    background: "#000000",
+    overflow: "auto",
+    WebkitOverflowScrolling: "touch",
+    borderRadius: "4px",
+    outline: "none",
+    padding: "60px",
+  },
+};
+
 export default function AccountNomod({ session }) {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
@@ -107,11 +132,19 @@ export default function AccountNomod({ session }) {
         <div className="AButton">
           <h3>Do you want to sign out?</h3>
         </div>
-        <div>
+        <div className="botonBigSignOut">
           <BotonAction
             type="secondary"
             size="medium"
             action={toggleModal}
+            textButton="Sign Out"
+          />
+        </div>
+        <div className="botonSmallSignOut">
+          <BotonAction
+            type="secondary"
+            size="medium"
+            action={() => supabase.auth.signOut()}
             textButton="Sign Out"
           />
         </div>

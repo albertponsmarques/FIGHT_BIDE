@@ -1,8 +1,15 @@
-.description{
-    text-align: center;
-    font-size: large;
+.description {
+  text-align: center;
+  font-size: large;
 }
 
-.register_button{
-    text-align: center;
+.register_button {
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+    
+}
+
+@media (min-width: 901px) {
 }

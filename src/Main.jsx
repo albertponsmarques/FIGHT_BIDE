@@ -31,7 +31,7 @@ function Main() {
           </div>
           <img className="imageBracket" src={ImageBracket} />
           <div className="home_text">
-            <p className="home_text_p">
+            <p className="home_text_p_button">
               Do yoy want to create a tournament? <br />
               Make it by yourself here!
             </p>
