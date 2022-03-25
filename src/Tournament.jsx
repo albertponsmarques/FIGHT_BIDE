@@ -148,12 +148,11 @@ const Tournament = () => {
 
 
 
-  async function getLastMatch(){
+  function getLastMatch(){
     const last = match.pop()
 
-    console.log("last " + last)
-    console.log("last game " + JSON.stringify(match.pop()))
-
+    console.log(JSON.stringify(last))
+    
     const finalGame = {
       id: "1",
       name: "aaa.name",
@@ -192,10 +191,10 @@ const Tournament = () => {
       }
     };
 
-    console.log("FINal " + JSON.stringify(finalGame))
 
     return finalGame
   }
+
 
 
 

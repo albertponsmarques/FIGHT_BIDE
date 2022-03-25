@@ -193,3 +193,41 @@ const Tournament = () => {
   
 
 export default Tournament
+
+const finalGame = {
+  id: last.id,
+  name: last.name,
+  scheduled: last.scheduled,
+  sides: {
+    home: {
+      team: {
+        id: last.equip_local,
+        name: "Team 1"
+      },
+      score: {
+        score: last.punts_local
+      },
+      seed: {
+        displayName: "A1",
+        rank: 1,
+        sourceGame: game2,
+        sourcePool: {}
+      }
+    },
+    visitor: {
+      team: {
+        id: "11",
+        name: "Team 2"
+      },
+      score: {
+        score: 4
+      },
+      seed: {
+        displayName: "A2",
+        rank: 1,
+        sourceGame: game3,
+        sourcePool: {}
+      }
+    }
+  }
+};
