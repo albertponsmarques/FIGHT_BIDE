@@ -128,7 +128,7 @@ export default function Account({ session }) {
       <div className="avatar">
         <Avatar
           url={avatar_url}
-          size={150}
+          size={200}
           onUpload={(url) => {
             setAvatarUrl(url);
             updateProfile({
@@ -145,12 +145,19 @@ export default function Account({ session }) {
       <h6 className="label_text">email</h6>
       <div className="inputDiv">
         <label htmlFor="email" />
-        <input id="email" type="text" value={session.user.email} disabled />
+        <input
+          className="inputAccount"
+          id="email"
+          type="text"
+          value={session.user.email}
+          disabled
+        />
       </div>
       <h6 className="label_text">username</h6>
       <div className="inputDiv">
         <label htmlFor="username" />
         <input
+          className="inputAccount"
           id="username"
           type="text"
           value={username || ""}
@@ -161,6 +168,7 @@ export default function Account({ session }) {
       <div className="inputDiv">
         <label htmlFor="phone" />
         <input
+          className="inputAccount"
           id="phone"
           type="tel"
           value={phone || ""}
@@ -171,6 +179,7 @@ export default function Account({ session }) {
       <div className="inputDiv">
         <label htmlFor="birth_date" />
         <input
+          className="inputAccount"
           id="birthday"
           type="date"
           value={birth_date || ""}
@@ -181,6 +190,7 @@ export default function Account({ session }) {
       <div className="inputDiv">
         <label htmlFor="country" />
         <input
+          className="inputAccount"
           id="country"
           type="text"
           value={country || ""}
@@ -191,6 +201,7 @@ export default function Account({ session }) {
       <div className="inputDiv">
         <label htmlFor="city" />
         <input
+          className="inputAccount"
           id="city"
           type="text"
           value={city || ""}
@@ -215,7 +226,15 @@ export default function Account({ session }) {
         />
       </div>
 
-      <div className="AButton" style={{ position: "relative", zIndex: "0" }}>
+      <div className="botonSmallSignOut">
+        <BotonAction
+          type="secondary"
+          size="medium"
+          action={() => supabase.auth.signOut()}
+          textButton="Sign Out"
+        />
+      </div>
+      <div className="botonBigSignOut">
         <BotonAction
           type="secondary"
           size="medium"

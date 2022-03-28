@@ -1,15 +1,99 @@
-.description {
-  text-align: center;
-  font-size: large;
+@font-face {
+  font-family: "structure sans";
+  src: url("../fonts/Structure\ Sans.ttf");
 }
 
 .register_button {
   text-align: center;
 }
 
-@media (max-width: 900px) {
-    
+@media (max-width: 640px) {
+  .registerWidget {
+    margin-top: 3vh;
+    padding: 2em;
+    background-color: #fff;
+    background-color: rgba(44, 44, 44, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin-left: 5vh;
+    margin-right: 1.5vh;
+  }
+
+  .descriptionText{
+    font-size: 20px;
+    text-align: center;
+    text-justify: kashida;
+  }
+
+  .headerTitle{
+    font-size: 50px;
+    font-family: structure sans;
+    text-align: center;
+    margin-bottom: 3vh;
+  }
+
+  .inputField{
+    height: 4vh;
+    width: 30vh;
+    font-size: 15px;
+  }
 }
 
-@media (min-width: 901px) {
+@media (min-width: 641px) {
+  .headerTitle{
+    font-size: 70px;
+    font-family: structure sans;
+    text-align: center;
+    margin-bottom: 3vh;
+  }
+
+  .descriptionText{
+    font-size: 30px;
+    text-align: center;
+    text-justify: kashida;
+    margin-bottom: 4vh;
+  }
+
+  .registerWidget {
+    margin-top: 3vh;
+    padding: 2em;
+    background-color: #fff;
+    background-color: rgba(44, 44, 44, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin-left: 5vh;
+    margin-right: 1.5vh;
+  }
+
+  .inputField{
+    height: 5vh;
+    width: 40vh;
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 1008px) {
+  .registerWidget {
+    margin-top: 7vh;
+    padding: 2em;
+    background-color: #fff;
+    background-color: rgba(44, 44, 44, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin-left: 1vh;
+    margin-right: 1vh;
+  }
+
+  .descriptionText{
+    font-size: 20px;
+    text-align: center;
+    text-justify: kashida;
+    margin-bottom: 4vh;
+  }
+
+  .inputField{
+    height: 5vh;
+    width: 60vh;
+    font-size: 18px;
+  }
 }

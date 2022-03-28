@@ -1,4 +1,4 @@
-@media (max-width: 900px) {
+@media (max-width: 774px) {
   .navbar {
     display: none;
   }
@@ -22,8 +22,10 @@
   }
 }
 
-@media (min-width: 901px) {
+@media (min-width: 775px) {
   .navbarSmall {
     display: none;
   }
+
+
 }

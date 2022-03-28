@@ -23,9 +23,9 @@ export default function Auth() {
 
   return (
     <div className="row flex flex-center">
-      <div className="mt-5 col-6 form-widget">
-        <h1 className="header">Register</h1>
-        <p className="description">
+      <div className="registerWidget">
+        <h1 className="headerTitle">Register</h1>
+        <p className="descriptionText">
           Register with your email and password below, we will send you a
           confirmation email.
         </p>
