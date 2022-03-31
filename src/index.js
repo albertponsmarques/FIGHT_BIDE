@@ -12,6 +12,7 @@ import Tournaments from "./Tournaments";
 import Home from "./App";
 import Test from "./Test.jsx";
 import Tournament from "./Tournament";
+import CreateTournament from "./CreateTournaments";
 
 ReactDOM.render(
   <Router>
@@ -26,6 +27,7 @@ ReactDOM.render(
       <Route path="/FIGHT_BIDE" element={<Main />} />
       <Route path="/test" element={<Test />} />
       <Route path='/tournament/:id' element={<Tournament/>} />
+      <Route path='/create' element={<CreateTournament/>} />
     </Routes>
     <Footer />
   </Router>,

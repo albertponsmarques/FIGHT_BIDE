@@ -1,5 +1,7 @@
 import React from 'react'
+import Boton from './components/Boton';
 import TournamentList from './TournamentList'
+import './css/tournament.css'
 
 
 export default function Tournaments() {
@@ -7,10 +9,13 @@ export default function Tournaments() {
   return (
     <div className='home'>
       <div className="container">
-        <div className="row align-items-center my-5">
-          <div className="col-lg-12">
+        <div className="row my-5">
+          <div className="col-lg-5">
             <h1>Tournaments</h1>
             <TournamentList/>
+          </div>
+          <div className="col-lg-6 button-create">
+            <Boton linkTo={"/create"} textButton={"Create Tournament"} />
           </div>
         </div>
       </div>

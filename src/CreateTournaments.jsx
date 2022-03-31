@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { supabase } from "./supabaseClient";
 import BotonAction from "./components/BotonAction";
-import "./css/register.css";
+import { supabase } from "./supabaseClient";
 
-export default function Auth() {
+
+function CreateTournament() {
+
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,13 +22,18 @@ export default function Auth() {
     }
   };
 
+  const { data, error } = await supabase
+  .from('torneig')
+  .insert([
+    { some_column: 'someValue', other_column: 'otherValue' },
+  ])
+  
   return (
     <div className="row flex flex-center">
       <div className="mt-5 col-6 form-widget">
-        <h1 className="header">Register</h1>
+        <h1 className="header">Create Tournament</h1>
         <p className="description">
-          Register with your email and password below, we will send you a
-          confirmation email.
+          Fill In the fields to create tournament
         </p>
         <div className="form_inputs">
           <input
@@ -71,3 +77,5 @@ export default function Auth() {
     </div>
   );
 }
+
+export default CreateTournament
