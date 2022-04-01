@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
+import AsyncSelect from "react-select/async";
 import BotonAction from "./components/BotonAction";
 import { supabase } from "./supabaseClient";
 
 
 function CreateTournament() {
-
   const [loading, setLoading] = useState(false);
   const [nom_torneig, setNomTorneig] = useState("");
-  const [esport, setEsport] = useState([]);
-  const [tipus_torneig, setTipusTorneig] = useState([]);
+  const [num_persones, setNumPersones] = useState("");
+  const [inputValueEsport, setValueEsport] = useState('');
+  const [esportValue, setEsportValue] = useState(null);
+  const [inputValueTipus, setValueTipus] = useState('');
+  const [tipusValue, setTipusValue] = useState(null);
 
-  useEffect(() => {
-    fetchEsport()
-    fetchTipusTorneig()
-  }, [loading])
+  
 
   async function fetchEsport(){
     const { data } = await supabase
       .from('esport')
       .select('*')
 
-      setEsport(data)
-      console.log(data)
-      console.log(esport)
+      return data
   }
 
   async function fetchTipusTorneig(){
@@ -30,19 +28,17 @@ function CreateTournament() {
       .from('tipus_Torneig')
       .select('*')
 
-      setEsport(data)
-      console.log(data)
-      console.log(tipus_torneig)
-
+      return data
   }
-  
-  
 
-  const handleInsert = async (nom_torneig, esport, tipus_torneig) => {
+
+  const handleInsert = async (nom_torneig, esport, tipus_torneig, num_persones) => {
+    console.log(tipusValue.id)
+    console.log(esportValue.id)
     try {
       setLoading(true);
       const user = supabase.auth.user();
-      const { error } =  await supabase.from("torneig").insert({ nom_torneig: nom_torneig, esport: esport, tipus_torneig: tipus_torneig, profile: user.id });
+      const { error } =  await supabase.from("torneig").insert({ nom_torneig: nom_torneig, esport: esport.id, tipus_torneig: tipus_torneig.id, profile: user.id, num_persones: num_persones });
       if (error) throw error;
       alert("Have to program the redirection!");
     } catch (error) {
@@ -52,8 +48,25 @@ function CreateTournament() {
     }
   };
 
+  const handleInputChangeEsport = value => {
+    setValueEsport(value)
+  }
+
+  const handleChangeEsport = value => {
+    setEsportValue(value)
+  }
+
+  const handleInputChangeTipus = value => {
+    setValueTipus(value)
+  }
+
+  const handleChangeTipus = value => {
+    setTipusValue(value)
+  }
+
   
   return (
+    
     <div className="row flex flex-center">
       <div className="mt-5 col-6 form-widget">
         <h1 className="header">Create Tournament</h1>
@@ -69,30 +82,7 @@ function CreateTournament() {
             onChange={(e) => setNomTorneig(e.target.value)}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                handleInsert(nom_torneig, esport, tipus_torneig);
-              }
-            }}
-          />
-        </div>
-        <div>
-          <select>
-            {
-              tipus_torneig.map(tipus => (
-                <option key={tipus.id}>{tipus.tipus_torneig}</option>
-              ))
-            }
-          </select>
-        </div>
-        <div className="form_inputs">
-          <input
-            className="inputField"
-            type="text"
-            placeholder="Esport"
-            value={esport}
-            onChange={(e) => setEsport(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                handleInsert(nom_torneig, esport, tipus_torneig);
+                handleInsert(nom_torneig, esportValue, tipusValue, num_persones);
               }
             }}
           />
@@ -100,23 +90,47 @@ function CreateTournament() {
         <div className="form_inputs">
           <input
             className="inputField"
-            type="text"
-            placeholder="Tipus Torneig"
-            value={tipus_torneig}
-            onChange={(e) => setTipusTorneig(e.target.value)}
+            type="number"
+            placeholder="Participants"
+            value={nom_torneig}
+            onChange={(e) => setNumPersones(e.target.value)}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                handleInsert(nom_torneig, esport, tipus_torneig);
+                handleInsert(nom_torneig, esportValue, tipusValue, num_persones);
               }
             }}
           />
+        </div>
+        <div className="form_inputs">
+          <AsyncSelect
+            cacheOptions
+            defaultOptions
+            value = {esportValue}
+            getOptionLabel={e => e.nom_esport}
+            getOptionValue={e => e.id}
+            loadOptions={fetchEsport}
+            onInputChange={handleInputChangeEsport}
+            onChange={handleChangeEsport}
+          />
+        </div>
+        <div className="form_inputs">
+          <AsyncSelect
+              cacheOptions
+              defaultOptions
+              value = {tipusValue}
+              getOptionLabel={e => e.tipus_torneig}
+              getOptionValue={e => e.id}
+              loadOptions={fetchTipusTorneig}
+              onInputChange={handleInputChangeTipus}
+              onChange={handleChangeTipus}
+            />
         </div>
         <div className="register_button">
           <BotonAction
             type="secondary"
             size="medium"
             action={(e) => {
-              handleInsert(nom_torneig, esport, tipus_torneig);
+              handleInsert(nom_torneig, esportValue, tipusValue, num_persones);
             }}
             textButton={loading ? <span>Loading</span> : <span>Create!</span>}
           />
