@@ -121,7 +121,7 @@ function CreateTournament() {
         doCuartos(lastID, id)        
       } else{
 
-      }
+      }dfg
     }
   }
 
