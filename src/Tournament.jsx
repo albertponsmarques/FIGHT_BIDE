@@ -12,9 +12,13 @@ import getMatch from './getMatchByID';
 
 const Tournament = () => {
   const [tournament, setTournament] = useState([])
-  const [matches, setMatch] = useState([])
+  const [matches, setMatches] = useState([])
+  const [equipLocal, setEquipLocal] = useState({})
+  const [equipVisitant, setEquipVisitant] = useState([])
   const [loading, setLoading] = useState(false)
   const {id} = useParams()
+
+  let finalGame = null
 
 
   const fetchTournaments = async () => {
@@ -32,6 +36,41 @@ const Tournament = () => {
     }
   }
 
+  const fetchEquipNameLocal = async () => {
+    try{
+      const { data } = await supabase
+      .from('equip')
+      .select('*')
+  
+      //Filters
+      .eq('id', final.equip_local)
+      .limit(1)
+
+  
+  
+      setEquipLocal(data)
+      console.log(equipLocal)
+    } catch (e){
+      console.log(e)
+    }
+  }
+
+  const fetchEquipNameVisitant = async () => {
+    try{
+      const { data } = await supabase
+      .from('equip')
+      .select('*')
+  
+      //Filters
+      .eq('id', final.equip_visitant)
+      .limit(1)
+  
+      setEquipVisitant(data)
+    } catch (e){
+      console.log(e)
+    }
+  }
+
   const fetchMatches = async () => {
     try{
       const { data } = await supabase
@@ -41,7 +80,7 @@ const Tournament = () => {
       //Filters
       .eq('torneig', id)
   
-      setMatch(data)
+      setMatches(data)
     } catch (e){
       console.log(e)
     }
@@ -50,6 +89,8 @@ const Tournament = () => {
     fetchTournaments()
     fetchMatches()
     fetchFinal()
+    fetchEquipNameLocal()
+    fetchEquipNameVisitant()
   },[loading])
 
 
@@ -64,6 +105,7 @@ const Tournament = () => {
       //Filters
       .eq('torneig', id)
       .eq('name', "final")
+      .limit(1)
   
       setFinal(data)
     } catch (e){
@@ -165,11 +207,6 @@ const Tournament = () => {
 
 
   function getLastMatch(){
-    let finalGame = null
-
-    final.map(game => (
-      finalGame = game
-    ))
 
     if (finalGame == null){
       const game = {
@@ -220,6 +257,7 @@ const Tournament = () => {
         tournamentGames.push(match)
       ))
 
+
       const game = {
         id: finalGame.id,
         name: finalGame.name,
@@ -228,7 +266,7 @@ const Tournament = () => {
           home: {
             team: {
               id: finalGame.equip_local,
-              name: "Team 1"
+              name: equipLocal.nom
             },
             score: {
               score: finalGame.punts_local
@@ -243,7 +281,7 @@ const Tournament = () => {
           visitor: {
             team: {
               id: finalGame.equip_visitant,
-              name: "Team 2"
+              name: equipVisitant.nom
             },
             score: {
               score: finalGame.punts_visitant
@@ -257,8 +295,6 @@ const Tournament = () => {
           }
         }
       };
-
-      console.log(tournamentGames)
 
       while(bandera){
         bandera = false
