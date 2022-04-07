@@ -1,7 +1,7 @@
 {
   "name": "supareact",
   "version": "0.1.0",
-  "homepage": "https://albertponsmarques.github.io/FIGHT_BIDE/src/index.js",
+  "homepage": "https://fight-bide.vercel.app/",
   "private": true,
   "dependencies": {
     "@girishsawant999/react-loading-button": "^1.0.4",
