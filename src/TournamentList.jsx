@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react/cjs/react.development'
+import React, { useEffect, useState } from 'react'
 import {supabase} from './supabaseClient'
 import './css/tournament.css'
-import React from 'react'
 
 function TournamentList(){
-  const [posts, setPosts] = React.useState([])
+  const [posts, setPosts] = useState([])
 
   useEffect(() => {
     fetchPosts()
