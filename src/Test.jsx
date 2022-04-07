@@ -27,7 +27,7 @@ function Blog() {
 
   function getMatch(num, id){
     if(ultimaID != null){
-      let lastID = ultimaID[0].id
+      let lastID = ultimaID[0]
       console.log(lastID)
       lastID++
       console.log(lastID)

@@ -14,8 +14,7 @@ function CreateTournament() {
   const [inputValueTipus, setValueTipus] = useState('');
   const [tipusValue, setTipusValue] = useState(null);
   const [ultimaID, setLastID] = useState(null);
-  const [lastTournament, setLastTournament] = useState(null);
-
+  const [lastTournament, setLastTournament] = useState([]);
 
   async function fetchLastId(){
     const { data } = await supabase
@@ -25,16 +24,6 @@ function CreateTournament() {
       .limit(1)
 
       setLastID(data)
-
-      let id = 0
-
-      data.map(last =>(
-        setTimeout(
-          id = last.id
-          , 1000)
-      ))
-
-      return id
   }
 
   async function fetchEsport(){
@@ -61,25 +50,24 @@ function CreateTournament() {
       .limit(1)
 
       setLastTournament(data)
+      console.log(data)
+      return data
 
-      console.log(lastTournament)
-  }
+    }
 
   const user = supabase.auth.user();
 
   useEffect(() => {
     // call the async fetchData function
+    fetchLastId()
     fetchLastTournament()
   }, [])
 
-  function handleRedirection() {
-    lastTournament.map(last =>(
-      setTimeout(
-        insertMatches(last.id),
-        window.location.replace('/tournament/' + last.id)
-        , 1000)
-    ))
+
+  function handleRedirection(id) {
+    insertMatches(id)
   }
+
 
   async function insertMatches(id){
     try {
@@ -92,21 +80,19 @@ function CreateTournament() {
     }
   }
 
-  useEffect(() => {
-    fetchLastId()
-  }, [])
+  let lastIDOctavos = []
+  let lastIDCuartos = []
+  let lastIDSemifinales = []
+
+  const nameArray8 = ["final","semifinal","semifinal","cuartos","cuartos","cuartos","cuartos"]
+
 
   function getMatch(num, id){
+    console.log(ultimaID)
     if(ultimaID != null){
       let lastID = ultimaID[0].id
-      console.log(lastID)
       lastID++
-      console.log(lastID)
-      let lastIDOctavos = []
-      let lastIDCuartos = []
-      let lastIDSemifinales = []
-    
-  
+      
       if(num <= 64 && num > 32){
         
       } else if(num <= 32 && num > 16){
@@ -132,37 +118,52 @@ function CreateTournament() {
           lastID++
         }
       } else if(num <= 8 && num > 4){
-        for(var f = 0; f < 1; f++){
-          for(var s = 0; s < 2; s++){
-            for(var c = 0; c < 2; c++){
-              newInsert(lastID, "cuartos", id, null, null)
-              lastIDCuartos.push(lastID)
-              lastID++
-            }
-            newInsert(lastID, "semifinal", id, lastIDCuartos.pop(), lastIDCuartos.pop())
-            lastIDSemifinales.push(lastID)
-            lastID++
-          }
-          newInsert(lastID, "final", id, lastIDSemifinales.pop(), lastIDSemifinales.pop())
-          lastID++
-        }
+        doCuartos(lastID, id)        
       } else{
 
       }
     }
   }
 
-  async function newInsert(idGame, name, idTorneo, lastGameLocal, lastGameVisitant){
+  function doCuartos(lastID, tournamentID){
+    let id = lastID
+    for(var c = 0; c < 4; c++){
+      newInsert(id, nameArray8.pop(), tournamentID, null, null)
+      lastIDCuartos.push(id)
+      id++
+    }
+    setTimeout(() => { doSemifinals(id, tournamentID) }, 2000);
+  }
+
+  function doSemifinals(lastID, tournamentID){
+    let id = lastID
+    let cuartosID = lastIDCuartos.pop()
+    newInsert(id, nameArray8.pop(), tournamentID, cuartosID - 3, cuartosID - 2)
+    lastIDSemifinales.push(id)
+    id++
+    newInsert(id, nameArray8.pop(), tournamentID, cuartosID - 1, cuartosID)
+    lastIDSemifinales.push(id)
+    id++
+    setTimeout(() => { doFinal(id, tournamentID) }, 2000);
+  }
+
+  function doFinal(lastID, tournamentID){
+    let id = lastID
+    newInsert(id, nameArray8.pop(), tournamentID, lastIDSemifinales.pop(), lastIDSemifinales.pop())
+  }
+
+  async function newInsert(lastID, name, id, lastIDVisi, lastIDLocal){
+    console.log("lastID: " + lastID + " - name: " + name + " - id: " + id + " - lastIDLocal: " + lastIDLocal + " - lastIDVisi: " + lastIDVisi)
     try {
       const { error } =  await supabase.from("match").insert({ 
-        id: idGame,
+        id: lastID,
         name: name,
-        last_gameLocal: lastGameLocal,
-        last_gameVisitant: lastGameVisitant,
+        last_gameLocal: lastIDLocal,
+        last_gameVisitant: lastIDVisi,
         scheduled: null,
         punts_local: 0,
         punts_visitant: 0,
-        torneig: idTorneo,
+        torneig: id,
         equip_local: null,
         equip_visitant: null
       });
@@ -170,15 +171,17 @@ function CreateTournament() {
     } catch (error) {
       alert(error.error_description || error.message);
     }
-    
   }
 
   const handleInsert = async (nom_torneig, esport, tipus_torneig, num_persones) => {
     try {
       setLoading(true);
-      const { error } =  await supabase.from("torneig").insert({ nom_torneig: nom_torneig, esport: esport.id, tipus_torneig: tipus_torneig.id, profile: user.id, num_persones: num_persones });
+      const { data, error } =  await supabase.from("torneig").insert({ nom_torneig: nom_torneig, esport: esport.id, tipus_torneig: tipus_torneig.id, profile: user.id, num_persones: num_persones });
       if (error) throw error;
-      handleRedirection()
+      console.log(data)
+      data.map(dat => (
+        handleRedirection(dat.id)
+      ))
 
     } catch (error) {
       alert(error.error_description || error.message);
