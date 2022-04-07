@@ -4,7 +4,7 @@ import {supabase} from './supabaseClient'
 import './css/tournament.css'
 
 function TournamentList(){
-  const [posts, setPosts] = useState(null)
+  const [posts, setPosts] = useState([])
 
   useEffect(() => {
     fetchPosts()
