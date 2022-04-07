@@ -132,7 +132,7 @@ function CreateTournament() {
       lastIDCuartos.push(id)
       id++
     }
-    setTimeout(() => { doSemifinals(id, tournamentID) }, 2000);
+    setTimeout(() => { doSemifinals(id, tournamentID) }, 500);
   }
 
   function doSemifinals(lastID, tournamentID){
@@ -144,7 +144,7 @@ function CreateTournament() {
     newInsert(id, nameArray8.pop(), tournamentID, cuartosID - 1, cuartosID)
     lastIDSemifinales.push(id)
     id++
-    setTimeout(() => { doFinal(id, tournamentID) }, 2000);
+    setTimeout(() => { doFinal(id, tournamentID) }, 500);
   }
 
   function doFinal(lastID, tournamentID){
