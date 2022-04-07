@@ -1,6 +1,6 @@
 import React from 'react'
 import { matchRoutes, useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react/cjs/react.development'
+import { useEffect, useState } from 'react'
 import {supabase} from './supabaseClient'
 import {
   Bracket,
