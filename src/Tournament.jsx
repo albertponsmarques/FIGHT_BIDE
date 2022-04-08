@@ -8,13 +8,13 @@ import {
 } from "react-tournament-bracket";
 import './css/tournament.css'
 import getMatch from './getMatchByID';
+import getEquip from './getEquipByID';
 
 
 const Tournament = () => {
   const [tournament, setTournament] = useState([])
+  const [equips, setEquips] = useState([])
   const [matches, setMatches] = useState([])
-  const [equipLocal, setEquipLocal] = useState({})
-  const [equipVisitant, setEquipVisitant] = useState([])
   const [loading, setLoading] = useState(false)
   const {id} = useParams()
 
@@ -31,41 +31,6 @@ const Tournament = () => {
       .eq('id', id)
   
       setTournament(data)
-    } catch (e){
-      console.log(e)
-    }
-  }
-
-  const fetchEquipNameLocal = async () => {
-    try{
-      const { data } = await supabase
-      .from('equip')
-      .select('*')
-  
-      //Filters
-      .eq('id', final.equip_local)
-      .limit(1)
-
-  
-  
-      setEquipLocal(data)
-      console.log(equipLocal)
-    } catch (e){
-      console.log(e)
-    }
-  }
-
-  const fetchEquipNameVisitant = async () => {
-    try{
-      const { data } = await supabase
-      .from('equip')
-      .select('*')
-  
-      //Filters
-      .eq('id', final.equip_visitant)
-      .limit(1)
-  
-      setEquipVisitant(data)
     } catch (e){
       console.log(e)
     }
@@ -89,8 +54,7 @@ const Tournament = () => {
     fetchTournaments()
     fetchMatches()
     fetchFinal()
-    fetchEquipNameLocal()
-    fetchEquipNameVisitant()
+    fetchEquips()
   },[loading])
 
 
@@ -113,6 +77,17 @@ const Tournament = () => {
     }
   }
   
+  const fetchEquips = async () => {
+    try{
+      const { data } = await supabase
+      .from('equip')
+      .select('*')
+  
+      setEquips(data)
+    } catch (e){
+      console.log(e)
+    }
+  }
 
   const game2 = {
     id: "2",
@@ -207,6 +182,12 @@ const Tournament = () => {
 
 
   function getLastMatch(){
+    let finalGame = null
+
+    final.map(game => (
+      finalGame = game
+    ))
+
 
     if (finalGame == null){
       const game = {
@@ -252,11 +233,16 @@ const Tournament = () => {
       let bandera = true
 
       let tournamentGames = []
+      let teamList = []
 
       matches.map(match => (
         tournamentGames.push(match)
       ))
 
+      equips.map(team => (
+        teamList.push(team)
+      ))
+    
 
       const game = {
         id: finalGame.id,
@@ -266,7 +252,7 @@ const Tournament = () => {
           home: {
             team: {
               id: finalGame.equip_local,
-              name: equipLocal.nom
+              name: getEquip(finalGame.equip_local, teamList)
             },
             score: {
               score: finalGame.punts_local
@@ -274,14 +260,14 @@ const Tournament = () => {
             seed: {
               displayName: "A1",
               rank: 1,
-              sourceGame: getMatch(finalGame.last_gameLocal, tournamentGames),
+              sourceGame: getMatch(finalGame.last_gameLocal, tournamentGames, teamList),
               sourcePool: {}
             }
           },
           visitor: {
             team: {
               id: finalGame.equip_visitant,
-              name: equipVisitant.nom
+              name: getEquip(finalGame.equip_visitant, teamList)
             },
             score: {
               score: finalGame.punts_visitant
@@ -289,7 +275,7 @@ const Tournament = () => {
             seed: {
               displayName: "A2",
               rank: 1,
-              sourceGame: getMatch(finalGame.last_gameVisitant, tournamentGames),
+              sourceGame: getMatch(finalGame.last_gameVisitant, tournamentGames, teamList),
               sourcePool: {}
             }
           }

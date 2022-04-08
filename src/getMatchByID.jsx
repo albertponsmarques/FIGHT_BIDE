@@ -1,4 +1,7 @@
-export default function getMatch(idGame, gamesList){
+
+import getEquip from './getEquipByID';
+
+export default function getMatch(idGame, gamesList, teamsList){
 
   const game2 = {
     id: "2",
@@ -115,7 +118,7 @@ export default function getMatch(idGame, gamesList){
           home: {
             team: {
               id: thisGame.equip_local,
-              name: "Team 2"
+              name: getEquip(thisGame.equip_local, teamsList)
             },
             score: {
               score: thisGame.punts_local
@@ -124,7 +127,7 @@ export default function getMatch(idGame, gamesList){
           visitor: {
             team: {
               id: thisGame.equip_visitant,
-              name: "Team 3"
+              name: getEquip(thisGame.equip_visitant, teamsList)
             },
             score: {
               score: thisGame.punts_visitant
@@ -144,7 +147,7 @@ export default function getMatch(idGame, gamesList){
           home: {
             team: {
               id: thisGame.equip_local,
-              name: "Team 1"
+              name: getEquip(thisGame.equip_local, teamsList)
             },
             score: {
               score: thisGame.punts_local
@@ -152,14 +155,14 @@ export default function getMatch(idGame, gamesList){
             seed: {
               displayName: "A1",
               rank: 1,
-              sourceGame: getMatch(thisGame.last_gameLocal, gamesList),
+              sourceGame: getMatch(thisGame.last_gameLocal, gamesList, teamsList),
               sourcePool: {}
             }
           },
           visitor: {
             team: {
               id: thisGame.equip_visitant,
-              name: "Team 2"
+              name: getEquip(thisGame.equip_visitant, teamsList)
             },
             score: {
               score: thisGame.punts_visitant
@@ -167,7 +170,7 @@ export default function getMatch(idGame, gamesList){
             seed: {
               displayName: "A2",
               rank: 1,
-              sourceGame: getMatch(thisGame.last_gameVisitant, gamesList),
+              sourceGame: getMatch(thisGame.last_gameVisitant, gamesList, teamsList),
               sourcePool: {}
             }
           }
