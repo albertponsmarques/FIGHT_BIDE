@@ -4,6 +4,7 @@ import { AiFillHome } from "react-icons/ai";
 import { GiRayGun } from "react-icons/gi";
 import { RiTestTubeLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
+import React from 'react';
 
 const NavLinks = () => {
   return (

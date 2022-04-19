@@ -4,6 +4,7 @@ import NavLinks from "./NavLinks";
 import logo_img from "../images/LOGO_fightbide.png";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
+import React from 'react';
 
 const NavigationSmall = () => {
   const [open, setOpen] = useState(false);

@@ -2,6 +2,7 @@ import "../css/navbar.css";
 import { NavLink } from "react-router-dom";
 import NavLinks from "./NavLinks";
 import logo_img from "../images/LOGO_fightbide.png";
+import React from 'react';
 
 const NavigationBig = (name) => {
   return (
