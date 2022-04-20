@@ -19,13 +19,13 @@ function TournamentList(){
 
   return(
     <ul>
-      {
-        posts.map(post => (
-          <li key={post.id}>
-            <Link to={`/tournament/${post.id}`}>{post.nom_torneig}</Link><br />
-          </li>
-        ))
-      }
+    {
+      posts.map(post => (
+        <li key={post.id}>
+          <Link to={`/tournament/${post.id}`}>{post.nom_torneig}</Link><br />
+        </li>
+      ))
+    }
     </ul>
     
   )

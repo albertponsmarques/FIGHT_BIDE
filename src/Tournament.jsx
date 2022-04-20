@@ -1,14 +1,12 @@
 import React from 'react'
-import { matchRoutes, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import {supabase} from './supabaseClient'
-import {
-  Bracket,
-  BracketGame,
-} from "react-tournament-bracket";
+import {Bracket} from "react-tournament-bracket";
 import './css/tournament.css'
 import getMatch from './getMatchByID';
 import getEquip from './getEquipByID';
+import Boton from './components/Boton'
 
 
 const Tournament = () => {
@@ -302,17 +300,24 @@ const Tournament = () => {
 
   return(
     <div className="container-tournament" key={id}>
-      <div className='Hola'>
+      <div className='row'>
+        <div className='col-5'>
           <h1>
             {getList(tournament)}
           </h1>
-          <>
           <div className="col-lg-5">
             <Bracket game={getLastMatch()} />
           </div>
-          </>
         </div>
-
+        <div className='col-1'>
+          <Boton
+            type="secondary"
+            size="large"
+            linkTo="/tournaments"
+            textButton="add team"
+          />
+        </div>
+      </div>
     </div>
   )
 }

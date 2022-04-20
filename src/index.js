@@ -10,7 +10,7 @@ import Register from "./Register";
 import AccountNoMod from "./AppNomod";
 import Tournaments from "./Tournaments";
 import Home from "./App";
-import Test from "./Test.jsx";
+import Team from "./Team.jsx";
 import Tournament from "./Tournament";
 import CreateTournament from "./CreateTournaments";
 
@@ -25,7 +25,7 @@ ReactDOM.render(
       <Route path="/login" element={<Home />} />
       <Route path="/accountnomod" element={<AccountNoMod />} />
       <Route path="/FIGHT_BIDE" element={<Main />} />
-      <Route path="/test" element={<Test />} />
+      <Route path="/teams" element={<Team />} />
       <Route path='/tournament/:id' element={<Tournament/>} />
       <Route path='/create' element={<CreateTournament/>} />
     </Routes>
