@@ -1,6 +1,8 @@
 import './css/tournament.css'
 import React, { useEffect, useState } from 'react'
 import {supabase} from './supabaseClient'
+import getEquip from './getEquipByID';
+import ChooseTeam from './ChooseTeam';
 
 
 const Team = () => {
@@ -27,12 +29,6 @@ const Team = () => {
       setUser(data)
   }
 
-  const sss = supabase.auth.user();
-  console.log(sss);
-  console.log(user)
-  
-  
-
   return(
     <div className="container-tournament row">
       <h1 className='col-19'>Teams</h1>
@@ -40,10 +36,11 @@ const Team = () => {
         Current Team: 
         {
           user.map(u => (
-            u.team
+            getEquip(u.team, teams)
           ))
         }
-        </p>
+      </p>
+      <ChooseTeam />
       <ul className='col-12'>
       {
         teams.map(team => (
