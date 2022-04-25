@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { supabase } from "./supabaseClient";
 import BotonAction from "./components/BotonAction";
 import "./css/register.css";
+import GoogleButton from "react-google-button";
 
 export default function Auth() {
   const [loading, setLoading] = useState(false);
@@ -20,6 +21,12 @@ export default function Auth() {
       setLoading(false);
     }
   };
+
+  async function signInWithGoogle() {
+    const { user, session, error } = await supabase.auth.signIn({
+      provider: "google",
+    });
+  }
 
   return (
     <div className="row flex flex-center">
@@ -65,6 +72,14 @@ export default function Auth() {
               handleLogin(email, password);
             }}
             textButton={loading ? <span>Loading</span> : <span>Register!</span>}
+          />
+        </div>
+        <div className="w-50 mx-auto mt-4">
+          <p>You can register with google as well!</p>
+          <GoogleButton
+            onClick={() => {
+              signInWithGoogle();
+            }}
           />
         </div>
       </div>
