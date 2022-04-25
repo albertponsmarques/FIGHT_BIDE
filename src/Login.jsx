@@ -3,6 +3,7 @@ import { supabase } from "./supabaseClient";
 import "./css/Login.css";
 import Boton from "./components/Boton";
 import BotonAction from "./components/BotonAction";
+import GoogleButton from "react-google-button";
 
 export default function Auth() {
   const [loading, setLoading] = useState(false);
@@ -20,6 +21,12 @@ export default function Auth() {
       setLoading(false);
     }
   };
+
+  async function signInWithGoogle() {
+    const { user, session, error } = await supabase.auth.signIn({
+      provider: "google",
+    });
+  }
 
   return (
     <div className="containerLogin">
@@ -60,6 +67,13 @@ export default function Auth() {
             handleLogin(email, password);
           }}
           textButton={loading ? <span>loading...</span> : <span>Login!</span>}
+        />
+      </div>
+      <div className="w-50 mx-auto mt-4">
+        <GoogleButton
+          onClick={() => {
+            signInWithGoogle();
+          }}
         />
       </div>
       <div>
