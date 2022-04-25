@@ -9,8 +9,6 @@ export default function getEquip(idTeam, teamList){
 
   function getTeamInList(){
     teamList.forEach(team => {
-      console.log("team " + team)
-      console.log("idTeam " + idTeam)
       if (team.id == idTeam){
         thisTeam = team.nom
       }

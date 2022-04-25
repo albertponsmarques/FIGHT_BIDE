@@ -50,3 +50,11 @@
 .display-none {
   display: none;
 }
+
+.titol{
+  color: black;
+}
+
+.container-modal{
+  margin: 5% 5%;
+}

@@ -1,12 +1,10 @@
 import './css/tournament.css'
 import React, { useEffect, useState } from 'react'
 import {supabase} from './supabaseClient'
-import getEquip from './getEquipByID';
 import ChooseTeam from './ChooseTeam';
 
 
 const Team = () => {
-
   const [teams, setTeams] = useState([])
   const [user, setUser] = useState([])
 
@@ -14,6 +12,8 @@ const Team = () => {
     fetchTeams()
     fetchUser()
   }, [])
+
+  const us = supabase.auth.user()
 
   async function fetchTeams(){
     const { data } = await supabase
@@ -26,21 +26,16 @@ const Team = () => {
     const { data } = await supabase
       .from('profiles')
       .select('*')
+      .eq('email', us.email)
+
       setUser(data)
   }
 
   return(
     <div className="container-tournament row">
       <h1 className='col-19'>Teams</h1>
-      <p className='col-19'>
-        Current Team: 
-        {
-          user.map(u => (
-            getEquip(u.team, teams)
-          ))
-        }
-      </p>
-      <ChooseTeam />
+      {console.log(user)}
+      <ChooseTeam teams={teams} user={user}/>
       <ul className='col-12'>
       {
         teams.map(team => (
