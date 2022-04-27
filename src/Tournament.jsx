@@ -6,13 +6,14 @@ import {Bracket} from "react-tournament-bracket";
 import './css/tournament.css'
 import getMatch from './getMatchByID';
 import getEquip from './getEquipByID';
-import Boton from './components/Boton'
+import AddButton from './components/AddButton'
 
 
 const Tournament = () => {
   const [tournament, setTournament] = useState([])
   const [equips, setEquips] = useState([])
   const [matches, setMatches] = useState([])
+  const [matchAdd, setMatchAdd] = useState([])
   const [loading, setLoading] = useState(false)
   const {id} = useParams()
 
@@ -53,7 +54,24 @@ const Tournament = () => {
     fetchMatches()
     fetchFinal()
     fetchEquips()
+    fetchMatchesAdd()
   },[loading])
+
+  const fetchMatchesAdd = async () => {
+    try{
+      const { data } = await supabase
+      .from('match')
+      .select('*')
+  
+      //Filters
+      .or('equip_local.is.null ,equip_visitant.is.null')
+      .eq('torneig', id)
+  
+      setMatchAdd(data)
+    } catch (e){
+      console.log(e)
+    }
+  }
 
 
   const [final, setFinal] = useState([])
@@ -87,96 +105,6 @@ const Tournament = () => {
     }
   }
 
-  const game2 = {
-    id: "2",
-    name: "aaaa",
-    scheduled: Number(new Date()),
-    sides: {
-      home: {
-        team: {
-          id: "12",
-          name: "aaaaa1"
-        },
-        score: {
-          score: 1
-        }
-      },
-      visitor: {
-        team: {
-          id: "13",
-          name: "Team 4"
-        },
-        score: {
-          score: 0
-        }
-      }
-    }
-  };
-
-
-  const game3 = {
-    id: "3",
-    name: "mi-finals",
-    scheduled: Number(new Date()),
-    sides: {
-      home: {
-        team: {
-          id: "11",
-          name: "Team 2"
-        },
-        score: {
-          score: 1
-        }
-      },
-      visitor: {
-        team: {
-          id: "12",
-          name: "Team 3"
-        },
-        score: {
-          score: 0
-        }
-      }
-    }
-  };
-  
-  const game1 = {
-    id: "1",
-    name: "aaa.name",
-    scheduled: Number(new Date()),
-    sides: {
-      home: {
-        team: {
-          id: "10",
-          name: "Team 1"
-        },
-        score: {
-          score: 3
-        },
-        seed: {
-          displayName: "A1",
-          rank: 1,
-          sourceGame: game2,
-          sourcePool: {}
-        }
-      },
-      visitor: {
-        team: {
-          id: "11",
-          name: "Team 2"
-        },
-        score: {
-          score: 4
-        },
-        seed: {
-          displayName: "A2",
-          rank: 1,
-          sourceGame: game3,
-          sourcePool: {}
-        }
-      }
-    }
-  };
 
 
   function getLastMatch(){
@@ -188,6 +116,58 @@ const Tournament = () => {
 
 
     if (finalGame == null){
+      const game2 = {
+        id: "finalGame.id",
+        name: "finalGame.name",
+        scheduled: "last.scheduled",
+        sides: {
+          home: {
+            team: {
+              id: "12",
+              name: "Team 1"
+            },
+            score: {
+              score: 15
+            }
+          },
+          visitor: {
+            team: {
+              id: "11",
+              name: "Team 2"
+            },
+            score: {
+              score: 4
+            }
+          }
+        }
+      };
+
+      const game3 = {
+        id: "finalGame.id",
+        name: "finalGame.name",
+        scheduled: "last.scheduled",
+        sides: {
+          home: {
+            team: {
+              id: "12",
+              name: "Team 1"
+            },
+            score: {
+              score: 15
+            }
+          },
+          visitor: {
+            team: {
+              id: "11",
+              name: "Team 2"
+            },
+            score: {
+              score: 4
+            }
+          }
+        }
+      };
+
       const game = {
         id: "finalGame.id",
         name: "finalGame.name",
@@ -310,11 +290,12 @@ const Tournament = () => {
           </div>
         </div>
         <div className='col-1'>
-          <Boton
+          <AddButton
             type="secondary"
             size="large"
-            linkTo="/tournaments"
+            linkTo={"/tournament/" + id +1}
             textButton="add team"
+            list={matchAdd}
           />
         </div>
       </div>

@@ -23,6 +23,7 @@ class ChooseTeam extends Component {
 
   hideModal = () => {
     this.setState({ show: false });
+    window.location.reload(false);
   };
 
   render() {
@@ -78,7 +79,7 @@ const Modal = ({ handleClose, show, children }) => {
     const { data } = await supabase
       .from('equip')
       .select('*')
-      console.log(data)
+      
       return data
   }
 
@@ -87,7 +88,6 @@ const Modal = ({ handleClose, show, children }) => {
   const handleInputChangeTeam = value => {
     valueTeam = value
     updateUserTeam(valueTeam, us.email)
-    window.location.reload(false);
 
   }
 
@@ -106,7 +106,7 @@ const Modal = ({ handleClose, show, children }) => {
           </div>
 
           <button type="button" onClick={handleClose}>
-            Close
+            Save and Close
           </button>
         </div>
       </section>

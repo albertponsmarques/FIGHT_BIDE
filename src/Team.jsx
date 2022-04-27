@@ -34,7 +34,6 @@ const Team = () => {
   return(
     <div className="container-tournament row">
       <h1 className='col-19'>Teams</h1>
-      {console.log(user)}
       <ChooseTeam teams={teams} user={user}/>
       <ul className='col-12'>
       {
