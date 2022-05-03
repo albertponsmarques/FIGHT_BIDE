@@ -44,7 +44,6 @@ export default function Account({ session }) {
   const [city, setCity] = useState(null);
   const [phone, setPhone] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  var imageUrl = "https://ogkihnuicantvuogoywo.supabase.co/storage/v1/object/public/avatars/" + avatar_url;
 
   function toggleModal() {
     setIsOpen(!isOpen);
@@ -92,7 +91,6 @@ export default function Account({ session }) {
     country,
     city,
     phone,
-    imageUrl,
   }) {
     try {
       setLoading(true);
@@ -107,7 +105,6 @@ export default function Account({ session }) {
         country,
         city,
         phone,
-        imageUrl,
       };
 
       let { error } = await supabase.from("profiles").upsert(updates, {
@@ -141,7 +138,6 @@ export default function Account({ session }) {
               country,
               city,
               phone,
-              imageUrl,
             });
           }}
         />
@@ -213,7 +209,6 @@ export default function Account({ session }) {
               country,
               city,
               phone,
-              imageUrl,
             })
           }
           textButton={loading ? "Loading ..." : "Update"}

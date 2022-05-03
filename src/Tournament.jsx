@@ -14,10 +14,10 @@ const Tournament = () => {
   const [equips, setEquips] = useState([])
   const [matches, setMatches] = useState([])
   const [matchAdd, setMatchAdd] = useState([])
+  const [users, setUsers] = useState([])
+  const [numPersones, setNumPersones] = useState([])
   const [loading, setLoading] = useState(false)
   const {id} = useParams()
-
-  let finalGame = null
 
 
   const fetchTournaments = async () => {
@@ -28,8 +28,10 @@ const Tournament = () => {
   
       //Filters
       .eq('id', id)
+      .single()
   
       setTournament(data)
+      setNumPersones(data)
     } catch (e){
       console.log(e)
     }
@@ -49,9 +51,23 @@ const Tournament = () => {
       console.log(e)
     }
   }
+
+  const fetchUsers = async () => {
+    try{
+      const { data } = await supabase
+      .from('profiles')
+      .select('*')
+  
+      setUsers(data)
+    } catch (e){
+      console.log(e)
+    }
+  }
+
   useEffect(() => {
     fetchTournaments()
     fetchMatches()
+    fetchUsers()
     fetchFinal()
     fetchEquips()
     fetchMatchesAdd()
@@ -269,11 +285,9 @@ const Tournament = () => {
     }
   }
 
-  function getList(list){
+  function getList(tourn){
     return (
-      list.map(tourn => (
-        <p key={tourn.id}>{tourn.nom_torneig}</p>      
-      ))
+      <p key={tourn.id}>{tourn.nom_torneig}</p>
     )
   }
   
@@ -293,9 +307,11 @@ const Tournament = () => {
           <AddButton
             type="secondary"
             size="large"
-            linkTo={"/tournament/" + id +1}
+            linkTo={"/tournament/" + id}
             textButton="add team"
             list={matchAdd}
+            users={users}
+            numPlayers={numPersones.num_persones}
           />
         </div>
       </div>

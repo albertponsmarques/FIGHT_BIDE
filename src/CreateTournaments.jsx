@@ -16,6 +16,7 @@ function CreateTournament() {
   const [ultimaID, setLastID] = useState(null);
   const [lastTournament, setLastTournament] = useState([]);
 
+
   async function fetchLastId(){
     const { data } = await supabase
       .from('match')
@@ -84,7 +85,12 @@ function CreateTournament() {
   let lastIDCuartos = []
   let lastIDSemifinales = []
 
-  const nameArray8 = ["final","semifinal","semifinal","cuartos","cuartos","cuartos","cuartos"]
+  const nameArray1 = ["final"]
+  const nameArray2 = ["semifinal","semifinal"]
+  const nameArray8 = ["cuartos","cuartos","cuartos","cuartos"]
+  const nameArray16 = ["dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos"]
+  const nameArray32 = ["Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64"]
+
 
 
   function getMatch(num, id){
@@ -176,7 +182,7 @@ function CreateTournament() {
   const handleInsert = async (nom_torneig, esport, tipus_torneig, num_persones) => {
     try {
       setLoading(true);
-      const { data, error } =  await supabase.from("torneig").insert({ nom_torneig: nom_torneig, esport: esport.id, tipus_torneig: tipus_torneig.id, profile: user.id, num_persones: num_persones });
+      const { data, error } =  await supabase.from("torneig").insert({ nom_torneig: nom_torneig, esport: esport.id, tipus_torneig: tipus_torneig.id, profile: user.id, num_persones: num_persones, img:  esport.img_url});
       if (error) throw error;
       console.log(data)
       data.map(dat => (

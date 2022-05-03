@@ -1,36 +1,84 @@
-import { Link } from 'react-router-dom'
-import React, { useEffect, useState } from 'react'
 import {supabase} from './supabaseClient'
 import './css/tournament.css'
-import AsyncSelect from "react-select/async";
 
-function updateMatchTeam(matchList){
+function updateMatchTeam(matchList, users, num_persones){
   let bandera = false
+  let us = supabase.auth.user()
+  let side = false
+
+  let id = 0
+  let name
 
   init()
 
+  function getNameRound(num_persones){
+    if(num_persones>2 && num_persones<=4){
+      name = "semifinals"
+    } else if(num_persones>4 && num_persones<=8){
+      name = "cuartos"
+    } else if(num_persones>8 && num_persones<=16){
+      name = "octavos"
+    } else if(num_persones>16 && num_persones<=32){
+      name = "dieciseisavos"
+    } else{
+      name = "Ronda de 64"
+    }
+  }
+
 
   function init(){
-    matchList.map(match => {
-      if(match.name == "cuartos"){
-        if(match.equip_local == null){
-          updateAddTeam(match.id, {equip_local: })
-        } else if(match.equip_visitant == null){
-
+    getNameRound(num_persones)
+    getOneMatch(matchList)
+    users.map(user => {
+      if(user.id == us.id){
+        if(side){
+          updateLocalTeam(id, user.team)
+        } else{
+          updateVisitantTeam(id, user.team)
         }
-      } else{
-        bandera = false
       }
     })
   }
 
-  async function updateAddTeam(matchID, update){
+  function getOneMatch(matchList){
+    let done = false
+
+    matchList.map(match => {
+      if(!done){
+        if(match.equip_local == null){
+          side = true
+          done = true
+          id = match.id
+        } else if(match.equip_visitant == null){
+          side = false
+          done = true        
+          id = match.id
+        }
+      }
+    })
+  }
+
+  async function updateLocalTeam(matchID, teamID){
+    console.log("local")
     const { data, error } = await supabase
       .from('match')
-      .update(update)
+      .update({equip_local: teamID})
       .match({ id: matchID })
-    console.log(data)
+
+      console.log(data)
+
+
   }
+
+  async function updateVisitantTeam(matchID, teamID){
+    console.log("visi")
+    const { data, error } = await supabase
+      .from('match')
+      .update({equip_visitant: teamID})
+      .match({ id: matchID })
+      console.log(data)
+  }
+
 
   return bandera
 }
