@@ -81,13 +81,16 @@ function CreateTournament() {
     }
   }
 
+  let lastID64Round = []
+  let lastIDDieciseisavos = []
   let lastIDOctavos = []
   let lastIDCuartos = []
   let lastIDSemifinales = []
 
   const nameArray1 = ["final"]
   const nameArray2 = ["semifinal","semifinal"]
-  const nameArray8 = ["cuartos","cuartos","cuartos","cuartos"]
+  const nameArray4 = ["cuartos","cuartos","cuartos","cuartos"]
+  const nameArray8 = ["octavos","octavos","octavos","octavos","octavos","octavos","octavos","octavos"]
   const nameArray16 = ["dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos"]
   const nameArray32 = ["Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64"]
 
@@ -100,29 +103,11 @@ function CreateTournament() {
       lastID++
       
       if(num <= 64 && num > 32){
-        
+        doRound64(lastID, id)
       } else if(num <= 32 && num > 16){
-        
+        doDieciseisavos(lastID, id)
       } else if(num <= 16 && num > 8){
-        for(var f = 0; f < 1; f++){
-          for(var s = 0; s < 2; s++){
-            for(var c = 0; c < 2; c++){
-              for( var o = 0; o < 2; o++){
-                newInsert(lastID, "octavos", id)
-                lastIDOctavos.push(lastID)
-                lastID++
-              }
-              newInsert(lastID, "cuartos", id, lastIDOctavos.pop(), lastIDOctavos.pop())
-              lastIDCuartos.push(lastID)
-              lastID++
-            }
-            newInsert(lastID, "semifinal", id, lastIDCuartos.pop(), lastIDCuartos.pop())
-            lastIDSemifinales.push(lastID)
-            lastID++
-          }
-          newInsert(lastID, "final", id, lastIDSemifinales.pop(), lastIDSemifinales.pop())
-          lastID++
-        }
+        doOctavos(lastID, id)
       } else if(num <= 8 && num > 4){
         doCuartos(lastID, id)        
       } else{
@@ -131,10 +116,40 @@ function CreateTournament() {
     }
   }
 
+  function doRound64(lastID, tournamentID){
+    let id = lastID
+    for(var c = 0; c < 32; c++){
+      newInsert(id, nameArray32.pop(), tournamentID, null, null)
+      lastID64Round.push(id)
+      id++
+    }
+    setTimeout(() => { doDieciseisavos(id, tournamentID) }, 500);
+  }
+
+  function doDieciseisavos(lastID, tournamentID){
+    let id = lastID
+    for(var c = 0; c < 16; c++){
+      newInsert(id, nameArray16.pop(), tournamentID, null, null)
+      lastIDDieciseisavos.push(id)
+      id++
+    }
+    setTimeout(() => { doOctavos(id, tournamentID) }, 500);
+  }
+
+  function doOctavos(lastID, tournamentID){
+    let id = lastID
+    for(var c = 0; c < 8; c++){
+      newInsert(id, nameArray8.pop(), tournamentID, null, null)
+      lastIDOctavos.push(id)
+      id++
+    }
+    setTimeout(() => { doCuartos(id, tournamentID) }, 500);
+  }
+
   function doCuartos(lastID, tournamentID){
     let id = lastID
     for(var c = 0; c < 4; c++){
-      newInsert(id, nameArray8.pop(), tournamentID, null, null)
+      newInsert(id, nameArray4.pop(), tournamentID, null, null)
       lastIDCuartos.push(id)
       id++
     }
@@ -144,10 +159,10 @@ function CreateTournament() {
   function doSemifinals(lastID, tournamentID){
     let id = lastID
     let cuartosID = lastIDCuartos.pop()
-    newInsert(id, nameArray8.pop(), tournamentID, cuartosID - 3, cuartosID - 2)
+    newInsert(id, nameArray2.pop(), tournamentID, cuartosID - 3, cuartosID - 2)
     lastIDSemifinales.push(id)
     id++
-    newInsert(id, nameArray8.pop(), tournamentID, cuartosID - 1, cuartosID)
+    newInsert(id, nameArray2.pop(), tournamentID, cuartosID - 1, cuartosID)
     lastIDSemifinales.push(id)
     id++
     setTimeout(() => { doFinal(id, tournamentID) }, 500);
@@ -155,7 +170,7 @@ function CreateTournament() {
 
   function doFinal(lastID, tournamentID){
     let id = lastID
-    newInsert(id, nameArray8.pop(), tournamentID, lastIDSemifinales.pop(), lastIDSemifinales.pop())
+    newInsert(id, nameArray1.pop(), tournamentID, lastIDSemifinales.pop(), lastIDSemifinales.pop())
   }
 
   async function newInsert(lastID, name, id, lastIDVisi, lastIDLocal){

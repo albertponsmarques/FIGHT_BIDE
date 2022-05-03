@@ -14,10 +14,11 @@ const Tournament = () => {
   const [equips, setEquips] = useState([])
   const [matches, setMatches] = useState([])
   const [matchAdd, setMatchAdd] = useState([])
-  const [users, setUsers] = useState([])
   const [numPersones, setNumPersones] = useState([])
   const [loading, setLoading] = useState(false)
+  const [users, setUsers] = useState(false)
   const {id} = useParams()
+  let us = supabase.auth.user()
 
 
   const fetchTournaments = async () => {
@@ -57,7 +58,9 @@ const Tournament = () => {
       const { data } = await supabase
       .from('profiles')
       .select('*')
-  
+      .eq('email', supabase.auth.user().email)
+      .single()
+
       setUsers(data)
     } catch (e){
       console.log(e)
@@ -65,9 +68,9 @@ const Tournament = () => {
   }
 
   useEffect(() => {
+    fetchUsers()
     fetchTournaments()
     fetchMatches()
-    fetchUsers()
     fetchFinal()
     fetchEquips()
     fetchMatchesAdd()
@@ -291,30 +294,33 @@ const Tournament = () => {
     )
   }
   
+  
 
   return(
+
+    
     <div className="container-tournament" key={id}>
-      <div className='row'>
-        <div className='col-5'>
-          <h1>
-            {getList(tournament)}
-          </h1>
-          <div className="col-lg-5">
-            <Bracket game={getLastMatch()} />
+        <div className='row'>
+          <div className='col-5'>
+            <h1>
+              {getList(tournament)}
+            </h1>
+            <div className="col-lg-5">
+              <Bracket game={getLastMatch()} />
+            </div>
+          </div>
+          <div className='col-1'>
+            <AddButton
+              type="secondary"
+              size="large"
+              linkTo={"/tournament/" + id}
+              textButton="add team"
+              list={matchAdd}
+              users={users}
+              numPlayers={numPersones}
+            />
           </div>
         </div>
-        <div className='col-1'>
-          <AddButton
-            type="secondary"
-            size="large"
-            linkTo={"/tournament/" + id}
-            textButton="add team"
-            list={matchAdd}
-            users={users}
-            numPlayers={numPersones.num_persones}
-          />
-        </div>
-      </div>
     </div>
   )
 }

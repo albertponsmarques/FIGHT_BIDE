@@ -1,13 +1,16 @@
 import {supabase} from './supabaseClient'
 import './css/tournament.css'
 
-function updateMatchTeam(matchList, users, num_persones){
+function updateMatchTeam(matchList, user, num_persones){
   let bandera = false
-  let us = supabase.auth.user()
   let side = false
 
   let id = 0
   let name
+
+  console.log(user)
+  console.log(matchList)
+  console.log(num_persones)
 
   init()
 
@@ -29,15 +32,11 @@ function updateMatchTeam(matchList, users, num_persones){
   function init(){
     getNameRound(num_persones)
     getOneMatch(matchList)
-    users.map(user => {
-      if(user.id == us.id){
-        if(side){
-          updateLocalTeam(id, user.team)
-        } else{
-          updateVisitantTeam(id, user.team)
-        }
-      }
-    })
+    if(side){
+      updateLocalTeam(id, user.team)
+    } else{
+      updateVisitantTeam(id, user.team)
+    }
   }
 
   function getOneMatch(matchList){
