@@ -36,7 +36,14 @@ function updateMatchTeam(matchList, user, num_persones){
   function getOneMatch(matchList){
     let done = false
 
+    matchList.map(match =>{
+      if(match.equip_local === user.team || match.equip_visitant === user.team){
+        done = true
+        bandera = false
+      }
+    })
     matchList.map(match => {
+      
       if(!done){
         if(match.equip_local === null && match.name === getNameRound(num_persones)){
           console.log(match)

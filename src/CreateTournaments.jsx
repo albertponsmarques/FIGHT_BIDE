@@ -92,7 +92,7 @@ function CreateTournament() {
   const nameArray4 = ["cuartos","cuartos","cuartos","cuartos"]
   const nameArray8 = ["octavos","octavos","octavos","octavos","octavos","octavos","octavos","octavos"]
   const nameArray16 = ["dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos", "dieciseisavos"]
-  const nameArray32 = ["Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64"]
+  const nameArray32 = ["Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64",  "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64", "Ronda de 64"]
 
 
 
@@ -129,7 +129,7 @@ function CreateTournament() {
   function doDieciseisavos(lastID, tournamentID){
     let id = lastID
     for(var c = 0; c < 16; c++){
-      newInsert(id, nameArray16.pop(), tournamentID, null, null)
+      newInsert(id, nameArray16.pop(), tournamentID, lastID64Round.pop(), lastID64Round.pop())
       lastIDDieciseisavos.push(id)
       id++
     }
@@ -139,7 +139,7 @@ function CreateTournament() {
   function doOctavos(lastID, tournamentID){
     let id = lastID
     for(var c = 0; c < 8; c++){
-      newInsert(id, nameArray8.pop(), tournamentID, null, null)
+      newInsert(id, nameArray8.pop(), tournamentID, lastIDDieciseisavos.pop(), lastIDDieciseisavos.pop())
       lastIDOctavos.push(id)
       id++
     }
@@ -149,7 +149,7 @@ function CreateTournament() {
   function doCuartos(lastID, tournamentID){
     let id = lastID
     for(var c = 0; c < 4; c++){
-      newInsert(id, nameArray4.pop(), tournamentID, null, null)
+      newInsert(id, nameArray4.pop(), tournamentID, lastIDOctavos.pop(), lastIDOctavos.pop())
       lastIDCuartos.push(id)
       id++
     }
