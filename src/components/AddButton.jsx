@@ -14,9 +14,10 @@ export default class AddButton extends Component{
   render(){
     return (
       <AwesomeButton type={this.props.type} size={this.props.size} onPress={() => {
-        let bandera = updateMatchTeam(this.props.list, this.props.users, this.props.numPlayers)
-        console.log(bandera)
-        bandera ? window.location.reload(false) : alert("Error adding your team")
+        let bandera = updateMatchTeam(this.props.list, this.props.users, this.props.numPlayers.num_persones)
+        setTimeout(() => {
+        bandera ? window.location.reload(false) : alert("Teams Full!")
+        }, 500);
       }}>
         <NavLink className="nav-link" to={this.props.linkTo} >
           {this.props.textButton}

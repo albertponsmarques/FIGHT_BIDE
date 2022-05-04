@@ -2,37 +2,31 @@ import {supabase} from './supabaseClient'
 import './css/tournament.css'
 
 function updateMatchTeam(matchList, user, num_persones){
-  let bandera = false
-  let side = false
+  let bandera = true
+  let side = true
 
   let id = 0
-  let name
-
-  console.log(user)
-  console.log(matchList)
-  console.log(num_persones)
 
   init()
 
   function getNameRound(num_persones){
     if(num_persones>2 && num_persones<=4){
-      name = "semifinals"
+      return "semifinals"
     } else if(num_persones>4 && num_persones<=8){
-      name = "cuartos"
+      return "cuartos"
     } else if(num_persones>8 && num_persones<=16){
-      name = "octavos"
+      return "octavos"
     } else if(num_persones>16 && num_persones<=32){
-      name = "dieciseisavos"
+      return "dieciseisavos"
     } else{
-      name = "Ronda de 64"
+      return "Ronda de 64"
     }
   }
 
 
   function init(){
-    getNameRound(num_persones)
     getOneMatch(matchList)
-    if(side){
+    if(!side){
       updateLocalTeam(id, user.team)
     } else{
       updateVisitantTeam(id, user.team)
@@ -44,14 +38,18 @@ function updateMatchTeam(matchList, user, num_persones){
 
     matchList.map(match => {
       if(!done){
-        if(match.equip_local == null){
+        if(match.equip_local === null && match.name === getNameRound(num_persones)){
+          console.log(match)
+          side = false
+          done = true
+          id = match.id 
+        } else if(match.equip_visitant === null && match.name === getNameRound(num_persones)){
+          console.log(match)
           side = true
           done = true
           id = match.id
-        } else if(match.equip_visitant == null){
-          side = false
-          done = true        
-          id = match.id
+        } else{
+          bandera = false
         }
       }
     })
@@ -65,8 +63,6 @@ function updateMatchTeam(matchList, user, num_persones){
       .match({ id: matchID })
 
       console.log(data)
-
-
   }
 
   async function updateVisitantTeam(matchID, teamID){

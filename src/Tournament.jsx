@@ -85,7 +85,8 @@ const Tournament = () => {
       //Filters
       .or('equip_local.is.null ,equip_visitant.is.null')
       .eq('torneig', id)
-  
+
+      console.log(data)
       setMatchAdd(data)
     } catch (e){
       console.log(e)
