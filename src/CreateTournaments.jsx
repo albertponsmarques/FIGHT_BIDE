@@ -171,6 +171,7 @@ function CreateTournament() {
   function doFinal(lastID, tournamentID){
     let id = lastID
     newInsert(id, nameArray1.pop(), tournamentID, lastIDSemifinales.pop(), lastIDSemifinales.pop())
+    setTimeout(() => window.location.replace('tournament/' + tournamentID), 500);
   }
 
   async function newInsert(lastID, name, id, lastIDVisi, lastIDLocal){

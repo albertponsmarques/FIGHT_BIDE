@@ -27,6 +27,7 @@ const Team = () => {
       .from('profiles')
       .select('*')
       .eq('email', us.email)
+      .single()
 
       setUser(data)
   }

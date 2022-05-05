@@ -42,8 +42,8 @@ function updateMatchTeam(matchList, user, num_persones){
         bandera = false
       }
     })
+
     matchList.map(match => {
-      
       if(!done){
         if(match.equip_local === null && match.name === getNameRound(num_persones)){
           console.log(match)
@@ -63,7 +63,6 @@ function updateMatchTeam(matchList, user, num_persones){
   }
 
   async function updateLocalTeam(matchID, teamID){
-    console.log("local")
     const { data, error } = await supabase
       .from('match')
       .update({equip_local: teamID})
@@ -73,7 +72,6 @@ function updateMatchTeam(matchList, user, num_persones){
   }
 
   async function updateVisitantTeam(matchID, teamID){
-    console.log("visi")
     const { data, error } = await supabase
       .from('match')
       .update({equip_visitant: teamID})
