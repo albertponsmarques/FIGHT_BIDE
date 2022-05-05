@@ -13,7 +13,7 @@
     text-align: center;  
     display: inline-block;
     position: relative;
-    left: 2%;
+    left: 1%;
   }
 
   .navbarSmall .containerHamburger .linksMobile .navbar-nav > .nav-item {
@@ -26,6 +26,4 @@
   .navbarSmall {
     display: none;
   }
-
-
 }

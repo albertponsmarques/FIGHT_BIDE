@@ -13,6 +13,7 @@ import Home from "./App";
 import Team from "./Team.jsx";
 import Tournament from "./Tournament";
 import CreateTournament from "./CreateTournaments";
+import News from "./News";
 
 ReactDOM.render(
   <Router>
@@ -28,6 +29,7 @@ ReactDOM.render(
       <Route path="/teams" element={<Team />} />
       <Route path='/tournament/:id' element={<Tournament/>} />
       <Route path='/create' element={<CreateTournament/>} />
+      <Route path='/news' element={<News/>} />
     </Routes>
     <Footer />
   </Router>,
