@@ -86,7 +86,6 @@ const Tournament = () => {
       .or('equip_local.is.null ,equip_visitant.is.null')
       .eq('torneig', id)
 
-      console.log(data)
       setMatchAdd(data)
     } catch (e){
       console.log(e)
@@ -294,7 +293,14 @@ const Tournament = () => {
       <p key={tourn.id}>{tourn.nom_torneig}</p>
     )
   }
-  
+
+
+  let own = false
+  function isPropietary(){
+    if (tournament.profile == us.id){
+      own = true
+    }
+  }
   
 
   return(
@@ -320,6 +326,14 @@ const Tournament = () => {
               users={users}
               numPlayers={numPersones}
             />
+            {
+              isPropietary()           
+            }
+            {own ? 
+              <button>
+                OWNed
+              </button>
+              : "" }
           </div>
         </div>
     </div>
