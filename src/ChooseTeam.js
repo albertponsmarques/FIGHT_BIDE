@@ -125,7 +125,6 @@ const Modal = ({ handleClose, show, children }) => {
             onChange= {handleInputChangeTeam} 
            />
           </div>
-
           <button onClick={handleClose}>
             Close
           </button>

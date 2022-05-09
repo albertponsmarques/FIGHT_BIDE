@@ -7,6 +7,7 @@ import './css/tournament.css'
 import getMatch from './getMatchByID';
 import getEquip from './getEquipByID';
 import AddButton from './components/AddButton'
+import MatchResults from './MatchResults';
 
 
 const Tournament = () => {
@@ -327,12 +328,10 @@ const Tournament = () => {
               numPlayers={numPersones}
             />
             {
-              isPropietary()           
+              isPropietary()
             }
-            {own ? 
-              <button>
-                OWNed
-              </button>
+            {own ?
+              <MatchResults tournamentID={id}/>
               : "" }
           </div>
         </div>
