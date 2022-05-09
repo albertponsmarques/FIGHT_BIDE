@@ -58,23 +58,13 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
     fetchMatches()
   }, [])
 
-  async function updateUserTeam(idTeam, email){
-    setLoading(true);
-    const { data, error } = await supabase
-      .from('profiles')
-      .update({ team: idTeam.id })
-      .match({ email: email })
-
-      console.log(error)
-    
-    setLoading(false);
-  }
-
   async function fetchMatches(){
     const { data } = await supabase
       .from('match')
       .select('*')
       .eq('torneig', idTournament)
+      .order('id', { ascending: true })
+
 
       setMatches(data)
   }
@@ -87,11 +77,20 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
       setEquips(data)
   }
 
-  let valueTeam = null
-  
-  const handleInputChangeTeam = value => {
-    valueTeam = value
-    updateUserTeam(valueTeam, us.email)
+  async function updateMatch(id, side, value){
+    side === "punts_local" ? await supabase
+                                    .from('match')
+                                    .update({ punts_local: value })
+                                    .match({ id: id })
+    :
+    console.log()
+
+    side === "punts_visitant" ? await supabase
+                                    .from('match')
+                                    .update({ punts_visitant: value })
+                                    .match({ id: id })
+    :
+    console.log()
   }
 
   return (
@@ -100,24 +99,13 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
         <div className="container-modal">
           <h2>{children}</h2>
 
-          <div className="form_inputs">
+          <div className="form_inputs results">
             {
-              matches.map(match => {
+              matches.map(match => (
                 <div key={match.id}>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td>{getEquip(match.equip_local, equips)}</td>
-                        <td>{match.punts_local}</td>
-                      </tr>
-                      <tr>
-                        <td>{getEquip(match.equip_visitant, equips)}</td>
-                        <td>{match.punts_visitant}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div> 
-              })
+                  <Match match={match} equips={equips} update={updateMatch}/>
+                </div>
+              ))
             }
           </div>
           <button onClick={handleClose}>
@@ -128,5 +116,73 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
     </div>
   );
 };
+
+
+class Match extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: this.props.match.id,
+      name: this.props.match.name,
+      equip_local: this.props.match.equip_local,
+      equip_visitant: this.props.match.equip_visitant,
+      punts_local: this.props.match.punts_local,
+      punts_visitant: this.props.match.punts_visitant,
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.updateMatch = this.props.update
+  }
+
+  handleChange(id, side, value) {
+    side === "punts_local" ? this.setState({punts_local: value}) : console.log()
+    side === "punts_visitant" ? this.setState({punts_visitant: value}) : console.log()
+
+    console.log("ID: " + id)
+    console.log("SIDE: " + side)
+    console.log("VALUE: " + value)
+
+    this.updateMatch(this.state.id,side,value)
+  }
+
+
+  render() {
+    return (
+      <div key={this.state.id}>
+        <table>
+          <tbody>
+            <tr>
+              <td colSpan={2}>{this.state.name}</td>
+            </tr>
+            <tr>
+              <td>{getEquip(this.state.equip_local, this.props.equips)}</td>
+              <td>
+                <input
+                  className="inputField"
+                  type="numeric"
+                  placeholder="points"
+                  value={this.state.punts_local}
+                  onChange={(e) => this.handleChange(this.state.id, "punts_local", e.target.value)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>{getEquip(this.state.equip_visitant, this.props.equips)}</td>
+              <td>
+              <input
+                  className="inputField"
+                  type="numeric"
+                  placeholder="points"
+                  value={this.state.punts_visitant}
+                  onChange={(e) => this.handleChange(this.state.id, "punts_visitant", e.target.value)}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+}
 
 export default MatchResults
