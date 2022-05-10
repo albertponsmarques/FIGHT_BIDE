@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import './css/modal.css';
 import './css/tournament.css'
-import AsyncSelect from "react-select/async";
 import {supabase} from './supabaseClient'
 import { useEffect, useState } from 'react'
 import getEquip from "./getEquipByID";
@@ -68,6 +67,17 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
 
       setMatches(data)
   }
+
+  async function fetchCheckMatches(){
+    const { data } = await supabase
+      .from('match')
+      .select('*')
+      .eq('torneig', idTournament)
+      .order('id', { ascending: true })
+
+
+      return data
+  }
   
   async function fetchEquips(){
     const { data } = await supabase
@@ -75,6 +85,10 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
       .select('*')
       
       setEquips(data)
+  }
+
+  function checkMatches(){
+
   }
 
   async function updateMatch(id, side, value){
@@ -100,13 +114,20 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
           <h2>{children}</h2>
 
           <div className="form_inputs results">
-            {
-              matches.map(match => (
-                <div key={match.id}>
-                  <Match match={match} equips={equips} update={updateMatch}/>
-                </div>
-              ))
-            }
+            <div className="row" style={{display : 'flex'}}>
+              {
+                matches.map(match => (
+                  match.name === "final" ?
+                  <div key={match.id} className='col-12 d-flex align-items-center'>
+                    <Match match={match} equips={equips} update={updateMatch}/>
+                  </div>
+                  :
+                  <div key={match.id} className='col-5'>
+                    <Match match={match} equips={equips} update={updateMatch}/>
+                  </div>
+                ))
+              }
+            </div>
           </div>
           <button onClick={handleClose}>
             Close
@@ -157,25 +178,48 @@ class Match extends React.Component {
             <tr>
               <td>{getEquip(this.state.equip_local, this.props.equips)}</td>
               <td>
-                <input
-                  className="inputField"
-                  type="numeric"
-                  placeholder="points"
-                  value={this.state.punts_local}
-                  onChange={(e) => this.handleChange(this.state.id, "punts_local", e.target.value)}
-                />
+                {this.state.equip_local !== null ? 
+                  <input
+                    className="inputField"
+                    type="numeric"
+                    placeholder="points"
+                    value={this.state.punts_local}
+                    onChange={(e) => this.handleChange(this.state.id, "punts_local", e.target.value)}
+                  />
+                  :
+                  <input
+                    className="inputField"
+                    style={{background : 'gray'}}
+                    type="numeric"
+                    placeholder="points"
+                    value={this.state.punts_visitant}
+                    readOnly
+                  />
+                }  
               </td>
             </tr>
             <tr>
               <td>{getEquip(this.state.equip_visitant, this.props.equips)}</td>
               <td>
-              <input
-                  className="inputField"
-                  type="numeric"
-                  placeholder="points"
-                  value={this.state.punts_visitant}
-                  onChange={(e) => this.handleChange(this.state.id, "punts_visitant", e.target.value)}
-                />
+                {this.state.equip_visitant !== null ? 
+                  <input
+                    className="inputField"
+                    type="numeric"
+                    placeholder="points"
+                    value={this.state.punts_visitant}
+                    onChange={(e) => this.handleChange(this.state.id, "punts_visitant", e.target.value)}
+                  />
+                  :
+                  <input
+                    className="inputField"
+                    style={{background : 'gray'}}
+                    type="numeric"
+                    placeholder="points"
+                    value={this.state.punts_visitant}
+                    readOnly
+                  />
+                }  
+                
               </td>
             </tr>
           </tbody>
