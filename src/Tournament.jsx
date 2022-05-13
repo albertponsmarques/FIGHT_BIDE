@@ -313,7 +313,7 @@ const Tournament = () => {
             <h1>
               {getList(tournament)}
             </h1>
-            <div className="col-lg-5">
+            <div className="col-12 torneig">
               <Bracket game={getLastMatch()} />
             </div>
           </div>

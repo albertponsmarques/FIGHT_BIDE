@@ -23,7 +23,7 @@ class MatchResults extends Component {
 
   hideModal = () => {
     this.setState({ show: false });
-    window.location.reload(false);
+    window.location.reload(false)
   };
   
   
@@ -68,12 +68,12 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
       setMatches(data)
   }
 
-  async function fetchCheckMatches(){
+  async function fetchCheckMatches(id){
     const { data } = await supabase
       .from('match')
       .select('*')
-      .eq('torneig', idTournament)
-      .order('id', { ascending: true })
+      .eq('id', id)
+      .single()
 
 
       return data
@@ -87,8 +87,48 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
       setEquips(data)
   }
 
-  function checkMatches(){
+  async function fetchMatchesLocalVisitant(id){
+    const { data } = await supabase
+      .from('match')
+      .select('*')
+      .or('last_gameLocal.eq.' + id + ', last_gameVisitant.eq.' + id)
 
+      .single()
+
+
+      return data
+  }
+
+  async function checkMatches(id){
+    fetchCheckMatches(id).then(match => {
+      if(match.punts_local > match.punts_visitant){
+        fetchMatchesLocalVisitant(id).then(value => {
+          winsGame(id, value, match.equip_local)
+        })
+      } else if(match.punts_local < match.punts_visitant){
+        fetchMatchesLocalVisitant(match.id).then(value => {
+          winsGame(id, value, match.equip_visitant)
+        })
+      } else{
+
+      }
+    })
+  }
+
+  async function winsGame(id, match, team){
+    id === match.last_gameLocal ? await supabase
+                                    .from('match')
+                                    .update({ equip_local: team })
+                                    .match({ id: match.id })
+    :
+    console.log()
+
+    id === match.last_gameVisitant ? await supabase
+                                    .from('match')
+                                    .update({ equip_visitant: team })
+                                    .match({ id: match.id })
+    :
+    console.log()
   }
 
   async function updateMatch(id, side, value){
@@ -105,6 +145,8 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
                                     .match({ id: id })
     :
     console.log()
+
+    checkMatches(id)
   }
 
   return (
@@ -114,11 +156,11 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
           <h2>{children}</h2>
 
           <div className="form_inputs results">
-            <div className="row" style={{display : 'flex'}}>
+            <div className="row" style={{display : 'flex', overflow : 'scroll'}}>
               {
                 matches.map(match => (
                   match.name === "final" ?
-                  <div key={match.id} className='col-12 d-flex align-items-center'>
+                  <div key={match.id} className='col-12'>
                     <Match match={match} equips={equips} update={updateMatch}/>
                   </div>
                   :
@@ -219,7 +261,6 @@ class Match extends React.Component {
                     readOnly
                   />
                 }  
-                
               </td>
             </tr>
           </tbody>

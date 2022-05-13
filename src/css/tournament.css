@@ -27,33 +27,8 @@
   margin-top: 50px;
 }
 
-table{
-  border:1px solid black;
-  color: black;
-  width: 500px;
-  margin: 50px;
+.torneig{
+  width: 100% !important;
+  height: 100% !important;
 }
 
-td{
-  border:1px solid black;
-  color: black;
-  max-width: 50px;
-}
-
-.results{
-  overflow-y:auto;
-  overflow-x:hidden;
-  max-height: 400px;
-}
-
-.inputField{
-  max-width: 50px;
-}
-
-.results::-webkit-scrollbar {
-  width: 12px;               /* width of the entire scrollbar */
-}
-.results::-webkit-scrollbar-thumb {
-  background-color: #9c00b0;    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */
-}

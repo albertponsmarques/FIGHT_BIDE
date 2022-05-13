@@ -2,7 +2,9 @@
   font-family: 'structure sans'; 
   src: url('../fonts/Structure\ Sans.ttf'); 
 }
-  
+
+
+@media (min-width: 1500) {
   .titleText{
     text-align: center;
     margin-bottom: 2%;
@@ -10,55 +12,179 @@
     font-size: 50px ;
     color: black;
     text-shadow: 2px 0 0 rgb(139, 139, 139), -2px 0 0 rgb(139, 139, 139), 0 2px 0 rgb(139, 139, 139), 0 -2px 0 rgb(139, 139, 139), 1px 1px rgb(139, 139, 139), -1px -1px 0 rgb(139, 139, 139), 1px -1px 0 rgb(139, 139, 139), -1px 1px 0 rgb(139, 139, 139);
+  }
+  
+  .foooter{
+    margin-top: 1vh;
+    text-align: center;
+    display: inline;
+  }
+  
+  .boto1{
+    margin-top: 8vh;
+    margin-left: 19%;
+  }
+  
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  .modal-main {
+    position:fixed;
+    background: white;
+    width: 80%;
+    height: auto;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+  }
+  
+  .display-block {
+    display: block;
+  }
+  
+  .display-none {
+    display: none;
+  }
+  
+  .titol{
+    color: black;
+  }
+  
+  .container-modal{
+    margin: 5% 5%;
+  }
+  
+  .text{
+    color: black;
+  }
+
+  table{
+    border:1px solid black;
+    color: black;
+    width: 500px;
+    margin: 50px;
+  }
+  
+  td{
+    border:1px solid black;
+    color: black;
+    max-width: 50px;
+  }
+
+  .results{
+    overflow-y:auto;
+    overflow-x:hidden;
+    max-height: 400px;
+  }
+
+  .inputField{
+    max-width: 50px;
+  }
+
+  .results::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+  .results::-webkit-scrollbar-thumb {
+    background-color: #9c00b0;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+  }
 }
 
-.foooter{
-  margin-top: 1vh;
-  text-align: center;
-  display: inline;
-}
+@media (min-width: 100px) {
+  .titleText{
+    text-align: center;
+    margin-bottom: 2%;
+    font-family: structure sans;
+    font-size: 50px ;
+    color: black;
+    text-shadow: 2px 0 0 rgb(139, 139, 139), -2px 0 0 rgb(139, 139, 139), 0 2px 0 rgb(139, 139, 139), 0 -2px 0 rgb(139, 139, 139), 1px 1px rgb(139, 139, 139), -1px -1px 0 rgb(139, 139, 139), 1px -1px 0 rgb(139, 139, 139), -1px 1px 0 rgb(139, 139, 139);
+  }
+  
+  .foooter{
+    margin-top: 1vh;
+    text-align: center;
+    display: inline;
+  }
+  
+  .boto1{
+    margin-top: 8vh;
+    margin-left: 19%;
+  }
+  
+  
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  .modal-main {
+    position:fixed;
+    background: white;
+    width: 80%;
+    height: auto;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+  }
+  
+  .display-block {
+    display: block;
+  }
+  
+  .display-none {
+    display: none;
+  }
+  
+  .titol{
+    color: black;
+  }
+  
+  .container-modal{
+    margin: 5% 5%;
+  }
+  
+  .text{
+    color: black;
+  }
 
-.boto1{
-  margin-top: 8vh;
-  margin-left: 19%;
-}
+  table{
+    border:1px solid black;
+    color: black;
+    width: 80%;
+    margin: 50px;
+  }
+  
+  td{
+    border:1px solid black;
+    color: black;
+  }
 
+  .results{
+    overflow-y:auto;
+    overflow-x:hidden;
+    max-height: 400px;
+  }
 
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width:100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-}
+  .inputField{
+    max-width: 50px;
+  }
 
-.modal-main {
-  position:fixed;
-  background: white;
-  width: 80%;
-  height: auto;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
-}
-
-.display-block {
-  display: block;
-}
-
-.display-none {
-  display: none;
-}
-
-.titol{
-  color: black;
-}
-
-.container-modal{
-  margin: 5% 5%;
-}
-
-.text{
-  color: black;
+  .results::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+  .results::-webkit-scrollbar-thumb {
+    background-color: #9c00b0;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+  }
 }
