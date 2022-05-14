@@ -1,0 +1,9 @@
+.input{
+  background-color: black;
+  color: white;
+}
+
+.input::after{
+  background-color: black;
+  color: white;
+}

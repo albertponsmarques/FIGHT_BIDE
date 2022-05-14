@@ -146,6 +146,13 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
     :
     console.log()
 
+    side === "scheduled" ? await supabase
+                                    .from('match')
+                                    .update({ scheduled: value })
+                                    .match({ id: id })
+    :
+    console.log()
+
     checkMatches(id)
   }
 
@@ -156,7 +163,7 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
           <h2>{children}</h2>
 
           <div className="form_inputs results">
-            <div className="row" style={{display : 'flex', overflow : 'scroll'}}>
+            <div className="row" style={{display : 'flex', overflow : 'hidden'}}>
               {
                 matches.map(match => (
                   match.name === "final" ?
@@ -191,6 +198,7 @@ class Match extends React.Component {
       equip_visitant: this.props.match.equip_visitant,
       punts_local: this.props.match.punts_local,
       punts_visitant: this.props.match.punts_visitant,
+      scheduled: this.props.match.scheduled
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -200,10 +208,13 @@ class Match extends React.Component {
   handleChange(id, side, value) {
     side === "punts_local" ? this.setState({punts_local: value}) : console.log()
     side === "punts_visitant" ? this.setState({punts_visitant: value}) : console.log()
+    side === "scheduled" ? this.setState({scheduled: value}) : console.log()
+
 
     console.log("ID: " + id)
     console.log("SIDE: " + side)
     console.log("VALUE: " + value)
+
 
     this.updateMatch(this.state.id,side,value)
   }
@@ -215,14 +226,37 @@ class Match extends React.Component {
         <table>
           <tbody>
             <tr>
-              <td colSpan={2}>{this.state.name}</td>
+              <td className="titol-tabla" style={{width: '350px'}}>
+                <div className="row">
+                  <div className="col-6">
+                    {this.state.name}
+                  </div>
+                  <div className="col-5 date-style">
+                    {
+                      this.state.scheduled === null ?
+                      "No time set"
+                      :
+                      this.state.scheduled.substring(0,10) + " " + this.state.scheduled.substring(11,16)
+                    }
+                  </div>
+                </div>
+              </td>
+              <td className="titol-tabla" style={{width: '50px'}}>
+                <input
+                  className="calendar"
+                  type="datetime-local"
+                  placeholder="kk"
+                  value={this.state.punts_local}
+                  onChange={(e) => this.handleChange(this.state.id, "scheduled", e.target.value)}
+                />
+              </td>
             </tr>
             <tr>
               <td>{getEquip(this.state.equip_local, this.props.equips)}</td>
               <td>
                 {this.state.equip_local !== null ? 
                   <input
-                    className="inputField"
+                    className="inputField-result"
                     type="numeric"
                     placeholder="points"
                     value={this.state.punts_local}
@@ -230,7 +264,7 @@ class Match extends React.Component {
                   />
                   :
                   <input
-                    className="inputField"
+                    className="inputField-result"
                     style={{background : 'gray'}}
                     type="numeric"
                     placeholder="points"
@@ -245,7 +279,7 @@ class Match extends React.Component {
               <td>
                 {this.state.equip_visitant !== null ? 
                   <input
-                    className="inputField"
+                    className="inputField-result"
                     type="numeric"
                     placeholder="points"
                     value={this.state.punts_visitant}
@@ -253,7 +287,7 @@ class Match extends React.Component {
                   />
                   :
                   <input
-                    className="inputField"
+                    className="inputField-result"
                     style={{background : 'gray'}}
                     type="numeric"
                     placeholder="points"

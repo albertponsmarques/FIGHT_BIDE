@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AsyncSelect from "react-select/async";
 import BotonAction from "./components/BotonAction";
 import { supabase } from "./supabaseClient";
+import './css/createTournament.css'
 
 
 function CreateTournament() {
@@ -65,12 +66,12 @@ function CreateTournament() {
   }, [])
 
 
-  function handleRedirection(id) {
-    insertMatches(id)
+  function handleRedirection(id, tournamentType) {
+    tournamentType === 1 ? insertDirectElimination(id) : console.log(id)
   }
 
 
-  async function insertMatches(id){
+  async function insertDirectElimination(id){
     try {
       setRefreshing(true);
       getMatch(num_persones, id)
@@ -111,7 +112,7 @@ function CreateTournament() {
       } else if(num <= 8 && num > 4){
         doCuartos(lastID, id)        
       } else{
-
+        doSemifinals(lastID, id)
       }
     }
   }
@@ -202,7 +203,7 @@ function CreateTournament() {
       if (error) throw error;
       console.log(data)
       data.map(dat => (
-        handleRedirection(dat.id)
+        handleRedirection(dat.id, tipus_torneig.id)
       ))
 
     } catch (error) {
@@ -228,6 +229,18 @@ function CreateTournament() {
     setTipusValue(value)
   }
 
+  const inputStyle = {
+    control: styles => ({ ...styles, backgroundColor: '#101010', color: 'white' }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      return {
+        ...styles,
+        backgroundColor: isDisabled ? 'red' : '#101010',
+        color: '#FFF',
+        cursor: isDisabled ? 'not-allowed' : 'default',
+      };
+    },
+  };
+  
   
   return (
     
@@ -245,13 +258,13 @@ function CreateTournament() {
             value={nom_torneig}
             onChange={(e) => setNomTorneig(e.target.value)}
             onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                if(num_persones<=64 || num_persones>2){
-                  handleInsert(nom_torneig, esportValue, tipusValue, num_persones);
-                } else{
-                  alert("Necesitas introducir un numero de personajes más grande que 1 y más pequeño que 65")
-                }
-              }
+              user === null ? 
+                alert("You need an account to create a new Tournament") 
+              :
+                (num_persones<=64 && num_persones>2) ?
+                  handleInsert(nom_torneig, esportValue, tipusValue, num_persones)
+                :
+                  alert("Insert a value between 2 and 64, both included ")
             }}
           />
         </div>
@@ -265,19 +278,21 @@ function CreateTournament() {
             loadOptions={fetchEsport}
             onInputChange={handleInputChangeEsport}
             onChange={handleChangeEsport}
+            styles={inputStyle}
           />
         </div>
         <div className="form_inputs">
           <AsyncSelect
-              cacheOptions
-              defaultOptions
-              value = {tipusValue}
-              getOptionLabel={e => e.tipus_torneig}
-              getOptionValue={e => e.id}
-              loadOptions={fetchTipusTorneig}
-              onInputChange={handleInputChangeTipus}
-              onChange={handleChangeTipus}
-            />
+            cacheOptions
+            defaultOptions
+            value = {tipusValue}
+            getOptionLabel={e => e.tipus_torneig}
+            getOptionValue={e => e.id}
+            loadOptions={fetchTipusTorneig}
+            onInputChange={handleInputChangeTipus}
+            onChange={handleChangeTipus}
+            styles={inputStyle}
+          />
         </div>
         <div className="form_inputs">
           <input
@@ -288,11 +303,13 @@ function CreateTournament() {
             onChange={(e) => setNumPersones(e.target.value)}
             onKeyPress={(e) => {
               if (e.key === "Enter") {
-                if(num_persones<=64 || num_persones>2){
-                  handleInsert(nom_torneig, esportValue, tipusValue, num_persones);
-                } else{
-                  alert("Necesitas introducir un numero de personajes más grande que 1 y más pequeño que 65")
-                }
+                user === null ? 
+                alert("You need an account to create a new Tournament") 
+              :
+                (num_persones<=64 && num_persones>2) ?
+                  handleInsert(nom_torneig, esportValue, tipusValue, num_persones)
+                :
+                  alert("Insert a value between 2 and 64, both included ")
               }
             }}
           />
@@ -302,11 +319,13 @@ function CreateTournament() {
             type="secondary"
             size="medium"
             action={(e) => {
-              if(num_persones<=64 || num_persones>2){
-                handleInsert(nom_torneig, esportValue, tipusValue, num_persones);
-              } else{
-                alert("Necesitas introducir un numero de personajes más grande que 1 y más pequeño que 65")
-              }
+              user === null ? 
+                alert("You need an account to create a new Tournament") 
+              :
+                (num_persones<=64 && num_persones>2) ?
+                  handleInsert(nom_torneig, esportValue, tipusValue, num_persones)
+                :
+                  alert("Insert a value between 2 and 64, both included ")
             }}
             textButton={loading ? <span>Loading</span> : <span>Create!</span>}
           />

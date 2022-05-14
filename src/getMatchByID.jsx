@@ -100,7 +100,7 @@ export default function getMatch(idGame, gamesList, teamsList){
 
   function getGameInList(){
     gamesList.forEach(game => {
-      if (game.id == idGame){
+      if (game.id === idGame){
         thisGame = game
       }
     });;
@@ -109,7 +109,7 @@ export default function getMatch(idGame, gamesList, teamsList){
 
 
   if(thisGame != null){
-    if(thisGame.last_gameLocal == null){
+    if(thisGame.last_gameLocal === null){
       const game = {
         id: thisGame.id,
         name: thisGame.name,

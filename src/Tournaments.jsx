@@ -8,13 +8,13 @@ export default function Tournaments() {
   
   return (
     <div className='home'>
-      <div className="container">
+      <div className="container_home">
         <div className="row my-5">
-          <div className="col-lg-5">
+          <div className="col-8">
             <h1>Tournaments</h1>
             <TournamentList/>
           </div>
-          <div className="col-lg-6 button-create">
+          <div className="col-3 button-create">
             <Boton linkTo={"/create"} textButton={"Create Tournament"} />
           </div>
         </div>

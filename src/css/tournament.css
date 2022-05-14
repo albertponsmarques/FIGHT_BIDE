@@ -3,12 +3,51 @@
   src: url("../fonts/Structure\ Sans.ttf");
 }
 
+@font-face {
+  font-family: "bebas";
+  src: url("../fonts/BebasNeue-Regular.ttf");
+}
+
 .container-tournament{
   margin-left: 20%;
   margin-top: 5%;
   display: flex;
 }
 
+.container_home {
+  padding: 2em;
+  background-color: #fff;
+  background-color: rgba(44, 44, 44, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  margin-left: 12vh;
+  margin-right: 12vh;
+  margin-top: 3vw;
+  min-height: 75vh;
+}
+
+h1{
+  font-size: 50px;
+}
+
+ul{
+  list-style: none;
+}
+
+
+.link-tournament, .link-tournament:link, .link-tournament:visited{
+  color: white;
+  font-size: 30px;
+  font-family: "bebas";
+  text-decoration:none
+}
+
+
+.link-tournament:active, .link-tournament:focus, .link-tournament:hover {
+  color: rgb(179, 232, 245);
+  font-style: none;
+  text-decoration:none
+}
 
 .final{
   margin-top: 3.5%;

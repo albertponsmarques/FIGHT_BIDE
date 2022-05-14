@@ -21,8 +21,8 @@ function TournamentList(){
     <ul>
     {
       posts.map(post => (
-        <li key={post.id}>
-          <Link to={`/tournament/${post.id}`}>{post.nom_torneig}</Link><br />
+        <li key={post.id} className="link-tournament">
+          - <Link className="link-tournament" to={`/tournament/${post.id}`}>{post.nom_torneig}</Link><br />
         </li>
       ))
     }

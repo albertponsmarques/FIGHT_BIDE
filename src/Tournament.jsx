@@ -8,6 +8,8 @@ import getMatch from './getMatchByID';
 import getEquip from './getEquipByID';
 import AddButton from './components/AddButton'
 import MatchResults from './MatchResults';
+import { useNavigate } from "react-router-dom";
+
 
 
 const Tournament = () => {
@@ -19,6 +21,8 @@ const Tournament = () => {
   const [loading, setLoading] = useState(false)
   const [users, setUsers] = useState(false)
   const {id} = useParams()
+  const navigate = useNavigate();
+
   let us = supabase.auth.user()
 
 
@@ -298,8 +302,12 @@ const Tournament = () => {
 
   let own = false
   function isPropietary(){
-    if (tournament.profile == us.id){
-      own = true
+    if(us === null){
+      navigate("/login");
+    } else{
+      if (tournament.profile === us.id){
+        own = true
+      }
     }
   }
   
