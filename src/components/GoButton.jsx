@@ -4,22 +4,20 @@ import { NavLink } from 'react-router-dom'
 import { Component } from 'react/cjs/react.production.min'
 import { AwesomeButton } from "react-awesome-button";
 import "../css/awesomeButtons.css";
-import updateLeagueTeam from '../updateLeagueTeam';
-import updateMatchTeam from '../updateMatchTeam';
+import updateLeagueStart from '../updateLeagueStart';
 
 
 
 
 
-export default class AddButton extends Component{
+export default class GoButton extends Component{
   render(){
     return (
       <AwesomeButton type={this.props.type} size={this.props.size} onPress={() => {
-        let bandera
-        this.props.tournamentType === 1 ?
-          bandera = updateMatchTeam(this.props.list, this.props.users, this.props.numPlayers.num_persones)
-        :
-          bandera = updateLeagueTeam(this.props.users, this.props.list)
+        let bandera = updateLeagueStart(this.props.tournamentID, this.props.list)
+        setTimeout(() => {
+          bandera ? window.location.reload(false) : console.log()
+        }, 500);
       }}>
         <NavLink className="nav-link" to={this.props.linkTo} >
           {this.props.textButton}

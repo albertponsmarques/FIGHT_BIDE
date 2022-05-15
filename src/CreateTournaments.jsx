@@ -14,18 +14,29 @@ function CreateTournament() {
   const [esportValue, setEsportValue] = useState(null);
   const [inputValueTipus, setValueTipus] = useState('');
   const [tipusValue, setTipusValue] = useState(null);
-  const [ultimaID, setLastID] = useState(null);
+  const [ultimaID, setLastMatchID] = useState(null);
+  const [lastLeagueID, setLastLeagueID] = useState(null);
   const [lastTournament, setLastTournament] = useState([]);
 
 
-  async function fetchLastId(){
+  async function fetchLastMatchId(){
     const { data } = await supabase
       .from('match')
       .select('id')
       .order("id", { ascending: false })
       .limit(1)
 
-      setLastID(data)
+      setLastMatchID(data)
+  }
+
+  async function fetchLastLeagueId(){
+    const { data } = await supabase
+      .from('league_table')
+      .select('id')
+      .order("id", { ascending: false })
+      .limit(1)
+
+      setLastLeagueID(data)
   }
 
   async function fetchEsport(){
@@ -61,13 +72,40 @@ function CreateTournament() {
 
   useEffect(() => {
     // call the async fetchData function
-    fetchLastId()
+    fetchLastMatchId()
+    fetchLastLeagueId()
     fetchLastTournament()
   }, [])
 
 
   function handleRedirection(id, tournamentType) {
-    tournamentType === 1 ? insertDirectElimination(id) : console.log(id)
+    tournamentType === 1 ? insertDirectElimination(id) : insertLeagueMatches(id)
+  }
+
+  async function insertLeagueMatches(id){
+    try {
+      setRefreshing(true);
+      leagueMatches(num_persones, id)
+    } catch (error) {
+      alert(error.error_description || error.message);
+    } finally {
+      setRefreshing(false);
+    }
+  }
+
+  async function leagueMatches(numParticipants, id){
+    for(let p = 0; p < numParticipants; p++){
+      console.log("numParticipants: " + numParticipants + " - id: " + id)
+      try {
+        const { error } =  await supabase.from("league_table").insert({ 
+          tournament: id,
+          isStarted: false
+        });
+        if (error) throw error;
+      } catch (error) {
+        alert(error.error_description || error.message);
+      }
+    }
   }
 
 
@@ -258,13 +296,12 @@ function CreateTournament() {
             value={nom_torneig}
             onChange={(e) => setNomTorneig(e.target.value)}
             onKeyPress={(e) => {
-              user === null ? 
+              if (e.key === "Enter") {
+                user === null ? 
                 alert("You need an account to create a new Tournament") 
               :
-                (num_persones<=64 && num_persones>2) ?
-                  handleInsert(nom_torneig, esportValue, tipusValue, num_persones)
-                :
-                  alert("Insert a value between 2 and 64, both included ")
+                handleInsert(nom_torneig, esportValue, tipusValue, num_persones)
+              }
             }}
           />
         </div>

@@ -69,6 +69,8 @@ function updateMatchTeam(matchList, user, num_persones){
       .match({ id: matchID })
 
       console.log(data)
+
+      end()
   }
 
   async function updateVisitantTeam(matchID, teamID){
@@ -77,6 +79,14 @@ function updateMatchTeam(matchList, user, num_persones){
       .update({equip_visitant: teamID})
       .match({ id: matchID })
       console.log(data)
+
+      end()
+  }
+
+  function end(){
+    setTimeout(() => {
+      bandera ? window.location.reload(false) : alert("You already added your TEAM or Bracket is already FULL!")
+    }, 500)
   }
 
 

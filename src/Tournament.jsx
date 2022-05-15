@@ -9,6 +9,7 @@ import getEquip from './getEquipByID';
 import AddButton from './components/AddButton'
 import MatchResults from './MatchResults';
 import { useNavigate } from "react-router-dom";
+import GoButton from './components/GoButton';
 
 
 
@@ -16,7 +17,9 @@ const Tournament = () => {
   const [tournament, setTournament] = useState([])
   const [equips, setEquips] = useState([])
   const [matches, setMatches] = useState([])
+  const [leagueTable, setLeagueTable] = useState([])
   const [matchAdd, setMatchAdd] = useState([])
+  const [leagueTableAdd, setLeagueTableAdd] = useState([])
   const [numPersones, setNumPersones] = useState([])
   const [loading, setLoading] = useState(false)
   const [users, setUsers] = useState(false)
@@ -58,6 +61,21 @@ const Tournament = () => {
     }
   }
 
+  const fetchLeagueTable = async () => {
+    try{
+      const { data } = await supabase
+      .from('league_table')
+      .select('*')
+  
+      //Filters
+      .eq('tournament', id)
+  
+      setLeagueTable(data)
+    } catch (e){
+      console.log(e)
+    }
+  }
+
   const fetchUsers = async () => {
     try{
       const { data } = await supabase
@@ -79,6 +97,8 @@ const Tournament = () => {
     fetchFinal()
     fetchEquips()
     fetchMatchesAdd()
+    fetchLeagueTable()
+    fetchLeagueTeamAdd()
   },[loading])
 
   const fetchMatchesAdd = async () => {
@@ -92,6 +112,22 @@ const Tournament = () => {
       .eq('torneig', id)
 
       setMatchAdd(data)
+    } catch (e){
+      console.log(e)
+    }
+  }
+
+  const fetchLeagueTeamAdd = async () => {
+    try{
+      const { data } = await supabase
+      .from('league_table')
+      .select('*')
+  
+      //Filters
+      .is('team', null)
+      .eq('tournament', id)
+
+      setLeagueTableAdd(data)
     } catch (e){
       console.log(e)
     }
@@ -313,16 +349,70 @@ const Tournament = () => {
   
 
   return(
-
-    
-    <div className="container-tournament" key={id}>
+    tournament.tipus_torneig === 1 ?
+      <div className="container-tournament" key={id}>
+          <div className='row'>
+            <div className='col-5'>
+              <h1>
+                {getList(tournament)}
+              </h1>
+              <div className="col-12 torneig">
+                <Bracket game={getLastMatch()} />
+              </div>
+            </div>
+            <div className='col-1'>
+              <AddButton
+                type="secondary"
+                size="large"
+                linkTo={"/tournament/" + id}
+                textButton="add team"
+                list={matchAdd}
+                tournamentType={tournament.tipus_torneig}
+                users={users}
+                numPlayers={numPersones}
+              />
+              {
+                isPropietary()
+              }
+              {own ?
+                <MatchResults tournamentID={id}/>
+                : "" }
+            </div>
+          </div>
+      </div>
+    :
+      <div className="container-tournament" key={id}>
         <div className='row'>
           <div className='col-5'>
             <h1>
               {getList(tournament)}
             </h1>
-            <div className="col-12 torneig">
-              <Bracket game={getLastMatch()} />
+            <div className="col-12 torneig ">
+              <table>
+                <tbody>
+                  <tr>
+                    <td className='titol-tabla'>Team</td>
+                    <td className='titol-tabla'>Matches played</td>
+                    <td className='titol-tabla'>Scores</td>
+                    <td className='titol-tabla'>Points</td>
+                  </tr>
+                  {
+                    leagueTable.map(team => (
+                      <tr key={team.id}>
+                        {
+                          team.team === null ?
+                            <td>NO TEAM YET</td>
+                          :
+                          <td>{team.team}</td>
+                        }
+                        <td>{team.matches_played}</td>
+                        <td>{team.scores}</td>
+                        <td>{team.points}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
             </div>
           </div>
           <div className='col-1'>
@@ -331,19 +421,32 @@ const Tournament = () => {
               size="large"
               linkTo={"/tournament/" + id}
               textButton="add team"
-              list={matchAdd}
+              list={leagueTableAdd}
               users={users}
-              numPlayers={numPersones}
+              tournamentType={tournament.tipus_torneig}
             />
             {
               isPropietary()
             }
-            {own ?
-              <MatchResults tournamentID={id}/>
-              : "" }
+            {
+              own ? 
+                tournament.isStarted ?
+                  <MatchResults tournamentID={id}/>
+                : 
+                  <GoButton
+                    type="secondary"
+                    size="large"
+                    linkTo={"/tournament/" + id}
+                    textButton="start league"
+                    list={leagueTableAdd}
+                    tournamentID={id}
+                  />
+              :
+                ""
+            }
           </div>
         </div>
-    </div>
+      </div>
   )
 }
 
