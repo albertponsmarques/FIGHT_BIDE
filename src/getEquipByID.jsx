@@ -4,7 +4,6 @@ export default function getEquip(idTeam, teamList){
 
   let thisTeam = null
 
-
   getTeamInList()
 
   function getTeamInList(){

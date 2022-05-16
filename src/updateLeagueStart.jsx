@@ -27,9 +27,10 @@ function updateLeagueStart(tournament, teamList, reload){
 
   async function addTeamMatch(team1, team2){
     if (team1.id !== team2.id){
-      const {data, error} =  await supabase.from("league_matches").insert({ punts_local: 0, punts_visitant: 0, torneig: tournament.id, equip_local: team1.team, equip_visitant: team2.team})
+      console.log(team1)
+      const {data, error} =  await supabase.from("league_matches").insert({ punts_local: 0, punts_visitant: 0, tournament: tournament.id, equip_local: team1.team, equip_visitant: team2.team})
       if (error) bandera = false
-      console.log(data)
+      console.log(error)
     }
   }
 
@@ -38,7 +39,7 @@ function updateLeagueStart(tournament, teamList, reload){
       .from('torneig')
       .update({isStarted: true})
       .match({ id: tournament.id })
-      console.log(data)
+      console.log(error)
 
       if (error) bandera = false
       bandera = true

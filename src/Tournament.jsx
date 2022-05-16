@@ -19,6 +19,7 @@ const Tournament = () => {
   const [equips, setEquips] = useState([])
   const [matches, setMatches] = useState([])
   const [leagueTable, setLeagueTable] = useState([])
+  const [leagueTableMatches, setLeagueTableMatches] = useState([])
   const [matchAdd, setMatchAdd] = useState([])
   const [leagueTableAdd, setLeagueTableAdd] = useState([])
   const [numPersones, setNumPersones] = useState([])
@@ -71,6 +72,22 @@ const Tournament = () => {
       .eq('tournament', id)
   
       setLeagueTable(data)
+      console.log(data)
+    } catch (e){
+      console.log(e)
+    }
+  }
+
+  const fetchLeagueTableMatches = async () => {
+    try{
+      const { data } = await supabase
+      .from('league_matches')
+      .select('*')
+  
+      //Filters
+      .eq('tournament', id)
+  
+      setLeagueTableMatches(data)
     } catch (e){
       console.log(e)
     }
@@ -93,6 +110,7 @@ const Tournament = () => {
   useEffect(() => {
     fetchUsers()
     fetchTournaments()
+    fetchLeagueTableMatches()
     fetchMatches()
     fetchFinal()
     fetchEquips()
@@ -346,6 +364,16 @@ const Tournament = () => {
       }
     }
   }
+
+  function getAllScores(id){
+    let count = 0
+    leagueTableMatches.map(match => (
+      match.equip_local === id ? count=count+match.punts_local : console.log(),
+      match.equip_visitant === id ? count=count+match.punts_visitant : console.log()
+    ))
+
+    return count
+  }
   
   return(
     tournament.tipus_torneig === 1 ?
@@ -405,7 +433,7 @@ const Tournament = () => {
                           <td>{team.team}</td>
                         }
                         <td>{team.matches_played}</td>
-                        <td>{team.scores}</td>
+                        <td>{getAllScores(team.team)}</td>
                         <td>{team.points}</td>
                       </tr>
                     ))

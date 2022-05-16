@@ -5,7 +5,7 @@ import {supabase} from './supabaseClient'
 import { useEffect, useState } from 'react'
 import getEquip from "./getEquipByID";
 
-class MatchResults extends Component {
+class LeagueMatchResults extends Component {
 
   constructor() {
     super();
@@ -32,7 +32,7 @@ class MatchResults extends Component {
       <div>
         <div className='col-12'>
           <Modal show={this.state.show} handleClose={this.hideModal} idTournament={this.props.tournamentID}>
-            <p className="titol">Match Results</p>
+            <p className="titol">League Matches</p>
           </Modal>
           <button className="btn-results" onClick={this.showModal}>
             change results
@@ -59,7 +59,7 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
     const { data } = await supabase
       .from('league_matches')
       .select('*')
-      .eq('torneig', idTournament)
+      .eq('tournament', idTournament)
       .order('id', { ascending: true })
 
 
@@ -85,55 +85,80 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
       setEquips(data)
   }
 
-  async function fetchMatchesLocalVisitant(id){
-    const { data } = await supabase
-      .from('league_matches')
-      .select('*')
-      .or('last_gameLocal.eq.' + id + ', last_gameVisitant.eq.' + id)
+  async function fetchLeagueTeam(id){
+    console.log("fetchtableleague: " + id)
 
+    const { data } = await supabase
+      .from('league_table')
+      .select('*')
+      .eq('id', id)
       .single()
 
-
+      console.log(data)
       return data
   }
 
   async function checkMatches(id){
-    
+    fetchCheckMatches(id).then(match => {
+      if(match.punts_local > match.punts_visitant){
+        console.log(match.equip_local)
+        givePoints(fetchLeagueTeam(match.equip_local))
+      } else if(match.punts_local < match.punts_visitant){
+        console.log(match.equip_visitant)
+        fetchLeagueTeam(match.equip_visitant).then(value =>(
+          givePoints(value)
+        ))
+      } else{
+        givePoint(fetchLeagueTeam(match.equip_local))
+        givePoint(fetchLeagueTeam(match.equip_visitant))
+      }
+    })
   }
 
-  async function winsGame(id, match, team){
-    id === match.last_gameLocal ? await supabase
-                                    .from('match')
-                                    .update({ equip_local: team })
-                                    .match({ id: match.id })
-    :
-    console.log()
+  async function givePoints(team){
+    const {data, error} = await supabase
+      .from('league_table')
+      .update({ points: team.points + 3})
+      .match({ id: team.id })
+    
+      console.log(error)
+  }
 
-    id === match.last_gameVisitant ? await supabase
-                                    .from('match')
-                                    .update({ equip_visitant: team })
-                                    .match({ id: match.id })
-    :
-    console.log()
+  async function givePoint(team){
+    const {data, error} = await supabase
+      .from('league_table')
+      .update({ points: team.points + 1})
+      .match({ team: team.id})
+    
+      console.log(error)
+  }
+
+  async function matchDone(team){
+    const {data, error} = await supabase
+      .from('league_table')
+      .update({ matches_played: team.matches_played + 1})
+      .match({ id: team.id })
+    
+      console.log(error)
   }
 
   async function updateMatch(id, side, value){
     side === "punts_local" ? await supabase
-                                    .from('match')
+                                    .from('league_matches')
                                     .update({ punts_local: value })
                                     .match({ id: id })
     :
     console.log()
 
     side === "punts_visitant" ? await supabase
-                                    .from('match')
+                                    .from('league_matches')
                                     .update({ punts_visitant: value })
                                     .match({ id: id })
     :
     console.log()
 
     side === "scheduled" ? await supabase
-                                    .from('match')
+                                    .from('league_matches')
                                     .update({ scheduled: value })
                                     .match({ id: id })
     :
@@ -284,4 +309,4 @@ class Match extends React.Component {
   }
 }
 
-export default MatchResults
+export default LeagueMatchResults
