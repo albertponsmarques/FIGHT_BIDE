@@ -74,7 +74,6 @@ ul{
 table{
   border:1px solid black;
   color: black;
-  width: 500px;
   margin: 50px;
   border-collapse: collapse !important;
   border: none !important;
@@ -96,4 +95,12 @@ td{
   background-color: purple;
   color: white;
   font-size: 18px;
+}
+
+.name{
+  padding-left: 10%;
+}
+
+.date-style{
+  padding-left: 20%;
 }

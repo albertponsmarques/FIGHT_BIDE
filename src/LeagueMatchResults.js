@@ -49,8 +49,6 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
   const [matches, setMatches] = useState([])
   const [equips, setEquips] = useState([])
-  const [loading, setLoading] = useState(false);
-  const us = supabase.auth.user()
 
   useEffect(() => {
     fetchEquips()
@@ -59,7 +57,7 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
 
   async function fetchMatches(){
     const { data } = await supabase
-      .from('match')
+      .from('league_matches')
       .select('*')
       .eq('torneig', idTournament)
       .order('id', { ascending: true })
@@ -70,7 +68,7 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
 
   async function fetchCheckMatches(id){
     const { data } = await supabase
-      .from('match')
+      .from('league_matches')
       .select('*')
       .eq('id', id)
       .single()
@@ -89,7 +87,7 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
 
   async function fetchMatchesLocalVisitant(id){
     const { data } = await supabase
-      .from('match')
+      .from('league_matches')
       .select('*')
       .or('last_gameLocal.eq.' + id + ', last_gameVisitant.eq.' + id)
 
@@ -100,19 +98,7 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
   }
 
   async function checkMatches(id){
-    fetchCheckMatches(id).then(match => {
-      if(match.punts_local > match.punts_visitant){
-        fetchMatchesLocalVisitant(id).then(value => {
-          winsGame(id, value, match.equip_local)
-        })
-      } else if(match.punts_local < match.punts_visitant){
-        fetchMatchesLocalVisitant(match.id).then(value => {
-          winsGame(id, value, match.equip_visitant)
-        })
-      } else{
-
-      }
-    })
+    
   }
 
   async function winsGame(id, match, team){
@@ -166,11 +152,6 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
             <div className="row" style={{display : 'flex', overflow : 'hidden'}}>
               {
                 matches.map(match => (
-                  match.name === "final" ?
-                  <div key={match.id} className='col-12'>
-                    <Match match={match} equips={equips} update={updateMatch}/>
-                  </div>
-                  :
                   <div key={match.id} className='col-5'>
                     <Match match={match} equips={equips} update={updateMatch}/>
                   </div>
@@ -193,7 +174,6 @@ class Match extends React.Component {
     super(props);
     this.state = {
       id: this.props.match.id,
-      name: this.props.match.name,
       equip_local: this.props.match.equip_local,
       equip_visitant: this.props.match.equip_visitant,
       punts_local: this.props.match.punts_local,
@@ -229,7 +209,7 @@ class Match extends React.Component {
               <td className="titol-tabla" style={{width: '350px'}}>
                 <div className="row">
                   <div className="col-2 name">
-                    {this.state.name}
+                    League
                   </div>
                   <div className="col-9 date-style">
                     {

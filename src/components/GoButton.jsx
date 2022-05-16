@@ -11,16 +11,27 @@ import updateLeagueStart from '../updateLeagueStart';
 
 
 export default class GoButton extends Component{
+  constructor() {
+    super();
+    this.state = {
+      loading: false
+    };
+    this.reloadButton = this.reloadButton.bind(this);
+  }
+  
+  reloadButton = () => {
+    this.setState({ loading: false });
+    window.location.reload(false)
+  };
+
   render(){
     return (
       <AwesomeButton type={this.props.type} size={this.props.size} onPress={() => {
-        let bandera = updateLeagueStart(this.props.tournamentID, this.props.list)
-        setTimeout(() => {
-          bandera ? window.location.reload(false) : console.log()
-        }, 500);
+        this.state.loading = true
+        let bandera = updateLeagueStart(this.props.tournament, this.props.list, this.reloadButton)
       }}>
         <NavLink className="nav-link" to={this.props.linkTo} >
-          {this.props.textButton}
+          {this.state.loading ? "Starting..." : this.props.textButton}
         </NavLink>
       </AwesomeButton>
     )

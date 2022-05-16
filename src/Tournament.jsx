@@ -8,6 +8,7 @@ import getMatch from './getMatchByID';
 import getEquip from './getEquipByID';
 import AddButton from './components/AddButton'
 import MatchResults from './MatchResults';
+import LeagueMatchResults from './LeagueMatchResults'
 import { useNavigate } from "react-router-dom";
 import GoButton from './components/GoButton';
 
@@ -27,7 +28,6 @@ const Tournament = () => {
   const navigate = useNavigate();
 
   let us = supabase.auth.user()
-
 
   const fetchTournaments = async () => {
     try{
@@ -347,7 +347,6 @@ const Tournament = () => {
     }
   }
   
-
   return(
     tournament.tipus_torneig === 1 ?
       <div className="container-tournament" key={id}>
@@ -431,15 +430,15 @@ const Tournament = () => {
             {
               own ? 
                 tournament.isStarted ?
-                  <MatchResults tournamentID={id}/>
-                : 
+                  <LeagueMatchResults tournamentID={id}/>
+                :
                   <GoButton
                     type="secondary"
                     size="large"
                     linkTo={"/tournament/" + id}
-                    textButton="start league"
-                    list={leagueTableAdd}
-                    tournamentID={id}
+                    list={leagueTable}
+                    tournament={tournament}
+                    textButton={"Start League"}
                   />
               :
                 ""
