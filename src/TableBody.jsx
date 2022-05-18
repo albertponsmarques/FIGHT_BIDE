@@ -21,11 +21,14 @@ const TableBody = ({ tableData }) => {
             console.log(e)
         }
     }
+    
+
 
 
     return (
      <tbody>
       {bodyInfo.map((data) => {
+          
        return (
         <tr key={data.id}> 
             <td>{getEquip(data.team, equips)}</td>

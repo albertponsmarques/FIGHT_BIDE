@@ -9,9 +9,16 @@
 }
 
 .container-tournament{
-  margin-left: 20%;
-  margin-top: 5%;
   display: flex;
+  padding: 2em;
+  background-color: #fff;
+  background-color: rgba(44, 44, 44, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  margin-left: 22vh;
+  margin-right: 22vh;
+  margin-top: 3vw;
+  min-height: 75vh;
 }
 
 .container_home {
@@ -64,6 +71,7 @@ ul{
 .btn-results{
   width: 200px;
   margin-top: 50px;
+  margin-left: 40vh;
 }
 
 .torneig{

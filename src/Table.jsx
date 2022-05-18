@@ -10,23 +10,23 @@ const Table = () => {
 
  useEffect(() => {
   fetchLeagueTable()
-})
+  })
 
 
  const fetchLeagueTable = async () => {
-  try{
-    const { data } = await supabase
-    .from('league_table')
-    .select('*')
+    try{
+      const { data } = await supabase
+      .from('league_table')
+      .select('*')
 
-    //Filters
-    .eq('tournament', id)
+      //Filters
+      .eq('tournament', id)
 
-    setTableData(data)
-  } catch (e){
-    console.log(e)
+      setTableData(data)
+    } catch (e){
+      console.log(e)
+    }
   }
-}
 
  const columns = [
   { label: "Team", accessor: "team", sortable: false },

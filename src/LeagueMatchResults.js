@@ -110,10 +110,15 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
         console.log(),
 
       ((checkedMatch.punts_local === checkedMatch.punts_visitant) && checkedMatch.pointsAccredited !== 1) ?
-        givePoints(checkedMatch.equip_local, checkedMatch.tournament, id, 1)
+        giveTie(checkedMatch, checkedMatch.tournament, id)
       :
         console.log()
     ))
+  }
+
+  function giveTie(match, idTournament, idMatch){
+    givePoints(match.equip_local, idTournament, idMatch, 1)
+    givePoints(match.equip_visitant, idTournament, idMatch, 1)
   }
 
   function givePoints(idTeam, idTournament, idMatch, points){

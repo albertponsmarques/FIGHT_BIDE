@@ -73,6 +73,7 @@ const Tournament = () => {
       .eq('tournament', id)
   
       setLeagueTable(data)
+
     } catch (e){
       console.log(e)
     }
@@ -151,6 +152,19 @@ const Tournament = () => {
     }
   }
 
+  const fetchLeagueTeamTable = async () => {
+    try{
+      const { data } = await supabase
+      .from('league_table')
+      .select('*')
+  
+      .eq('tournament', id)
+
+      return data
+    } catch (e){
+      console.log(e)
+    }
+  }
 
   const [final, setFinal] = useState([])
 
@@ -353,6 +367,13 @@ const Tournament = () => {
     )
   }
 
+  if(leagueTable !== null){
+    leagueTable.map(team => {
+      getAllScores(team.team)
+    })
+  }
+    
+
 
   let own = false
   function isPropietary(){
@@ -365,48 +386,34 @@ const Tournament = () => {
     }
   }
 
-  let leaguePoints = 0
-  let gamesPlayed = 0
-  let totalScore = 0
-
-  async function getAllScores(idTeam, id){
-    leaguePoints = 0
-    gamesPlayed = 0
-    totalScore = 0
-
   
-    leagueTable.map(team => {
-      leagueTableMatches.map(match => {
+  
 
-        if((team.team === match.equip_local || team.team === match.equip_visitant) && match.pointsAccredited !== 0){
+  function getAllScores(idTeam){
+    let gamesPlayed = 0
+    let totalScore = 0
+
+    setTimeout(async() => {
+      leagueTableMatches.map(match => {
+        if(((match.equip_local === idTeam) || match.equip_visitant === idTeam) && match.pointsAccredited) {
           if(match.equip_local === idTeam){
             totalScore = totalScore + match.punts_local
             gamesPlayed = gamesPlayed + 1
-            if (match.punts_local>match.punts_visitant){
-              leaguePoints = leaguePoints + 3
-            } else if(match.punts_local === match.punts_visitant){
-              leaguePoints = leaguePoints + 1
-            }
           } else if (match.equip_visitant === idTeam){
-            totalScore = totalScore + match.punts_local
+            totalScore = totalScore + match.punts_visitant
             gamesPlayed = gamesPlayed + 1
-            if (match.punts_local<match.punts_visitant){
-              leaguePoints = leaguePoints + 3
-            } else if(match.punts_local === match.punts_visitant){
-              leaguePoints = leaguePoints + 1
-            }
           }
         }
-
       })
-    })
-
-    await supabase
-      .from('league_matches')
-      .update({ matches_played: gamesPlayed/2, points: leaguePoints/2 })
-      .match({ id: id })
-
+      
+      const {data,error} = await supabase
+      .from('league_table')
+      .update({ matches_played: gamesPlayed, scored: totalScore })
+      .match({ team: idTeam, tournament: id })    
+    }, 100);
   }
+
+  
   
   return(
     tournament.tipus_torneig === 1 ?
@@ -450,7 +457,7 @@ const Tournament = () => {
             <div className="col-12 torneig ">
               <Table 
                 id={id}
-                />
+              />
             </div>
           </div>
           <div className='col-1'>
