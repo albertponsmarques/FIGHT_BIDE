@@ -85,74 +85,61 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
       setEquips(data)
   }
 
-  async function fetchLeagueTeam(id){
-    console.log("fetchtableleague: " + id)
-
+  async function fetchLeagueTeam(idTeam, idTournament){
     const { data } = await supabase
       .from('league_table')
       .select('*')
-      .eq('id', id)
+      .eq('team', idTeam)
+      .eq('tournament', idTournament)
       .single()
 
       console.log(data)
       return data
   }
 
-  async function checkMatches(id){
-    fetchCheckMatches(id).then(match => {
-      if(match.punts_local > match.punts_visitant){
-        console.log(match.equip_local)
-        givePoints(fetchLeagueTeam(match.equip_local))
-      } else if(match.punts_local < match.punts_visitant){
-        console.log(match.equip_visitant)
-        fetchLeagueTeam(match.equip_visitant).then(value =>(
-          givePoints(value)
-        ))
-      } else{
-        givePoint(fetchLeagueTeam(match.equip_local))
-        givePoint(fetchLeagueTeam(match.equip_visitant))
-      }
-    })
+  function checkMatches(id){
+    fetchCheckMatches(id).then(async checkedMatch =>(
+      ((checkedMatch.punts_local > checkedMatch.punts_visitant) && (checkedMatch.pointsAccredited !== 1) ) ?
+        givePoints(checkedMatch.equip_local, checkedMatch.tournament, id,  3)
+      :
+        console.log(),
+
+      ((checkedMatch.punts_visitant > checkedMatch.punts_local) && checkedMatch.pointsAccredited !== 1) ?
+        givePoints(checkedMatch.equip_visitant, checkedMatch.tournament, id, 3)
+      :
+        console.log(),
+
+      ((checkedMatch.punts_local === checkedMatch.punts_visitant) && checkedMatch.pointsAccredited !== 1) ?
+        givePoints(checkedMatch.equip_local, checkedMatch.tournament, id, 1)
+      :
+        console.log()
+    ))
   }
 
-  async function givePoints(team){
-    const {data, error} = await supabase
-      .from('league_table')
-      .update({ points: team.points + 3})
-      .match({ id: team.id })
-    
-      console.log(error)
+  function givePoints(idTeam, idTournament, idMatch, points){
+    fetchLeagueTeam(idTeam, idTournament).then(async team =>(
+      await supabase
+        .from('league_table')
+        .update({ points: team.points+points })
+        .match({ team: idTeam, tournament: idTournament }),
+      await supabase
+        .from('league_matches')
+        .update({ pointsAccredited: 1, numberPoints: points })
+        .match({ id: idMatch })
+    ))
   }
 
-  async function givePoint(team){
-    const {data, error} = await supabase
-      .from('league_table')
-      .update({ points: team.points + 1})
-      .match({ team: team.id})
-    
-      console.log(error)
-  }
-
-  async function matchDone(team){
-    const {data, error} = await supabase
-      .from('league_table')
-      .update({ matches_played: team.matches_played + 1})
-      .match({ id: team.id })
-    
-      console.log(error)
-  }
-
-  async function updateMatch(id, side, value){
+  async function updateMatch(id, side, value, checkedLocal, checkedVisitant){
     side === "punts_local" ? await supabase
                                     .from('league_matches')
-                                    .update({ punts_local: value })
+                                    .update({ punts_local: value, checkedLocal: true})
                                     .match({ id: id })
     :
     console.log()
 
     side === "punts_visitant" ? await supabase
                                     .from('league_matches')
-                                    .update({ punts_visitant: value })
+                                    .update({ punts_visitant: value, checkedVisitant: true})
                                     .match({ id: id })
     :
     console.log()
@@ -164,7 +151,10 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
     :
     console.log()
 
-    checkMatches(id)
+    console.log(checkedLocal, checkedVisitant)
+    if(checkedLocal === true && checkedVisitant === true){
+      checkMatches(id)      
+    }
   }
 
   return (
@@ -174,6 +164,7 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
           <h2>{children}</h2>
 
           <div className="form_inputs results">
+            To be able to save the Results, you will have to manually press Enter on every input
             <div className="row" style={{display : 'flex', overflow : 'hidden'}}>
               {
                 matches.map(match => (
@@ -203,25 +194,35 @@ class Match extends React.Component {
       equip_visitant: this.props.match.equip_visitant,
       punts_local: this.props.match.punts_local,
       punts_visitant: this.props.match.punts_visitant,
-      scheduled: this.props.match.scheduled
+      scheduled: this.props.match.scheduled,
+      checkedLocal: this.props.match.checkedLocal,
+      checkedVisitant: this.props.match.checkedVisitant
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.updateMatch = this.props.update
   }
 
-  handleChange(id, side, value) {
+  handleChange(id, side, value, bandera) {
     side === "punts_local" ? this.setState({punts_local: value}) : console.log()
     side === "punts_visitant" ? this.setState({punts_visitant: value}) : console.log()
     side === "scheduled" ? this.setState({scheduled: value}) : console.log()
+
+    side === "scheduled" ? this.updateMatch(this.state.id,side,value, this.state.checkedLocal, this.state.checkedVisitant) : console.log()
 
 
     console.log("ID: " + id)
     console.log("SIDE: " + side)
     console.log("VALUE: " + value)
 
-
-    this.updateMatch(this.state.id,side,value)
+    bandera ? 
+      setTimeout(() => {
+        side === "punts_local" ? this.setState({punts_local: value, checkedLocal: true}) : console.log()
+        side === "punts_visitant" ? this.setState({punts_visitant: value, checkedVisitant: true}) : console.log()
+        this.updateMatch(this.state.id,side,value, this.state.checkedLocal, this.state.checkedVisitant)
+      }, 200)
+    : 
+      console.log()
   }
 
 
@@ -252,45 +253,44 @@ class Match extends React.Component {
                   type="datetime-local"
                   placeholder="kk"
                   value={this.state.punts_local}
-                  onChange={(e) => this.handleChange(this.state.id, "scheduled", e.target.value)}
+                  onChange={(e) => this.handleChange(this.state.id, "scheduled", e.target.value, true)}
                 />
               </td>
             </tr>
             <tr>
               <td>{getEquip(this.state.equip_local, this.props.equips)}</td>
               <td>
-                {this.state.equip_local !== null ? 
+                {(this.state.checkedLocal === true) ? 
+                  <input
+                    className="inputField-result"
+                    style={{background : 'gray'}}
+                    type="numeric"
+                    placeholder="points"
+                    value={this.state.punts_local}
+                    readOnly
+                  />
+                :
                   <input
                     className="inputField-result"
                     type="numeric"
                     placeholder="points"
                     value={this.state.punts_local}
-                    onChange={(e) => this.handleChange(this.state.id, "punts_local", e.target.value)}
+                    onChange={(e) => {
+                      this.handleChange(this.state.id, "punts_local", e.target.value, false)
+                    }}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        this.handleChange(this.state.id, "punts_local", e.target.value, true)
+                      }
+                    }}
                   />
-                  :
-                  <input
-                    className="inputField-result"
-                    style={{background : 'gray'}}
-                    type="numeric"
-                    placeholder="points"
-                    value={this.state.punts_visitant}
-                    readOnly
-                  />
-                }  
+                }
               </td>
             </tr>
             <tr>
               <td>{getEquip(this.state.equip_visitant, this.props.equips)}</td>
               <td>
-                {this.state.equip_visitant !== null ? 
-                  <input
-                    className="inputField-result"
-                    type="numeric"
-                    placeholder="points"
-                    value={this.state.punts_visitant}
-                    onChange={(e) => this.handleChange(this.state.id, "punts_visitant", e.target.value)}
-                  />
-                  :
+                {(this.state.checkedVisitant === true) ? 
                   <input
                     className="inputField-result"
                     style={{background : 'gray'}}
@@ -299,7 +299,22 @@ class Match extends React.Component {
                     value={this.state.punts_visitant}
                     readOnly
                   />
-                }  
+                :
+                  <input
+                    className="inputField-result"
+                    type="numeric"
+                    placeholder="points"
+                    value={this.state.punts_visitant}
+                    onChange={(e) => {
+                      this.handleChange(this.state.id, "punts_visitant", e.target.value, false)
+                    }}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") {
+                        this.handleChange(this.state.id, "punts_visitant", e.target.value, true)
+                      }
+                    }}
+                  />
+                }
               </td>
             </tr>
           </tbody>

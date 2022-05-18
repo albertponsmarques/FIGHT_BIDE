@@ -11,6 +11,7 @@ import MatchResults from './MatchResults';
 import LeagueMatchResults from './LeagueMatchResults'
 import { useNavigate } from "react-router-dom";
 import GoButton from './components/GoButton';
+import Table from './Table';
 
 
 
@@ -72,7 +73,6 @@ const Tournament = () => {
       .eq('tournament', id)
   
       setLeagueTable(data)
-      console.log(data)
     } catch (e){
       console.log(e)
     }
@@ -365,14 +365,47 @@ const Tournament = () => {
     }
   }
 
-  function getAllScores(id){
-    let count = 0
-    leagueTableMatches.map(match => (
-      match.equip_local === id ? count=count+match.punts_local : console.log(),
-      match.equip_visitant === id ? count=count+match.punts_visitant : console.log()
-    ))
+  let leaguePoints = 0
+  let gamesPlayed = 0
+  let totalScore = 0
 
-    return count
+  async function getAllScores(idTeam, id){
+    leaguePoints = 0
+    gamesPlayed = 0
+    totalScore = 0
+
+  
+    leagueTable.map(team => {
+      leagueTableMatches.map(match => {
+
+        if((team.team === match.equip_local || team.team === match.equip_visitant) && match.pointsAccredited !== 0){
+          if(match.equip_local === idTeam){
+            totalScore = totalScore + match.punts_local
+            gamesPlayed = gamesPlayed + 1
+            if (match.punts_local>match.punts_visitant){
+              leaguePoints = leaguePoints + 3
+            } else if(match.punts_local === match.punts_visitant){
+              leaguePoints = leaguePoints + 1
+            }
+          } else if (match.equip_visitant === idTeam){
+            totalScore = totalScore + match.punts_local
+            gamesPlayed = gamesPlayed + 1
+            if (match.punts_local<match.punts_visitant){
+              leaguePoints = leaguePoints + 3
+            } else if(match.punts_local === match.punts_visitant){
+              leaguePoints = leaguePoints + 1
+            }
+          }
+        }
+
+      })
+    })
+
+    await supabase
+      .from('league_matches')
+      .update({ matches_played: gamesPlayed/2, points: leaguePoints/2 })
+      .match({ id: id })
+
   }
   
   return(
@@ -415,50 +448,29 @@ const Tournament = () => {
               {getList(tournament)}
             </h1>
             <div className="col-12 torneig ">
-              <table>
-                <tbody>
-                  <tr>
-                    <td className='titol-tabla'>Team</td>
-                    <td className='titol-tabla'>Matches played</td>
-                    <td className='titol-tabla'>Scores</td>
-                    <td className='titol-tabla'>Points</td>
-                  </tr>
-                  {
-                    leagueTable.map(team => (
-                      <tr key={team.id}>
-                        {
-                          team.team === null ?
-                            <td>NO TEAM YET</td>
-                          :
-                          <td>{team.team}</td>
-                        }
-                        <td>{team.matches_played}</td>
-                        <td>{getAllScores(team.team)}</td>
-                        <td>{team.points}</td>
-                      </tr>
-                    ))
-                  }
-                </tbody>
-              </table>
+              <Table 
+                id={id}
+                />
             </div>
           </div>
           <div className='col-1'>
-            <AddButton
-              type="secondary"
-              size="large"
-              linkTo={"/tournament/" + id}
-              textButton="add team"
-              list={leagueTableAdd}
-              users={users}
-              tournamentType={tournament.tipus_torneig}
-            />
             {
               isPropietary()
             }
             {
               own ? 
                 tournament.isStarted ?
-                  <LeagueMatchResults tournamentID={id}/>
+                (
+                  <AddButton
+                    type="secondary"
+                    size="large"
+                    linkTo={"/tournament/" + id}
+                    textButton="add team"
+                    list={leagueTableAdd}
+                    users={users}
+                    tournamentType={tournament.tipus_torneig}
+                  />,
+                  <LeagueMatchResults tournamentID={id}/>)
                 :
                   <GoButton
                     type="secondary"
