@@ -16,6 +16,15 @@
   margin-bottom: 5vh;
 }
 
+.textjuan{
+  margin-top: 5em;
+  font-size: 14px;
+}
+
+.logojuan{
+  margin-bottom: 5vh;
+}
+
 @media (max-width: 900px) {
   .container_home_container {
     padding: 2em;
@@ -53,7 +62,7 @@
 }
 
 @media (min-width: 901px) {
-  .container_home {
+  .container_home_container {
     padding: 2em;
     background-color: #fff;
     background-color: rgba(44, 44, 44, 0.25);

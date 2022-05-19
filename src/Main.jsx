@@ -3,6 +3,7 @@ import React from "react";
 import { supabase } from "./supabaseClient";
 import Boton from "./components/Boton";
 import ImageBracket from "./images/tournament.png";
+import LogoXuan from "./images/logo_xuan.png";
 
 function Main() {
   const session = supabase.auth.session();
@@ -44,6 +45,12 @@ function Main() {
               textButton="GO!"
             />
           </div>
+          <p className="textjuan">
+            Also check PersonNote to share and copy homework!
+          </p>
+          <a href="http://person157:d72B42AP@www.personote.cat.mialias.net/" target="_blank" rel="noreferrer">
+            <img className="logojuan" src={LogoXuan} height={50} />
+          </a>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "./supabaseClient";
 import "./css/news.css";
 import Image from "./components/ImageDownloader";
-import HeartCheckbox from 'react-heart-checkbox';
+import HeartCheckbox from "react-heart-checkbox";
 import {
   Player,
   ControlBar,
@@ -19,7 +19,7 @@ export default function News() {
   const [loading, setLoading] = useState(true);
   const [news, setNews] = useState([]);
   let [wichFile, setWichfile] = useState(false);
-  let [laik, setLaik] = useState(false);
+  let arr = new Array(3).fill(false);
   //const [title, setTitle] = useState(null);
   //const [description, setDescription] = useState(null);
   //const [img, setImg] = useState(null);
@@ -31,9 +31,9 @@ export default function News() {
     getNews();
     isImgOrVideo(news.img);
   }, []);
-  
-  function onClickLike(){
-    setLaik(!laik);
+
+  function onClickLike(id) {
+    arr[id] = !arr[id];
   }
 
   async function isImgOrVideo(fname) {
@@ -81,28 +81,52 @@ export default function News() {
           {news.map((neu) => (
             <li key={neu.title}>
               <div className="newsItem">
-                {!wichFile && <Image url={neu.img} size={400} />}
-                {wichFile && (
-                  <Player>
-                    <source src={neu.img_link} />
-                    <ControlBar>
-                      <ReplayControl seconds={10} order={1.1} />
-                      <ForwardControl seconds={10} order={1.2} />
-                      <CurrentTimeDisplay order={4.1} />
-                      <TimeDivider order={4.2} />
-                      <PlaybackRateMenuButton
-                        rates={[5, 2, 1, 0.5, 0.1]}
-                        order={7.1}
-                      />
-                      <VolumeMenuButton enabled />
-                    </ControlBar>
-                  </Player>
-                )}
+                <div className="news_image_big">
+                  {!wichFile && <Image url={neu.img} size={400} />}
+                  {wichFile && (
+                    <Player>
+                      <source src={neu.img_link} />
+                      <ControlBar>
+                        <ReplayControl seconds={10} order={1.1} />
+                        <ForwardControl seconds={10} order={1.2} />
+                        <CurrentTimeDisplay order={4.1} />
+                        <TimeDivider order={4.2} />
+                        <PlaybackRateMenuButton
+                          rates={[5, 2, 1, 0.5, 0.1]}
+                          order={7.1}
+                        />
+                        <VolumeMenuButton enabled />
+                      </ControlBar>
+                    </Player>
+                  )}
+                </div>
+                <div className="news_image_small">
+                  {!wichFile && <Image url={neu.img} size={200} />}
+                  {wichFile && (
+                    <Player>
+                      <source src={neu.img_link} />
+                      <ControlBar>
+                        <ReplayControl seconds={10} order={1.1} />
+                        <ForwardControl seconds={10} order={1.2} />
+                        <CurrentTimeDisplay order={4.1} />
+                        <TimeDivider order={4.2} />
+                        <PlaybackRateMenuButton
+                          rates={[5, 2, 1, 0.5, 0.1]}
+                          order={7.1}
+                        />
+                        <VolumeMenuButton enabled />
+                      </ControlBar>
+                    </Player>
+                  )}
+                </div>
                 <h5 className="author">By {neu.creator}</h5>
                 <h5 className="newTitle">{neu.title}</h5>
                 <h5 className="newsDescription">{neu.description}</h5>
                 <div className="likesDiv">
-                  <HeartCheckbox checked={laik} onClick={onClickLike} />
+                  <HeartCheckbox
+                    checked={arr[neu.id]}
+                    onClick={onClickLike(neu.id)}
+                  />
                   <h5 className="likes">{neu.likes}</h5>
                 </div>
                 <h5 className="newsDate">{neu.created_at.slice(0, 10)}</h5>

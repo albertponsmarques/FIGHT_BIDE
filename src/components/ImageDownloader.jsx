@@ -30,7 +30,7 @@ export default function Image({ url, size }) {
           src={image}
           alt="image"
           className="news image"
-          style={{ height: size, width: size + 200 }}
+          style={{ height: size, width: size + 150 }}
         />
       ) : (
         <div className="news no-image" style={{ height: size, width: size }} />
