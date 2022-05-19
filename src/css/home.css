@@ -17,7 +17,7 @@
 }
 
 @media (max-width: 900px) {
-  .container_home_container {
+  .container_home {
     padding: 2em;
     background-color: #fff;
     background-color: rgba(44, 44, 44, 0.25);

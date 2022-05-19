@@ -9,7 +9,7 @@ function Main() {
   console.log(session);
   return (
     <div className="home">
-      <div className="container_home_container">
+      <div className="container_home">
         <div className="data_home">
           <h1 className="homeTitle">Welcome to Fight-Bide!</h1>
           <div className="home_text">

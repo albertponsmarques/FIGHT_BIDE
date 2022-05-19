@@ -127,7 +127,6 @@ const Tournament = () => {
       .select('*')
   
       //Filters
-      .or('equip_local.is.null ,equip_visitant.is.null')
       .eq('torneig', id)
 
       setMatchAdd(data)
@@ -147,20 +146,6 @@ const Tournament = () => {
       .eq('tournament', id)
 
       setLeagueTableAdd(data)
-    } catch (e){
-      console.log(e)
-    }
-  }
-
-  const fetchLeagueTeamTable = async () => {
-    try{
-      const { data } = await supabase
-      .from('league_table')
-      .select('*')
-  
-      .eq('tournament', id)
-
-      return data
     } catch (e){
       console.log(e)
     }
@@ -424,7 +409,7 @@ const Tournament = () => {
                 {getList(tournament)}
               </h1>
               <div className="col-12 torneig">
-                <Bracket game={getLastMatch()} />
+                <Bracket backgroundColor={{backgroundColor: 'yellow'}} game={getLastMatch()} />
               </div>
             </div>
             <div className='col-1'>

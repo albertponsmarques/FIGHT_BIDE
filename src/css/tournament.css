@@ -8,6 +8,10 @@
   src: url("../fonts/BebasNeue-Regular.ttf");
 }
 
+.teams-margin{
+  margin-left: 5% !important;
+}
+
 .container-tournament{
   display: flex;
   padding: 2em;
@@ -19,6 +23,7 @@
   margin-right: 22vh;
   margin-top: 3vw;
   min-height: 75vh;
+  width: 80%!important;
 }
 
 .container_home {
@@ -96,7 +101,7 @@ td{
   border:1px solid black;
   color: black;
   background-color: white;
-  max-width: 100px;
+  max-width: 10%;
 }
 
 .titol-tabla{
@@ -110,5 +115,5 @@ td{
 }
 
 .date-style{
-  padding-left: 20%;
+  padding-left: 15%;
 }
