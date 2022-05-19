@@ -26,11 +26,14 @@ function updateMatchTeam(matchList, user, num_persones){
 
   function init(){
     getOneMatch(matchList)
-    if(!side){
-      updateLocalTeam(id, user.team)
-    } else{
-      updateVisitantTeam(id, user.team)
-    }
+    setTimeout(() => {
+      if(!side){
+        updateLocalTeam(id, user.team)
+      } else{
+        updateVisitantTeam(id, user.team)
+      }  
+    }, 200);
+    
   }
 
   function getOneMatch(matchList){
@@ -48,11 +51,13 @@ function updateMatchTeam(matchList, user, num_persones){
         if(match.equip_local === null && match.name === getNameRound(num_persones)){
           console.log(match)
           side = false
+          bandera=true
           done = true
           id = match.id 
         } else if(match.equip_visitant === null && match.name === getNameRound(num_persones)){
           console.log(match)
           side = true
+          bandera=true
           done = true
           id = match.id
         } else{
@@ -86,7 +91,7 @@ function updateMatchTeam(matchList, user, num_persones){
   function end(){
     setTimeout(() => {
       bandera ? window.location.reload(false) : alert("You already added your TEAM or Bracket is already FULL!")
-    }, 500)
+    }, 300)
   }
 
 

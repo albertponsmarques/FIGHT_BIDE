@@ -5,6 +5,10 @@
 
 
 @media (min-width: 1500) {
+  .buttons-team{
+    margin-left: 20%;
+  }
+
   .titleText{
     text-align: center;
     margin-bottom: 2%;
@@ -128,6 +132,10 @@
     max-width: 50px;
   }
 
+  .inputField-createTeam{
+    width: 100vh;
+  }
+
   .results::-webkit-scrollbar {
     width: 12px;               /* width of the entire scrollbar */
   }
@@ -150,6 +158,10 @@
 }
 
 @media (min-width: 100px) {
+  .buttons-team{
+    margin-left: 10% !important;
+  }
+
   .titleText{
     text-align: center;
     margin-bottom: 2%;
@@ -183,9 +195,9 @@
   .modal-main {
     position:fixed;
     background: white;
-    width: 80%;
+    width: 90%;
     height: auto;
-    top:50%;
+    top:40%;
     left:40%;
     transform: translate(-50%,-50%);
     opacity: 0.95;
@@ -214,7 +226,8 @@
   }
   
   .text{
-    color: black;
+    color: white;
+    font-style: italic;
   }
 
   table{
@@ -251,6 +264,10 @@
 
   .inputField-result{
     max-width: 50px;
+  }
+  
+  .inputField-createTeam{
+    width: 100vh;
   }
 
   .results::-webkit-scrollbar {

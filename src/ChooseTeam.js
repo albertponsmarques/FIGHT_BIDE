@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import './css/modal.css';
 import AsyncSelect from "react-select/async";
 import {supabase} from './supabaseClient'
-import BotonAction from "./components/BotonAction";
 import { useEffect, useState } from 'react'
 import getEquip from './getEquipByID';
+import BotonAction from "./components/BotonAction";
 
 class ChooseTeam extends Component {
 
@@ -41,23 +41,34 @@ class ChooseTeam extends Component {
 
   render() {
     return (
-      <div>
-        <div className='col-12'>
-          Current Team: {getEquip(this.props.user.team, this.props.teams)}
-          <Modal show={this.state.show} handleClose={this.hideModal}>
-            <p className="titol">Choose Your Current Team</p>
-          </Modal>
-          <button type="button" onClick={this.showModal}>
-            Change Current Team
-          </button>
+      <div className="col-8 buttons-team">
+        <div className='col-10'>
+          <div className="d-flex">
+            <div className="d-flex">
+              
+            </div>
+            <div className="d-flex">
+              Current Team: {getEquip(this.props.user.team, this.props.teams)}
+              <Modal show={this.state.show} handleClose={this.hideModal}>
+                <p className="titol">Choose Your Current Team</p>
+              </Modal>
+            </div>
+          </div>
+          <BotonAction
+            type="primary"
+            size="large"
+            action={this.showModal}
+            textButton={"Change Current Team"}/>
         </div>
-        <div className='col-12'>
+        <div className='col-10'>
           <ModalCreateTeam show={this.state.show2} handleClose={this.hideModal2}>
             <p className="titol">Create Your Team</p>
           </ModalCreateTeam>
-          <button type="button" onClick={this.showModal2}>
-            Create Your Team
-          </button>
+          <BotonAction
+            type="secondary"
+            size="large"
+            action={this.showModal2}
+            textButton={"Create Your Team"}/>
         </div>
       </div>
     );
@@ -110,6 +121,19 @@ const Modal = ({ handleClose, show, children }) => {
     updateUserTeam(valueTeam, us.email)
   }
 
+  const inputStyle = {
+    control: styles => ({ ...styles, backgroundColor: '#101010', color: 'white' }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      return {
+        ...styles,
+        backgroundColor: isDisabled ? 'red' : '#101010',
+        color: '#FFF',
+        cursor: isDisabled ? 'not-allowed' : 'default',
+      };
+    },
+  };
+  
+
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
@@ -119,6 +143,7 @@ const Modal = ({ handleClose, show, children }) => {
           <div className="form_inputs">
           <AsyncSelect 
             defaultOptions cacheOptions 
+            styles={inputStyle}
             loadOptions={fetchEquips}
             getOptionLabel={e => e.nom}
             getOptionValue={e => e.id}
@@ -168,7 +193,7 @@ const ModalCreateTeam = ({ handleClose, show, children }) => {
               Press ENTER to Save!
             </p>
             <input
-              className="inputField"
+              className="inputField-createTeam"
               type="text"
               placeholder="Team Name"
               onChange={(e) => setNameTeam(e.target.value)}
