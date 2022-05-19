@@ -9,6 +9,8 @@ function updateMatchTeam(matchList, user, num_persones){
 
   init()
 
+  console.log(matchList, user, num_persones)
+
   function getNameRound(num_persones){
     if(num_persones>2 && num_persones<=4){
       return "semifinals"
