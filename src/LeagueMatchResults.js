@@ -106,30 +106,55 @@ const Modal = ({ handleClose, show, children, idTournament, own}) => {
   }
 
   function checkMatches(id){
+    console.log(matches)
     fetchCheckMatches(id).then(async checkedMatch =>(
-      ((checkedMatch.punts_local > checkedMatch.punts_visitant) && (checkedMatch.pointsAccredited !== 1) ) ?
-        givePoints(checkedMatch.equip_local, checkedMatch.tournament, id,  3)
+      (checkedMatch.punts_local > checkedMatch.punts_visitant) ?
+        checkedMatch.pointsAccredited === 0 ?
+          winsGame(checkedMatch.equip_local, checkedMatch.tournament, 1, id, 3)
+        :
+          checkedMatch.pointsAccredited === 2 ?
+            winsGame(checkedMatch.equip_visitant, checkedMatch.tournament, 1, id, 3)
+          :
+            console.log()
+
+        
+        
       :
         console.log(),
 
-      ((checkedMatch.punts_visitant > checkedMatch.punts_local) && checkedMatch.pointsAccredited !== 1) ?
-        givePoints(checkedMatch.equip_visitant, checkedMatch.tournament, id, 3)
+
+
+
+
+
+
+
+      (checkedMatch.punts_visitant > checkedMatch.punts_local) ?
+        givePoints(checkedMatch.equip_visitant, checkedMatch.tournament, 2, id, 3)
       :
         console.log(),
 
-      ((checkedMatch.punts_local === checkedMatch.punts_visitant) && checkedMatch.pointsAccredited !== 1) ?
-        giveTie(checkedMatch, checkedMatch.tournament, id)
+      (checkedMatch.punts_local === checkedMatch.punts_visitant) ?
+        giveTie(checkedMatch, checkedMatch.tournament, 3, id)
       :
         console.log()
     ))
   }
 
-  function giveTie(match, idTournament, idMatch){
-    givePoints(match.equip_local, idTournament, idMatch, 1)
-    givePoints(match.equip_visitant, idTournament, idMatch, 1)
+  function winsGame(equip, idTournament, idMatch){
+    givePoints(equip, idTournament, 1, idMatch, 3)
   }
 
-  function givePoints(idTeam, idTournament, idMatch, points){
+  function loseGame(){
+    
+  }
+
+  function giveTie(match, idTournament, pointsAccredited, idMatch){
+    givePoints(match.equip_local, idTournament, pointsAccredited, idMatch, 1)
+    givePoints(match.equip_visitant, idTournament, pointsAccredited, idMatch, 1)
+  }
+
+  function givePoints(idTeam, idTournament, pointsAccredited, idMatch, points){
     fetchLeagueTeam(idTeam, idTournament).then(async team =>(
       await supabase
         .from('league_table')
@@ -137,7 +162,25 @@ const Modal = ({ handleClose, show, children, idTournament, own}) => {
         .match({ team: idTeam, tournament: idTournament }),
       await supabase
         .from('league_matches')
-        .update({ pointsAccredited: 1, numberPoints: points })
+        .update({ pointsAccredited: pointsAccredited, numberPoints: points })
+        .match({ id: idMatch })
+    ))
+  }
+
+  function takeTie(match, idTournament, pointsAccredited, idMatch){
+    takePoints(match.equip_local, idTournament, pointsAccredited, idMatch, -1)
+    takePoints(match.equip_visitant, idTournament, pointsAccredited, idMatch, -1)
+  }
+
+  function takePoints(idTeam, idTournament, pointsAccredited, idMatch, points){
+    fetchLeagueTeam(idTeam, idTournament).then(async team =>(
+      await supabase
+        .from('league_table')
+        .update({ points: team.points+points })
+        .match({ team: idTeam, tournament: idTournament }),
+      await supabase
+        .from('league_matches')
+        .update({ pointsAccredited: pointsAccredited, numberPoints: points })
         .match({ id: idMatch })
     ))
   }
@@ -148,26 +191,22 @@ const Modal = ({ handleClose, show, children, idTournament, own}) => {
                                     .update({ punts_local: value, checkedLocal: true})
                                     .match({ id: id })
     :
-    console.log()
+      console.log()
 
     side === "punts_visitant" ? await supabase
                                     .from('league_matches')
                                     .update({ punts_visitant: value, checkedVisitant: true})
                                     .match({ id: id })
     :
-    console.log()
+      console.log()
 
     side === "scheduled" ? await supabase
                                     .from('league_matches')
                                     .update({ scheduled: value })
                                     .match({ id: id })
     :
-    console.log()
+      checkMatches(id)
 
-    console.log(checkedLocal, checkedVisitant)
-    if(checkedLocal === true && checkedVisitant === true){
-      checkMatches(id)      
-    }
   }
 
 
@@ -232,8 +271,8 @@ class Match extends React.Component {
 
     bandera ? 
       setTimeout(() => {
-        side === "punts_local" ? this.setState({punts_local: value, checkedLocal: true}) : console.log()
-        side === "punts_visitant" ? this.setState({punts_visitant: value, checkedVisitant: true}) : console.log()
+        side === "punts_local" ? this.setState({punts_local: value}) : console.log()
+        side === "punts_visitant" ? this.setState({punts_visitant: value}) : console.log()
         this.updateMatch(this.state.id,side,value, this.state.checkedLocal, this.state.checkedVisitant)
       }, 200)
     : 
@@ -263,19 +302,29 @@ class Match extends React.Component {
                 </div>
               </td>
               <td className="titol-tabla" style={{width: '50px'}}>
-                <input
-                  className="calendar"
-                  type="datetime-local"
-                  placeholder="kk"
-                  value={this.state.punts_local}
-                  onChange={(e) => this.handleChange(this.state.id, "scheduled", e.target.value, true)}
-                />
+                {(this.state.own === false) ? 
+                  <input
+                    className="calendar"
+                    type="datetime-local"
+                    placeholder="kk"
+                    value={this.state.scheduled}
+                    readOnly
+                  />
+                :
+                  <input
+                    className="calendar"
+                    type="datetime-local"
+                    placeholder="kk"
+                    value={this.state.scheduled}
+                    onChange={(e) => this.handleChange(this.state.id, "scheduled", e.target.value, true)}
+                  />
+                }
               </td>
             </tr>
             <tr>
               <td>{getEquip(this.state.equip_local, this.props.equips)}</td>
               <td>
-                {(this.state.checkedLocal === true || this.state.own === false) ? 
+                {(this.state.own === false) ? 
                   <input
                     className="inputField-result"
                     style={{background : 'gray'}}
@@ -305,7 +354,7 @@ class Match extends React.Component {
             <tr>
               <td>{getEquip(this.state.equip_visitant, this.props.equips)}</td>
               <td>
-                {(this.state.checkedVisitant === true || this.state.own === false) ? 
+                {(this.state.own === false) ? 
                   <input
                     className="inputField-result"
                     style={{background : 'gray'}}
