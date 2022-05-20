@@ -42,6 +42,8 @@ function updateLeagueTeam(user, listTeams){
       .match({ id: id })
       console.log(data)
 
+      if (error) bandera = false
+
       end()
   }
 

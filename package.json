@@ -35,6 +35,7 @@
     "react-scripts": "^5.0.1",
     "react-select": "^5.2.2",
     "react-spinner-animated": "^3.1.0",
+    "react-tinder-card": "^1.4.5",
     "react-tournament-bracket": "^0.2.4",
     "redux": "^4.2.0",
     "robot3": "^0.2.21",

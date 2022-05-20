@@ -163,6 +163,7 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
           <h2>{children}</h2>
 
           <div className="form_inputs results">
+            To Save the results, click the CLOSE button
             <div className="row" style={{display : 'flex', overflow : 'hidden'}}>
               {
                 matches.map(match => (

@@ -98,14 +98,14 @@ function CreateTournament() {
       console.log("numParticipants: " + numParticipants + " - id: " + id)
       try {
         const { error } =  await supabase.from("league_table").insert({ 
-          tournament: id,
-          isStarted: false
+          tournament: id
         });
         if (error) throw error;
       } catch (error) {
         alert(error.error_description || error.message);
       }
     }
+    setTimeout(() => window.location.replace('tournament/' + id), 500);
   }
 
 
@@ -346,7 +346,7 @@ function CreateTournament() {
                 (num_persones<=64 && num_persones>2) ?
                   handleInsert(nom_torneig, esportValue, tipusValue, num_persones)
                 :
-                  alert("Insert a value between 2 and 64, both included ")
+                  alert("Insert a value between 3 and 64, both included ")
               }
             }}
           />

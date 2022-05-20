@@ -378,24 +378,27 @@ const Tournament = () => {
     let gamesPlayed = 0
     let totalScore = 0
 
-    setTimeout(async() => {
-      leagueTableMatches.map(match => {
-        if(((match.equip_local === idTeam) || match.equip_visitant === idTeam) && match.pointsAccredited) {
-          if(match.equip_local === idTeam){
-            totalScore = totalScore + match.punts_local
-            gamesPlayed = gamesPlayed + 1
-          } else if (match.equip_visitant === idTeam){
-            totalScore = totalScore + match.punts_visitant
-            gamesPlayed = gamesPlayed + 1
+    if(idTeam !== null){
+      setTimeout(async() => {
+        leagueTableMatches.map(match => {
+          if(((match.equip_local === idTeam) || match.equip_visitant === idTeam) && match.pointsAccredited) {
+            if(match.equip_local === idTeam){
+              totalScore = totalScore + match.punts_local
+              gamesPlayed = gamesPlayed + 1
+            } else if (match.equip_visitant === idTeam){
+              totalScore = totalScore + match.punts_visitant
+              gamesPlayed = gamesPlayed + 1
+            }
           }
-        }
-      })
-      
-      const {data,error} = await supabase
-      .from('league_table')
-      .update({ matches_played: gamesPlayed, scored: totalScore })
-      .match({ team: idTeam, tournament: id })    
-    }, 100);
+        })
+        
+        const {data,error} = await supabase
+        .from('league_table')
+        .update({ matches_played: gamesPlayed, scored: totalScore })
+        .match({ team: idTeam, tournament: id })    
+      }, 100);
+    }
+    
   }
 
   
@@ -450,30 +453,36 @@ const Tournament = () => {
               isPropietary()
             }
             {
-              own ? 
-                tournament.isStarted ?
-                (
-                  <AddButton
-                    type="secondary"
-                    size="large"
-                    linkTo={"/tournament/" + id}
-                    textButton="add team"
-                    list={leagueTableAdd}
-                    users={users}
-                    tournamentType={tournament.tipus_torneig}
-                  />,
-                  <LeagueMatchResults tournamentID={id}/>)
-                :
-                  <GoButton
-                    type="secondary"
-                    size="large"
-                    linkTo={"/tournament/" + id}
-                    list={leagueTable}
-                    tournament={tournament}
-                    textButton={"Start League"}
-                  />
+              tournament.isStarted ?
+               <LeagueMatchResults tournamentID={id} own={own}/>
               :
                 ""
+            }
+            {
+              own && tournament.isStarted === false ?
+                <GoButton
+                  type="secondary"
+                  size="large"
+                  linkTo={"/tournament/" + id}
+                  list={leagueTable}
+                  tournament={tournament}
+                  textButton={"Start League"}/>
+              :
+                ""
+            }
+            {
+              tournament.isStarted ?
+                ""
+              :
+                <AddButton
+                  type="secondary"
+                  size="large"
+                  linkTo={"/tournament/" + id}
+                  textButton="add team"
+                  list={leagueTableAdd}
+                  users={users}
+                  tournamentType={tournament.tipus_torneig}
+                />
             }
           </div>
         </div>

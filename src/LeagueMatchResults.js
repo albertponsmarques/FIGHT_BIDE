@@ -4,8 +4,10 @@ import './css/tournament.css'
 import {supabase} from './supabaseClient'
 import { useEffect, useState } from 'react'
 import getEquip from "./getEquipByID";
+import BotonAction from './components/BotonAction'
 
-class LeagueMatchResults extends Component {
+class 
+LeagueMatchResults extends Component {
 
   constructor() {
     super();
@@ -26,17 +28,23 @@ class LeagueMatchResults extends Component {
     window.location.reload(false)
   };
   
-  
   render() {
     return (
       <div>
         <div className='col-12'>
-          <Modal show={this.state.show} handleClose={this.hideModal} idTournament={this.props.tournamentID}>
+          <Modal show={this.state.show} handleClose={this.hideModal} idTournament={this.props.tournamentID} own={this.props.own}>
             <p className="titol">League Matches</p>
           </Modal>
-          <button className="btn-results" onClick={this.showModal}>
-            change results
-          </button>
+          <BotonAction
+            type="secondary"
+            size="large"
+            action={this.showModal}
+            textButton={
+              this.props.own ?
+                "change results"
+              :
+                "view results"
+            }/>
         </div>
       </div>
     );
@@ -45,7 +53,7 @@ class LeagueMatchResults extends Component {
 
 
 
-const Modal = ({ handleClose, show, children, idTournament}) => {
+const Modal = ({ handleClose, show, children, idTournament, own}) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
   const [matches, setMatches] = useState([])
   const [equips, setEquips] = useState([])
@@ -162,6 +170,7 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
     }
   }
 
+
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
@@ -174,7 +183,7 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
               {
                 matches.map(match => (
                   <div key={match.id} className='col-5'>
-                    <Match match={match} equips={equips} update={updateMatch}/>
+                    <Match match={match} equips={equips} update={updateMatch} own={own}/>
                   </div>
                 ))
               }
@@ -201,7 +210,8 @@ class Match extends React.Component {
       punts_visitant: this.props.match.punts_visitant,
       scheduled: this.props.match.scheduled,
       checkedLocal: this.props.match.checkedLocal,
-      checkedVisitant: this.props.match.checkedVisitant
+      checkedVisitant: this.props.match.checkedVisitant,
+      own: this.props.own
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -265,7 +275,7 @@ class Match extends React.Component {
             <tr>
               <td>{getEquip(this.state.equip_local, this.props.equips)}</td>
               <td>
-                {(this.state.checkedLocal === true) ? 
+                {(this.state.checkedLocal === true || this.state.own === false) ? 
                   <input
                     className="inputField-result"
                     style={{background : 'gray'}}
@@ -295,7 +305,7 @@ class Match extends React.Component {
             <tr>
               <td>{getEquip(this.state.equip_visitant, this.props.equips)}</td>
               <td>
-                {(this.state.checkedVisitant === true) ? 
+                {(this.state.checkedVisitant === true || this.state.own === false) ? 
                   <input
                     className="inputField-result"
                     style={{background : 'gray'}}
