@@ -106,86 +106,102 @@ const Modal = ({ handleClose, show, children, idTournament, own}) => {
   }
 
   function checkMatches(id){
-    console.log(matches)
-    fetchCheckMatches(id).then(async checkedMatch =>(
-      (checkedMatch.punts_local > checkedMatch.punts_visitant) ?
-        checkedMatch.pointsAccredited === 0 ?
-          winsGame(checkedMatch.equip_local, checkedMatch.tournament, 1, id, 3)
-        :
-          checkedMatch.pointsAccredited === 2 ?
-            winsGame(checkedMatch.equip_visitant, checkedMatch.tournament, 1, id, 3)
-          :
-            console.log()
-
+    fetchCheckMatches(id).then(async checkedMatch => {
+      // Looking the new Result And then checking the points to who where accreditated
+      if(checkedMatch.punts_local > checkedMatch.punts_visitant){
+        if(checkedMatch.pointsAccredited === 0){
+          givePoints(checkedMatch.equip_local, checkedMatch.tournament, 1, id, 3)
+        }
+        if(checkedMatch.pointsAccredited === 2){
+          takePoints(checkedMatch.equip_local, idTournament, 1, checkedMatch.id, 1)
+          takePoints(checkedMatch.equip_visitant, idTournament, 1, checkedMatch.id, 1)
+          setTimeout(() => {
+            givePoints(checkedMatch.equip_local, checkedMatch.tournament, 1, checkedMatch.id, 3)
+          }, 1000);
+        }
+        if(checkedMatch.pointsAccredited === 3){
+          takePoints(checkedMatch.equip_visitant, idTournament, 1, checkedMatch.id, 3)
+          givePoints(checkedMatch.equip_local, idTournament, 1, checkedMatch.id, 3)
+        }
+      }
         
-        
-      :
-        console.log(),
+      if(checkedMatch.punts_local < checkedMatch.punts_visitant) {
+        if(checkedMatch.pointsAccredited === 0){
+          givePoints(checkedMatch.equip_visitant, checkedMatch.tournament, 3, id, 3)
+        }
+        if(checkedMatch.pointsAccredited === 2){
+          takePoints(checkedMatch.equip_visitant, idTournament, 3, checkedMatch.id, 1)
+          takePoints(checkedMatch.equip_local, idTournament, 3, checkedMatch.id, 1)
+          setTimeout(() => {         
+            givePoints(checkedMatch.equip_visitant, checkedMatch.tournament, 3, checkedMatch.id, 3)
+          }, 1000);
+        }
+        if(checkedMatch.pointsAccredited === 1){
+          takePoints(checkedMatch.equip_local, idTournament, 3, checkedMatch.id, 3)
+          givePoints(checkedMatch.equip_visitant, idTournament, 3, checkedMatch.id, 3)
+        }
+      }
 
-
-
-
-
-
-
-
-      (checkedMatch.punts_visitant > checkedMatch.punts_local) ?
-        givePoints(checkedMatch.equip_visitant, checkedMatch.tournament, 2, id, 3)
-      :
-        console.log(),
-
-      (checkedMatch.punts_local === checkedMatch.punts_visitant) ?
-        giveTie(checkedMatch, checkedMatch.tournament, 3, id)
-      :
-        console.log()
-    ))
-  }
-
-  function winsGame(equip, idTournament, idMatch){
-    givePoints(equip, idTournament, 1, idMatch, 3)
-  }
-
-  function loseGame(){
-    
-  }
-
-  function giveTie(match, idTournament, pointsAccredited, idMatch){
-    givePoints(match.equip_local, idTournament, pointsAccredited, idMatch, 1)
-    givePoints(match.equip_visitant, idTournament, pointsAccredited, idMatch, 1)
+      if(checkedMatch.punts_local === checkedMatch.punts_visitant){
+        if(checkedMatch.pointsAccredited === 0){
+          givePoints(checkedMatch.equip_visitant, idTournament, 2, checkedMatch.id, 1)
+          givePoints(checkedMatch.equip_local, idTournament, 2, checkedMatch.id, 1)
+        }
+        if(checkedMatch.pointsAccredited === 1){
+          givePoints(checkedMatch.equip_visitant, idTournament, 2, checkedMatch.id, 1)
+          givePoints(checkedMatch.equip_local, idTournament, 2, checkedMatch.id, 1)
+          setTimeout(() => {
+            takePoints(checkedMatch.equip_local, idTournament, 2, checkedMatch.id, 3)
+          }, 1000);
+        }
+        if(checkedMatch.pointsAccredited === 3){
+          givePoints(checkedMatch.equip_local, idTournament, 2, checkedMatch.id, 1)
+          givePoints(checkedMatch.equip_visitant, idTournament, 2, checkedMatch.id, 1)
+          setTimeout(() => {
+            takePoints(checkedMatch.equip_visitant, idTournament, 2, checkedMatch.id, 3)
+          }, 1000);
+        }
+      }
+    })
   }
 
   function givePoints(idTeam, idTournament, pointsAccredited, idMatch, points){
-    fetchLeagueTeam(idTeam, idTournament).then(async team =>(
-      await supabase
-        .from('league_table')
-        .update({ points: team.points+points })
-        .match({ team: idTeam, tournament: idTournament }),
-      await supabase
-        .from('league_matches')
-        .update({ pointsAccredited: pointsAccredited, numberPoints: points })
-        .match({ id: idMatch })
-    ))
-  }
-
-  function takeTie(match, idTournament, pointsAccredited, idMatch){
-    takePoints(match.equip_local, idTournament, pointsAccredited, idMatch, -1)
-    takePoints(match.equip_visitant, idTournament, pointsAccredited, idMatch, -1)
+    setTimeout(() => {
+      fetchLeagueTeam(idTeam, idTournament).then(async team =>(
+        await supabase
+          .from('league_table')
+          .update({ points: team.points+points })
+          .match({ team: idTeam, tournament: idTournament }),
+        await supabase
+          .from('league_matches')
+          .update({ pointsAccredited: pointsAccredited, numberPoints: points })
+          .match({ id: idMatch })
+      ))
+    }, 200);
+    
+    return "givePoints " + points
   }
 
   function takePoints(idTeam, idTournament, pointsAccredited, idMatch, points){
-    fetchLeagueTeam(idTeam, idTournament).then(async team =>(
-      await supabase
-        .from('league_table')
-        .update({ points: team.points+points })
-        .match({ team: idTeam, tournament: idTournament }),
-      await supabase
-        .from('league_matches')
-        .update({ pointsAccredited: pointsAccredited, numberPoints: points })
-        .match({ id: idMatch })
-    ))
+    setTimeout(() => {
+      fetchLeagueTeam(idTeam, idTournament).then(async team =>(
+        await supabase
+          .from('league_table')
+          .update({ points: team.points-points })
+          .match({ team: idTeam, tournament: idTournament }),
+        await supabase
+          .from('league_matches')
+          .update({ pointsAccredited: pointsAccredited, numberPoints: points })
+          .match({ id: idMatch })
+      ))
+    }, 200);
+
+    console.log("takepoints")
+    
+    return "takePoints " + points
   }
 
-  async function updateMatch(id, side, value, checkedLocal, checkedVisitant){
+  async function updateMatch(id, side, value,){
     side === "punts_local" ? await supabase
                                     .from('league_matches')
                                     .update({ punts_local: value, checkedLocal: true})
