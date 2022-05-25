@@ -41,8 +41,8 @@ class ChooseTeam extends Component {
 
   render() {
     return (
-      <div className="col-8 buttons-team">
-        <div className='col-10'>
+      <div className="col-lg-8 col-md-12 buttons-team">
+        <div className='col-lg-10 col-md-12'>
           <div className="d-flex">
             <div className="d-flex">
               
@@ -60,7 +60,7 @@ class ChooseTeam extends Component {
             action={this.showModal}
             textButton={"Change Current Team"}/>
         </div>
-        <div className='col-10'>
+        <div className='col-lg-10 col-md-12'>
           <ModalCreateTeam show={this.state.show2} handleClose={this.hideModal2}>
             <p className="titol">Create Your Team</p>
           </ModalCreateTeam>
