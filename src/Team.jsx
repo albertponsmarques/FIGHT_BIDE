@@ -34,9 +34,9 @@ const Team = () => {
 
   return(
     <div className="container-tournament row">
-      <h1 className='col-12'>Teams</h1>
-      <div className='col-12 teams-margin'>
-        <ul className='col-3'>
+      <h1 className='col-lg-12 col-md-12'>Teams</h1>
+      <div className='col-lg-3 col-md-12 teams-margin'>
+        <ul>
           {
           teams.map(team => (
               <p key={team.id}>
@@ -45,6 +45,8 @@ const Team = () => {
             ))
           }
         </ul>
+      </div>
+      <div className='col-lg-7 col-md-12'>
         <ChooseTeam teams={teams} user={user}/>
       </div>
     </div>

@@ -237,7 +237,7 @@ const Modal = ({ handleClose, show, children, idTournament, own}) => {
             <div className="row" style={{display : 'flex', overflow : 'hidden'}}>
               {
                 matches.map(match => (
-                  <div key={match.id} className='col-5'>
+                  <div key={match.id} className='col-lg-5 col-md-12'>
                     <Match match={match} equips={equips} update={updateMatch} own={own}/>
                   </div>
                 ))

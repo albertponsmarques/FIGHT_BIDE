@@ -4,7 +4,7 @@
 }
 
 
-@media (min-width: 1500) {
+@media (min-width: 1001) {
   .buttons-team{
     margin-left: 20%;
   }
@@ -29,7 +29,10 @@
     margin-left: 19%;
   }
   
-  
+  .team-buttons{
+    max-width: 50px;
+  }
+
   .modal {
     position: fixed;
     top: 0;
@@ -157,10 +160,7 @@
   }
 }
 
-@media (min-width: 100px) {
-  .buttons-team{
-    margin-left: 10% !important;
-  }
+@media (max-width: 1000px) {
 
   .titleText{
     text-align: center;

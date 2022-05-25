@@ -4,6 +4,7 @@ import './css/tournament.css'
 import {supabase} from './supabaseClient'
 import { useEffect, useState } from 'react'
 import getEquip from "./getEquipByID";
+import BotonAction from "./components/BotonAction";
 
 class MatchResults extends Component {
 
@@ -30,13 +31,21 @@ class MatchResults extends Component {
   render() {
     return (
       <div>
-        <div className='col-12'>
+        <div className='col-md-12 col-lg-12 noleftmargin'>
           <Modal show={this.state.show} handleClose={this.hideModal} idTournament={this.props.tournamentID}>
             <p className="titol">Match Results</p>
           </Modal>
-          <button className="btn-results" onClick={this.showModal}>
-            change results
-          </button>
+          <BotonAction
+            type="secondary"
+            size="large"
+            className="noleftmargin"
+            action={this.showModal}
+            textButton={
+              this.props.own ?
+                "change results"
+              :
+                "view results"
+            }/>
         </div>
       </div>
     );
@@ -168,11 +177,11 @@ const Modal = ({ handleClose, show, children, idTournament}) => {
               {
                 matches.map(match => (
                   match.name === "final" ?
-                  <div key={match.id} className='col-12'>
+                  <div key={match.id} className='col-lg-12 col-md-12'>
                     <Match match={match} equips={equips} update={updateMatch}/>
                   </div>
                   :
-                  <div key={match.id} className='col-5'>
+                  <div key={match.id} className='col-lg-5 col-md-12'>
                     <Match match={match} equips={equips} update={updateMatch}/>
                   </div>
                 ))

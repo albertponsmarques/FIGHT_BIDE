@@ -10,11 +10,11 @@ export default function Tournaments() {
     <div className='home'>
       <div className="container_home">
         <div className="row my-5">
-          <div className="col-8">
+          <div className="col-md-8">
             <h1>Tournaments</h1>
             <TournamentList/>
           </div>
-          <div className="col-3 button-create">
+          <div className="col-md-3 button-create">
             <Boton linkTo={"/create"} textButton={"Create Tournament"} />
           </div>
         </div>

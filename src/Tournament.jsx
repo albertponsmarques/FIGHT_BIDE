@@ -407,15 +407,15 @@ const Tournament = () => {
     tournament.tipus_torneig === 1 ?
       <div className="container-tournament" key={id}>
           <div className='row'>
-            <div className='col-5'>
+            <div className='col-lg-5'>
               <h1>
                 {getList(tournament)}
               </h1>
-              <div className="col-12 torneig">
+              <div className="col-lg-12 torneig">
                 <Bracket backgroundColor={{backgroundColor: 'yellow'}} game={getLastMatch()} />
               </div>
             </div>
-            <div className='col-1'>
+            <div className='col-lg-1'>
               <AddButton
                 type="secondary"
                 size="large"
@@ -438,17 +438,17 @@ const Tournament = () => {
     :
       <div className="container-tournament" key={id}>
         <div className='row'>
-          <div className='col-5'>
+          <div className='col-lg-5'>
             <h1>
               {getList(tournament)}
             </h1>
-            <div className="col-12 torneig ">
+            <div className="col-lg-12 torneig ">
               <Table 
                 id={id}
               />
             </div>
           </div>
-          <div className='col-1'>
+          <div className='col-lg-1'>
             {
               isPropietary()
             }

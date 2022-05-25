@@ -8,112 +8,222 @@
   src: url("../fonts/BebasNeue-Regular.ttf");
 }
 
-.teams-margin{
-  margin-left: 5% !important;
+.noleftmargin{
+  margin-left: 0px !important;
+  padding-left: 0px !important;
 }
 
-.container-tournament{
-  display: flex;
-  padding: 2em;
-  background-color: #fff;
-  background-color: rgba(44, 44, 44, 0.25);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  margin-left: 22vh;
-  margin-right: 22vh;
-  margin-top: 3vw;
-  min-height: 75vh;
-  width: 80%!important;
+@media (max-width: 1000px) {
+  .teams-margin{
+    margin-left: 5% !important;
+  }
+  
+  .container-tournament{
+    display: flex;
+    padding: 2em;
+    background-color: #fff;
+    background-color: rgba(44, 44, 44, 0.25);
+    backdrop-filter: blur(10px);
+    overflow-x: scroll;
+  }
+
+  .container_home {
+    padding: 2em;
+    background-color: #fff;
+    background-color: rgba(44, 44, 44, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+  }
+
+  h1{
+    font-size: 50px;
+  }
+
+  ul{
+    list-style: none;
+  }
+
+
+  .link-tournament, .link-tournament:link, .link-tournament:visited{
+    color: white;
+    font-size: 30px;
+    font-family: "bebas";
+    text-decoration:none
+  }
+
+
+  .link-tournament:active, .link-tournament:focus, .link-tournament:hover {
+    color: rgb(179, 232, 245);
+    font-style: none;
+    text-decoration:none
+  }
+
+  .final{
+    margin-top: 3.5%;
+  }
+
+  .nom-torneig{
+    display: flex;
+  }
+
+  .no-display{
+    display: none;
+  }
+
+  .btn-results{
+    width: 200px;
+    margin-top: 50px;
+  }
+
+  .torneig{
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  table{
+    border:1px solid black;
+    color: black;
+    margin: 50px;
+    border-collapse: collapse !important;
+    border: none !important;
+    border-radius:25px;
+  }
+
+  table td {
+    border: none !important
+  }
+
+  td{
+    border:1px solid black;
+    color: black;
+    background-color: white;
+    max-width: 10%;
+  }
+
+  .titol-tabla{
+    background-color: purple;
+    color: white;
+    font-size: 18px;
+  }
+
+  .name{
+    padding-left: 10%;
+  }
+
+  .date-style{
+    padding-left: 15%;
+  }
+
 }
+  
+@media (min-width: 1001px){
+  .teams-margin{
+    margin-left: 5% !important;
+  }
 
-.container_home {
-  padding: 2em;
-  background-color: #fff;
-  background-color: rgba(44, 44, 44, 0.25);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  margin-left: 12vh;
-  margin-right: 12vh;
-  margin-top: 3vw;
-  min-height: 75vh;
-}
+  .container-tournament{
+    display: flex;
+    padding: 2em;
+    background-color: #fff;
+    background-color: rgba(44, 44, 44, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin-left: 22vh;
+    margin-right: 22vh;
+    margin-top: 3vw;
+    min-height: 75vh;
+    width: 80%!important;
+  }
 
-h1{
-  font-size: 50px;
-}
+  .container_home {
+    padding: 2em;
+    background-color: #fff;
+    background-color: rgba(44, 44, 44, 0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin-left: 12vh;
+    margin-right: 12vh;
+    margin-top: 3vw;
+    min-height: 75vh;
+  }
 
-ul{
-  list-style: none;
-}
+  h1{
+    font-size: 50px;
+  }
+
+  ul{
+    list-style: none;
+  }
 
 
-.link-tournament, .link-tournament:link, .link-tournament:visited{
-  color: white;
-  font-size: 30px;
-  font-family: "bebas";
-  text-decoration:none
-}
+  .link-tournament, .link-tournament:link, .link-tournament:visited{
+    color: white;
+    font-size: 30px;
+    font-family: "bebas";
+    text-decoration:none
+  }
 
 
-.link-tournament:active, .link-tournament:focus, .link-tournament:hover {
-  color: rgb(179, 232, 245);
-  font-style: none;
-  text-decoration:none
-}
+  .link-tournament:active, .link-tournament:focus, .link-tournament:hover {
+    color: rgb(179, 232, 245);
+    font-style: none;
+    text-decoration:none
+  }
 
-.final{
-  margin-top: 3.5%;
-}
+  .final{
+    margin-top: 3.5%;
+  }
 
-.nom-torneig{
-  display: flex;
-}
+  .nom-torneig{
+    display: flex;
+  }
 
-.no-display{
-  display: none;
-}
+  .no-display{
+    display: none;
+  }
 
-.btn-results{
-  width: 200px;
-  margin-top: 50px;
-  margin-left: 40vh;
-}
+  .btn-results{
+    width: 200px;
+    margin-top: 50px;
+    margin-left: 40vh;
+  }
 
-.torneig{
-  width: 100% !important;
-  height: 100% !important;
-}
+  .torneig{
+    width: 100% !important;
+    height: 100% !important;
+  }
 
-table{
-  border:1px solid black;
-  color: black;
-  margin: 50px;
-  border-collapse: collapse !important;
-  border: none !important;
-  border-radius:25px;
-}
+  table{
+    border:1px solid black;
+    color: black;
+    margin: 50px;
+    border-collapse: collapse !important;
+    border: none !important;
+    border-radius:25px;
+  }
 
-table td {
-  border: none !important
-}
+  table td {
+    border: none !important
+  }
 
-td{
-  border:1px solid black;
-  color: black;
-  background-color: white;
-  max-width: 10%;
-}
+  td{
+    border:1px solid black;
+    color: black;
+    background-color: white;
+    max-width: 10%;
+  }
 
-.titol-tabla{
-  background-color: purple;
-  color: white;
-  font-size: 18px;
-}
+  .titol-tabla{
+    background-color: purple;
+    color: white;
+    font-size: 18px;
+  }
 
-.name{
-  padding-left: 10%;
-}
+  .name{
+    padding-left: 10%;
+  }
 
-.date-style{
-  padding-left: 15%;
+  .date-style{
+    padding-left: 15%;
+  }
 }
