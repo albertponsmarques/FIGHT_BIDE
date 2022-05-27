@@ -4,7 +4,7 @@
 }
 
 
-@media (min-width: 1001) {
+@media (min-width: 1001px) {
   .buttons-team{
     margin-left: 20%;
   }
