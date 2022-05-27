@@ -200,6 +200,7 @@
     border-collapse: collapse !important;
     border: none !important;
     border-radius:25px;
+    max-width: 90%;
   }
 
   table td {
